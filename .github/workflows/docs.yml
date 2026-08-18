@@ -20,16 +20,16 @@ jobs:
         with:
           node-version: '24'
           cache: npm
-          cache-dependency-path: docs/.vitepress/package-lock.json
+          cache-dependency-path: docs/package-lock.json
 
       - name: Install dependencies
-        working-directory: docs/.vitepress
+        working-directory: docs
         run: npm ci
 
       - name: Check reference against the code
-        working-directory: docs/.vitepress
+        working-directory: docs
         run: npm run check
 
       - name: Build site
-        working-directory: docs/.vitepress
+        working-directory: docs
         run: npm run build
