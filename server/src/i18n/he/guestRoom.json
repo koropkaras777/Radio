@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "מנהלי מערכת אינם יכולים להצטרף כאורחים.",
+  "nicknameRequired": "נדרש כינוי.",
+  "tooManyAttempts": "יותר מדי ניסיונות. נסה שוב מאוחר יותר.",
+  "codeExpiredOrDeactivated": "הקוד פג או הושבת.",
+  "invalidCode": "קוד לא חוקי.",
+  "adminCannotSubmitRequest": "מנהלי מערכת אינם יכולים להגיש בקשת אורח.",
+  "accessBlocked": "הגישה חסומה.",
+  "requestNotFound": "הבקשה לא נמצאה.",
+  "slotJustTaken": "המשבצת פשוט נלקחה.",
+  "codeAlreadyActive": "קוד כבר פעיל."
+}

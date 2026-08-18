@@ -1,0 +1,14 @@
+{
+  "guestTitle": "あなたは客室にいます",
+  "specialGuestTitle": "あなたは特別ゲストです",
+  "connect": "ブロードキャストに接続する",
+  "disconnect": "切断する",
+  "micOn": "マイクオン",
+  "micOff": "マイクオフ",
+  "micDenied": "マイクへのアクセスがブロックされています - ブラウザで許可して、もう一度試してください。",
+  "connecting": "接続中…",
+  "timeLeft": "残り時間: {m}:{s}",
+  "error": "接続できませんでした。もう一度試してください。",
+  "participants": "あなたと一緒に生きましょう",
+  "noParticipants": "現在ライブで声を上げているのはあなただけです"
+}

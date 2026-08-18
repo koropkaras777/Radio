@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "Il campo \"{field}\" è obbligatorio.",
+  "fieldTooShort": "Il campo \"{field}\" deve contenere almeno {min} caratteri.",
+  "fieldTooLong": "Il campo \"{field}\" non deve contenere più di {max} caratteri."
+}

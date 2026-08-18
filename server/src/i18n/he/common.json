@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "אין מספיק הרשאות.",
+  "insufficientPrivilegesForAction": "אין לך הרשאה לבצע פעולה זו.",
+  "participantNotFound": "משתתף לא נמצא.",
+  "unauthorized": "לא מורשה",
+  "somethingWentWrong": "משהו השתבש.",
+  "internalServerError": "שגיאת שרת פנימית",
+  "invalidMode": "מצב לא חוקי.",
+  "invalidModeDayNight": "מצב לא חוקי (יום או לילה).",
+  "idsRequired": "נדרש מערך ID.",
+  "songIdsRequired": "נדרש מערך songIds.",
+  "songIdRequired": "נדרש songId.",
+  "fileRequired": "נדרש קובץ",
+  "artistRequired": "חובה אמן",
+  "trackNotFound": "המסלול לא נמצא.",
+  "mp3Only": "רק קבצי MP3 נתמכים.",
+  "noFilePayload": "לא סופק מטען קבצים.",
+  "featureUnavailable": "תכונה זו אינה זמינה בתצורת השרת הנוכחית."
+}

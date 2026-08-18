@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "Kąpiel dostępna jest tylko dla stałych gości.",
+  "banlistUnavailable": "Lista banów nie jest dostępna w bieżącym trybie bazy danych.",
+  "ipRequired": "Adres IP jest wymagany.",
+  "banFailed": "Nie udało się zablokować adresu IP.",
+  "unbanFailed": "Nie można odblokować adresu IP."
+}

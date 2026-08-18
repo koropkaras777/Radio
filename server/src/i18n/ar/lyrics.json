@@ -1,0 +1,18 @@
+{
+  "notFound": "لم يتم العثور على كلمات الأغاني",
+  "syncedFetched": "تم جلب الكلمات المتزامنة",
+  "plainFetched": "جلبت كلمات عادي",
+  "songsIndexFailed": "فشل تحميل فهرس كلمات الأغاني",
+  "cacheLoadFailed": "فشل تحميل ذاكرة التخزين المؤقت للكلمات",
+  "offsetsLoadFailed": "فشل تحميل الإزاحات",
+  "titleArtistRequired": "العنوان والفنان مطلوب",
+  "titleArtistEntryRequired": "العنوان والفنان والإدخال مطلوب",
+  "songIdOrTitleArtistRequired": "مطلوب معرف الأغنية أو العنوان والفنان",
+  "trackNotFound": "لم يتم العثور على المسار",
+  "previewUrlFailed": "فشل في إنشاء عنوان URL للمعاينة",
+  "saveFailed": "فشل في حفظ إدخال كلمات الأغاني",
+  "cacheIndexFailed": "فشل تحميل فهرس ذاكرة التخزين المؤقت للكلمات",
+  "entryLoadFailed": "فشل تحميل إدخال كلمات الأغاني",
+  "deleteFailed": "فشل في حذف إدخال كلمات الأغاني",
+  "fetchFailed": "فشل جلب كلمات الأغاني."
+}

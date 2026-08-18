@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Gli amministratori non possono partecipare come ospiti.",
+  "nicknameRequired": "Il soprannome è obbligatorio.",
+  "tooManyAttempts": "Troppi tentativi. Riprova più tardi.",
+  "codeExpiredOrDeactivated": "Il codice è scaduto o è stato disattivato.",
+  "invalidCode": "Codice non valido.",
+  "adminCannotSubmitRequest": "Gli amministratori non possono inviare una richiesta ospite.",
+  "accessBlocked": "Accesso bloccato.",
+  "requestNotFound": "Richiesta non trovata.",
+  "slotJustTaken": "Il posto è stato appena occupato.",
+  "codeAlreadyActive": "Un codice è già attivo."
+}

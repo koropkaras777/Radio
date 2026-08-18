@@ -1,0 +1,17 @@
+{
+  "guestMaxDuration": "Guest max session duration must be within {min}–{max} min.",
+  "specialGuestMaxDuration": "Special-guest max session duration must be within {min}–{max} min.",
+  "backgroundMusicMode": "Background music playback mode must be \"random\" or \"host choice\".",
+  "dayLibraryTooShort": "Total day radio duration is below 1 hour. Queue generation is blocked.",
+  "nightLibraryTooShort": "Total night radio duration is below 1 hour. Queue generation is blocked.",
+  "maxDayDuration": "Maximum day-radio duration must be within {min}–{max} min.",
+  "maxNightDuration": "Maximum night-radio duration must be within {min}–{max} min.",
+  "songsPerSection": "Average songs per section must be within {min}-{max}.",
+  "nightSongsPerSection": "Average songs per section (night radio) must be within {min}-{max}.",
+  "needTwoGroups": "At least 2 non-empty groups with available songs are required.",
+  "needTwoGenreGroups": "At least 2 non-empty genre groups are required.",
+  "notEnoughSongsDuration": "Not enough songs: max duration ~{minutes} min (need ≥ 60 min).",
+  "algorithmDeferred": "Settings were saved, but the algorithm change will take effect with the next radio cycle.",
+  "changesInEffect": "Changes are now in effect.",
+  "libraryTooSmall": "The {folder} library contains less than 1 hour of music."
+}

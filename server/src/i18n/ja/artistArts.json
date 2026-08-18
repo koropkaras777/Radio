@@ -1,0 +1,14 @@
+{
+  "loadFailed": "アーティストリストの読み込みに失敗しました。",
+  "invalidArtist": "無効なアーティストです。",
+  "notFound": "アートが見つかりません。",
+  "serveFailed": "アートの提供に失敗しました。",
+  "jpgOnly": "JPG画像のみがサポートされています。",
+  "portraitRequired": "画像は縦向きである必要があります。",
+  "saved": "アーティストアートが正常に保存されました。",
+  "saveFailed": "アーティストアートの保存に失敗しました。",
+  "artistRequired": "アーティストは必須です。",
+  "deleted": "アーティストアートが正常に削除されました。",
+  "deleteFailed": "アーティストアートの削除に失敗しました。",
+  "deleteArtFailed": "アートの削除に失敗しました。"
+}

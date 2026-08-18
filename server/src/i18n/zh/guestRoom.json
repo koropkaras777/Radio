@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "管理员无法以访客身份加入。",
+  "nicknameRequired": "昵称是必需的。",
+  "tooManyAttempts": "尝试次数太多。稍后再试。",
+  "codeExpiredOrDeactivated": "该代码已过期或已停用。",
+  "invalidCode": "代码无效。",
+  "adminCannotSubmitRequest": "管理员无法提交访客请求。",
+  "accessBlocked": "访问被阻止。",
+  "requestNotFound": "未找到请求。",
+  "slotJustTaken": "槽位刚刚被占用。",
+  "codeAlreadyActive": "代码已激活。"
+}

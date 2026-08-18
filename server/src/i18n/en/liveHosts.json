@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "Radio-hosts feature is disabled.",
+  "noFreeHostSlots": "No free host slots right now.",
+  "noFreeSlots": "No free slots right now.",
+  "trackNotFound": "Track not found.",
+  "sessionNotVerified": "Session not verified. Please go through /guest again.",
+  "noHostLive": "No host is live right now."
+}

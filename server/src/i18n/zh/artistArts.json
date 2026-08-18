@@ -1,0 +1,14 @@
+{
+  "loadFailed": "无法加载艺术家列表。",
+  "invalidArtist": "无效艺术家。",
+  "notFound": "未找到艺术品。",
+  "serveFailed": "未能为艺术服务。",
+  "jpgOnly": "仅支持 JPG 图像。",
+  "portraitRequired": "图像必须是纵向的。",
+  "saved": "艺术家作品保存成功。",
+  "saveFailed": "未能保存艺术家的艺术作品。",
+  "artistRequired": "需要艺术家。",
+  "deleted": "艺术家作品删除成功。",
+  "deleteFailed": "无法删除艺术家作品。",
+  "deleteArtFailed": "删除艺术作品失败。"
+}

@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "Onvoldoende rechten.",
+  "insufficientPrivilegesForAction": "U heeft geen toestemming om deze actie uit te voeren.",
+  "participantNotFound": "Deelnemer niet gevonden.",
+  "unauthorized": "Ongeautoriseerd",
+  "somethingWentWrong": "Er is iets misgegaan.",
+  "internalServerError": "Interne serverfout",
+  "invalidMode": "Ongeldige modus.",
+  "invalidModeDayNight": "Ongeldige modus (dag of nacht).",
+  "idsRequired": "ids-array is vereist.",
+  "songIdsRequired": "songIds-array is vereist.",
+  "songIdRequired": "songId is vereist.",
+  "fileRequired": "Bestand is vereist",
+  "artistRequired": "Artiest is vereist",
+  "trackNotFound": "Track niet gevonden.",
+  "mp3Only": "Alleen MP3-bestanden worden ondersteund.",
+  "noFilePayload": "Er is geen bestandspayload opgegeven.",
+  "featureUnavailable": "Deze functie is niet beschikbaar in de huidige serverconfiguratie."
+}

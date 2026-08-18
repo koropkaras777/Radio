@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "Недостаточно прав.",
+  "insufficientPrivilegesForAction": "Недостаточно прав на это действие.",
+  "participantNotFound": "Участник не найден.",
+  "unauthorized": "Не авторизовано",
+  "somethingWentWrong": "Произошла ошибка.",
+  "internalServerError": "Внутренняя ошибка сервера",
+  "invalidMode": "Неверный режим.",
+  "invalidModeDayNight": "Неверный режим (day или night).",
+  "idsRequired": "Требуется массив ids.",
+  "songIdsRequired": "Требуется массив songIds.",
+  "songIdRequired": "Требуется songId.",
+  "fileRequired": "Файл обязателен",
+  "artistRequired": "Исполнитель обязателен",
+  "trackNotFound": "Песня не найдена.",
+  "mp3Only": "Поддерживаются только файлы MP3.",
+  "noFilePayload": "Файл не передан.",
+  "featureUnavailable": "Эта функция недоступна в текущей конфигурации сервера."
+}

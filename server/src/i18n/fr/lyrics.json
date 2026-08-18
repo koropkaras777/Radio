@@ -1,0 +1,18 @@
+{
+  "notFound": "Paroles introuvables",
+  "syncedFetched": "Paroles synchronisées récupérées",
+  "plainFetched": "Paroles simples récupérées",
+  "songsIndexFailed": "Échec du chargement de l'index des chansons et des paroles",
+  "cacheLoadFailed": "Échec du chargement du cache des paroles",
+  "offsetsLoadFailed": "Échec du chargement des décalages",
+  "titleArtistRequired": "titre et artiste requis",
+  "titleArtistEntryRequired": "titre, artiste et entrée requis",
+  "songIdOrTitleArtistRequired": "songId ou titre et artiste requis",
+  "trackNotFound": "Piste introuvable",
+  "previewUrlFailed": "Échec de la génération de l'URL d'aperçu",
+  "saveFailed": "Échec de l'enregistrement des paroles",
+  "cacheIndexFailed": "Échec du chargement de l'index du cache des paroles",
+  "entryLoadFailed": "Échec du chargement de l'entrée des paroles",
+  "deleteFailed": "Échec de la suppression de l'entrée des paroles",
+  "fetchFailed": "Échec de la récupération des paroles."
+}

@@ -1,0 +1,14 @@
+{
+  "nameRequired": "Nazwa grupy kompozycji jest obowiązkowa.",
+  "modeRequired": "Musisz wybrać transmisję dzienną lub nocną.",
+  "needAtLeastOneSong": "Grupa kompozycji musi zawierać co najmniej jeden utwór.",
+  "invalidSong": "Grupa zawiera utwór z innej audycji lub nieistniejącą kompozycję.",
+  "nameExists": "Grupa kompozycji o tej nazwie już istnieje.",
+  "created": "Powstała grupa kompozycji.",
+  "updated": "Zaktualizowano grupę kompozycji.",
+  "deleted": "Grupa utworów została usunięta.",
+  "notFound": "Nie odnaleziono grupy kompozycji.",
+  "inserted": "Grupa utworów została umieszczona w kolejce.",
+  "insertNightOnly": "Grupę nocną można wstawić wyłącznie podczas transmisji nocnej.",
+  "insertDayOnly": "Grupę dni można wstawić tylko podczas transmisji dziennej."
+}

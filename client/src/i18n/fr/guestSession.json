@@ -1,0 +1,14 @@
+{
+  "guestTitle": "Tu es dans la chambre d'amis",
+  "specialGuestTitle": "Tu es l'invité spécial",
+  "connect": "Connectez-vous pour diffuser",
+  "disconnect": "Déconnecter",
+  "micOn": "Micro activé",
+  "micOff": "Micro éteint",
+  "micDenied": "L'accès au microphone est bloqué - autorisez-le dans le navigateur et réessayez.",
+  "connecting": "De liaison…",
+  "timeLeft": "Temps restant : {m}:{s}",
+  "error": "Impossible de se connecter. Veuillez réessayer.",
+  "participants": "Vivre avec toi",
+  "noParticipants": "Tu es la seule autre voix en direct en ce moment"
+}

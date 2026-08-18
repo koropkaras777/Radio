@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "라디오 호스트 기능이 비활성화되었습니다.",
+  "noFreeHostSlots": "지금은 무료 호스트 슬롯이 없습니다.",
+  "noFreeSlots": "지금은 무료 슬롯이 없습니다.",
+  "trackNotFound": "트랙을 찾을 수 없습니다.",
+  "sessionNotVerified": "세션이 확인되지 않았습니다. /guest를 다시 진행해 주세요.",
+  "noHostLive": "현재 진행 중인 호스트가 없습니다."
+}

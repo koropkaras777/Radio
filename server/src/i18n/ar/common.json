@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "امتيازات غير كافية",
+  "insufficientPrivilegesForAction": "ليس لديك الإذن للقيام بهذا الإجراء.",
+  "participantNotFound": "لم يتم العثور على المشارك.",
+  "unauthorized": "غير مصرح به",
+  "somethingWentWrong": "حدث خطأ ما.",
+  "internalServerError": "خطأ في الخادم الداخلي",
+  "invalidMode": "وضع غير صالح.",
+  "invalidModeDayNight": "الوضع غير صالح (ليلا أو نهارا).",
+  "idsRequired": "مطلوب مجموعة معرفات.",
+  "songIdsRequired": "مطلوب مصفوفة معرفات الأغاني.",
+  "songIdRequired": "مطلوب معرف الأغنية.",
+  "fileRequired": "الملف مطلوب",
+  "artistRequired": "مطلوب فنان",
+  "trackNotFound": "لم يتم العثور على المسار.",
+  "mp3Only": "يتم دعم ملفات MP3 فقط.",
+  "noFilePayload": "لم يتم توفير حمولة الملف.",
+  "featureUnavailable": "هذه الميزة غير متوفرة في تكوين الخادم الحالي."
+}

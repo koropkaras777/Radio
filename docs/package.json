@@ -1,0 +1,23 @@
+{
+  "name": "radio-docs",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "extract": "node scripts/extract-api.mjs",
+    "dev": "npm run extract && vitepress dev",
+    "build": "npm run extract && vitepress build",
+    "preview": "vitepress preview",
+    "check": "node scripts/extract-api.mjs --check && node scripts/check-nav-links.mjs"
+  },
+  "devDependencies": {
+    "mermaid": "^11.16.1",
+    "sitemap": "^8.0.0",
+    "vitepress": "^1.6.3",
+    "vitepress-plugin-mermaid": "^2.0.17"
+  },
+  "license": "MIT"
+}

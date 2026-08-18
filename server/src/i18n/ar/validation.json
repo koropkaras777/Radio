@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "الحقل \"{field}\" مطلوب.",
+  "fieldTooShort": "يجب أن يتكون الحقل \"{field}\" من {min} حرفًا على الأقل.",
+  "fieldTooLong": "يجب ألا يزيد طول الحقل \"{field}\" عن {max} حرفًا."
+}

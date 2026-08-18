@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "यह ट्रैक अभी चल रहा है.",
+  "playsNext": "यह ट्रैक आगे चलेगा.",
+  "waitSeconds": "कृपया {seconds} और सेकंड प्रतीक्षा करें।",
+  "notEnoughTime": "समय पर्याप्त नहीं। मोड बदलने तक केवल {minutes} मिनट शेष है।",
+  "alreadyQueuedNearby": "यह गाना पहले से ही इस पोजीशन पर कतारबद्ध है.",
+  "trackNotInQueue": "कतार में ट्रैक नहीं मिला.",
+  "moveCloudOnly": "मूव केवल क्लाउड मोड में उपलब्ध है।",
+  "trackNotFound": "ट्रैक नहीं मिला.",
+  "filenameExistsInTarget": "इस फ़ाइल नाम वाला एक ट्रैक पहले से ही लक्ष्य मोड में मौजूद है।",
+  "nightModeDisabled": "रात्रि मोड अक्षम है.",
+  "modeAlreadyActive": "मोड पहले से ही सक्रिय है",
+  "modeSwitchAlreadyScheduled": "मोड स्विच पहले से ही निर्धारित है. {mins} मिनट में पुनः प्रयास करें",
+  "nextModeSwitchIn": "अगला मोड स्विच {mins} मिनट में उपलब्ध होगा",
+  "modeSwitchUnavailable": "इस समय मोड स्विच अनुपलब्ध है ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "मोड स्विच नहीं किया जा सकता: दान किए गए गाने कतारबद्ध हैं",
+  "scheduledBeforeBoundary": "निर्धारित समय {boundary}:00 (प्राकृतिक मोड सीमा) से पहले होना चाहिए"
+}

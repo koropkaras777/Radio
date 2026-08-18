@@ -1,0 +1,14 @@
+{
+  "nameRequired": "O nome do grupo de músicas é obrigatório.",
+  "modeRequired": "Escolha o modo diurno ou noturno.",
+  "needAtLeastOneSong": "O grupo de músicas deve conter pelo menos uma música.",
+  "invalidSong": "O grupo de músicas contém uma música de outro modo ou uma faixa indisponível.",
+  "nameExists": "Já existe um grupo de músicas com este nome.",
+  "created": "Grupo de músicas criado.",
+  "updated": "Grupo de músicas atualizado.",
+  "deleted": "Grupo de músicas excluído.",
+  "notFound": "Grupo de músicas não encontrado.",
+  "inserted": "Grupo de músicas inserido na fila.",
+  "insertNightOnly": "Grupos de músicas noturnas só podem ser inseridos durante o modo noturno.",
+  "insertDayOnly": "Grupos de músicas diurnas só podem ser inseridos durante o modo diurno."
+}

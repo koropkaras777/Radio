@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "L'interdiction n'est disponible que pour un invité régulier.",
+  "banlistUnavailable": "La liste de bannissement n'est pas disponible dans le mode de base de données actuel.",
+  "ipRequired": "L'adresse IP est requise.",
+  "banFailed": "Échec de l'interdiction de l'adresse IP.",
+  "unbanFailed": "Échec de la levée du bannissement de l'adresse IP."
+}

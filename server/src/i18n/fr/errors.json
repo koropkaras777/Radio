@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Séance invalide. Veuillez vous reconnecter.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "Échec de l'ajout de la suggestion à la file d'attente.",
+  "QUEUE_ADD_FAILED": "Échec de l'ajout de la chanson à la file d'attente.",
+  "QUEUE_REMOVE_FAILED": "Échec de la suppression de la chanson de la file d'attente.",
+  "QUEUE_SKIP_FAILED": "Impossible de sauter la chanson.",
+  "QUEUE_GROUP_INSERT_FAILED": "Échec de l'insertion du groupe de chansons.",
+  "SONG_NOT_FOUND": "Aucune chanson trouvée.",
+  "DONATIONS_TIERS_FAILED": "Échec du calcul des prix de file d'attente.",
+  "DONATIONS_CREATE_FAILED": "Il n'a pas été possible d'émettre un don.",
+  "DONATIONS_STATUS_FAILED": "Échec de la vérification du statut du don.",
+  "DONATIONS_WEBHOOK_INVALID": "Webhook de don non valide.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "Échec de l'enregistrement des paramètres de don.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "Échec du chargement des paramètres de don.",
+  "DONATIONS_HISTORY_FAILED": "Échec du chargement de l'historique des dons."
+}

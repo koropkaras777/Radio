@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Invalid session. Please sign in again.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "Failed to add the suggestion to the queue.",
+  "QUEUE_ADD_FAILED": "Failed to add the song to the queue.",
+  "QUEUE_REMOVE_FAILED": "Failed to remove the song from the queue.",
+  "QUEUE_SKIP_FAILED": "Failed to skip the song.",
+  "QUEUE_GROUP_INSERT_FAILED": "Failed to insert the song group.",
+  "SONG_NOT_FOUND": "Song not found.",
+  "DONATIONS_TIERS_FAILED": "Failed to compute tier prices.",
+  "DONATIONS_CREATE_FAILED": "Failed to create the donation.",
+  "DONATIONS_STATUS_FAILED": "Failed to check the donation status.",
+  "DONATIONS_WEBHOOK_INVALID": "Invalid donation webhook.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "Failed to save donation settings.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "Failed to load donation settings.",
+  "DONATIONS_HISTORY_FAILED": "Failed to load donation history."
+}

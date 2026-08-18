@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "جلسة غير صالحة. الرجاء تسجيل الدخول مرة أخرى.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "فشلت إضافة الاقتراح إلى قائمة الانتظار.",
+  "QUEUE_ADD_FAILED": "فشلت إضافة الأغنية إلى قائمة الانتظار.",
+  "QUEUE_REMOVE_FAILED": "فشل في إزالة الأغنية من قائمة الانتظار.",
+  "QUEUE_SKIP_FAILED": "فشل في تخطي الأغنية.",
+  "QUEUE_GROUP_INSERT_FAILED": "فشل في إدراج مجموعة الأغاني.",
+  "SONG_NOT_FOUND": "لم يتم العثور على أغنية.",
+  "DONATIONS_TIERS_FAILED": "فشل في حساب أسعار قائمة الانتظار.",
+  "DONATIONS_CREATE_FAILED": "لم يكن من الممكن إصدار التبرع.",
+  "DONATIONS_STATUS_FAILED": "فشل التحقق من حالة التبرع.",
+  "DONATIONS_WEBHOOK_INVALID": "الرد التلقائي على الويب للتبرع غير صالح.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "فشل حفظ إعدادات التبرع.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "فشل تحميل إعدادات التبرع.",
+  "DONATIONS_HISTORY_FAILED": "فشل تحميل سجل التبرع."
+}

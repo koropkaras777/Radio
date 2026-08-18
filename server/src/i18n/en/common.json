@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "Insufficient privileges.",
+  "insufficientPrivilegesForAction": "You do not have permission to perform this action.",
+  "participantNotFound": "Participant not found.",
+  "unauthorized": "Unauthorized",
+  "somethingWentWrong": "Something went wrong.",
+  "internalServerError": "Internal Server Error",
+  "invalidMode": "Invalid mode.",
+  "invalidModeDayNight": "Invalid mode (day or night).",
+  "idsRequired": "ids array is required.",
+  "songIdsRequired": "songIds array is required.",
+  "songIdRequired": "songId is required.",
+  "fileRequired": "File is required",
+  "artistRequired": "Artist is required",
+  "trackNotFound": "Track not found.",
+  "mp3Only": "Only MP3 files are supported.",
+  "noFilePayload": "No file payload was provided.",
+  "featureUnavailable": "This feature is unavailable in the current server configuration."
+}

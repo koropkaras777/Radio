@@ -1,0 +1,18 @@
+{
+  "notFound": "歌詞が見つかりません",
+  "syncedFetched": "同期された歌詞が取得されました",
+  "plainFetched": "わかりやすい歌詞を取得",
+  "songsIndexFailed": "歌詞曲インデックスのロードに失敗しました",
+  "cacheLoadFailed": "歌詞キャッシュのロードに失敗しました",
+  "offsetsLoadFailed": "オフセットのロードに失敗しました",
+  "titleArtistRequired": "タイトルとアーティストは必須です",
+  "titleArtistEntryRequired": "タイトル、アーティスト、エントリーは必須です",
+  "songIdOrTitleArtistRequired": "曲 ID またはタイトルとアーティストが必要です",
+  "trackNotFound": "トラックが見つかりません",
+  "previewUrlFailed": "プレビュー URL の生成に失敗しました",
+  "saveFailed": "歌詞エントリの保存に失敗しました",
+  "cacheIndexFailed": "歌詞キャッシュインデックスのロードに失敗しました",
+  "entryLoadFailed": "歌詞エントリの読み込みに失敗しました",
+  "deleteFailed": "歌詞エントリの削除に失敗しました",
+  "fetchFailed": "歌詞の取得に失敗しました。"
+}

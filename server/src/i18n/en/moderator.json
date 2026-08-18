@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "Ban is only available for a regular guest.",
+  "banlistUnavailable": "The banlist is unavailable in the current database mode.",
+  "ipRequired": "IP address is required.",
+  "banFailed": "Failed to ban the IP.",
+  "unbanFailed": "Failed to unban the IP."
+}

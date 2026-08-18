@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "La prohibición solo está disponible para un huésped habitual.",
+  "banlistUnavailable": "La lista de prohibición no está disponible en el modo de base de datos actual.",
+  "ipRequired": "Se requiere dirección IP.",
+  "banFailed": "No se pudo prohibir la IP.",
+  "unbanFailed": "No se pudo desbanear la IP."
+}

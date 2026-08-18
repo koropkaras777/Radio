@@ -1,0 +1,19 @@
+{
+    "insufficientPrivileges": "Недостатньо прав.",
+    "insufficientPrivilegesForAction": "Недостатньо прав для цієї дії.",
+    "participantNotFound": "Учасника не знайдено.",
+    "unauthorized": "Не авторизовано",
+    "somethingWentWrong": "Сталася помилка.",
+    "internalServerError": "Внутрішня помилка сервера",
+    "invalidMode": "Невірний режим.",
+    "invalidModeDayNight": "Невірний режим (day або night).",
+    "idsRequired": "Потрібен масив ids.",
+    "songIdsRequired": "Потрібен масив songIds.",
+    "songIdRequired": "Потрібен songId.",
+    "fileRequired": "Файл обов'язковий",
+    "artistRequired": "Виконавець обов'язковий",
+    "trackNotFound": "Пісню не знайдено.",
+    "mp3Only": "Підтримуються лише MP3-файли.",
+    "noFilePayload": "Файл не передано.",
+    "featureUnavailable": "Ця можливість недоступна в поточній конфігурації сервера."
+}

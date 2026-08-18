@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "Yasak yalnızca normal konuklar için geçerlidir.",
+  "banlistUnavailable": "Yasak listesi mevcut veritabanı modunda mevcut değil.",
+  "ipRequired": "IP adresi gerekli.",
+  "banFailed": "IP yasaklanamadı.",
+  "unbanFailed": "IP yasağı kaldırılamadı."
+}

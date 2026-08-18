@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "لا يمكن للمسؤولين الانضمام كضيف.",
+  "nicknameRequired": "اللقب مطلوب.",
+  "tooManyAttempts": "محاولات كثيرة جدًا. حاول مرة أخرى لاحقًا.",
+  "codeExpiredOrDeactivated": "انتهت صلاحية الرمز أو تم إلغاء تنشيطه.",
+  "invalidCode": "رمز غير صالح.",
+  "adminCannotSubmitRequest": "لا يمكن للمسؤولين إرسال طلب ضيف.",
+  "accessBlocked": "تم حظر الوصول.",
+  "requestNotFound": "لم يتم العثور على الطلب.",
+  "slotJustTaken": "تم أخذ الفتحة للتو.",
+  "codeAlreadyActive": "الرمز نشط بالفعل."
+}

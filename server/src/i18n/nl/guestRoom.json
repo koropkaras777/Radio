@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Beheerders kunnen niet als gast deelnemen.",
+  "nicknameRequired": "Bijnaam is vereist.",
+  "tooManyAttempts": "Te veel pogingen. Probeer het later opnieuw.",
+  "codeExpiredOrDeactivated": "De code is verlopen of gedeactiveerd.",
+  "invalidCode": "Ongeldige code.",
+  "adminCannotSubmitRequest": "Beheerders kunnen geen gastverzoek indienen.",
+  "accessBlocked": "Toegang geblokkeerd.",
+  "requestNotFound": "Verzoek niet gevonden.",
+  "slotJustTaken": "Het slot is zojuist bezet.",
+  "codeAlreadyActive": "Er is al een code actief."
+}

@@ -1,0 +1,14 @@
+{
+  "nameRequired": "Il nome del gruppo di brani è obbligatorio.",
+  "modeRequired": "Scegli la modalità giorno o notte.",
+  "needAtLeastOneSong": "Il gruppo di brani deve contenere almeno un brano.",
+  "invalidSong": "Il gruppo di brani contiene un brano di un'altra modalità o una traccia non disponibile.",
+  "nameExists": "Esiste già un gruppo di brani con questo nome.",
+  "created": "Gruppo di brani creato.",
+  "updated": "Gruppo di brani aggiornato.",
+  "deleted": "Gruppo di brani eliminato.",
+  "notFound": "Gruppo di brani non trovato.",
+  "inserted": "Gruppo di brani inserito in coda.",
+  "insertNightOnly": "I gruppi di brani notturni possono essere inseriti solo durante la modalità notturna.",
+  "insertDayOnly": "I gruppi di brani giornalieri possono essere inseriti solo durante la modalità giorno."
+}

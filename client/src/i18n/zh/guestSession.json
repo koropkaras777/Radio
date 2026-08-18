@@ -1,0 +1,14 @@
+{
+  "guestTitle": "你在客房",
+  "specialGuestTitle": "你是特邀嘉宾",
+  "connect": "连接到广播",
+  "disconnect": "断开",
+  "micOn": "麦克风打开",
+  "micOff": "麦克风关闭",
+  "micDenied": "麦克风访问被阻止 - 在浏览器中允许它并重试。",
+  "connecting": "正在连接…",
+  "timeLeft": "剩余时间：{m}:{s}",
+  "error": "无法连接。请再试一次。",
+  "participants": "与你同住",
+  "noParticipants": "你是现在唯一的其他声音"
+}

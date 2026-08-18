@@ -1,0 +1,17 @@
+{
+  "guestMaxDuration": "访客最大会话持续时间必须在 {min}–{max} 分钟内。",
+  "specialGuestMaxDuration": "特邀嘉宾最长会话持续时间必须在 {min}–{max} 分钟内。",
+  "backgroundMusicMode": "背景音乐播放模式必须是\"随机\"或\"主机选择\"。",
+  "dayLibraryTooShort": "一天总广播时长低于 1 小时。队列生成被阻止。",
+  "nightLibraryTooShort": "夜间广播总时长低于 1 小时。队列生成被阻止。",
+  "maxDayDuration": "最大日间无线电持续时间必须在 {min}–{max} 分钟内。",
+  "maxNightDuration": "夜间广播最长持续时间必须在 {min}–{max} 分钟内。",
+  "songsPerSection": "每个部分的平均歌曲必须在 {min}-{max} 范围内。",
+  "nightSongsPerSection": "每个部分（夜间广播）的平均歌曲必须在 {min}-{max} 范围内。",
+  "needTwoGroups": "至少需要 2 个包含可用歌曲的非空组。",
+  "needTwoGenreGroups": "至少需要 2 个非空流派组。",
+  "notEnoughSongsDuration": "歌曲不足：最大持续时间 ~{minutes} 分钟（需要 ≥ 60 分钟）。",
+  "algorithmDeferred": "设置已保存，但算法更改将在下一个无线电周期生效。",
+  "changesInEffect": "更改现已生效。",
+  "libraryTooSmall": "{folder} 库包含少于 1 小时的音乐。"
+}

@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "Ban is alleen beschikbaar voor een vaste gast.",
+  "banlistUnavailable": "De banlijst is niet beschikbaar in de huidige databasemodus.",
+  "ipRequired": "IP-adres is vereist.",
+  "banFailed": "Kan het IP-adres niet verbieden.",
+  "unbanFailed": "Kan de ban van het IP-adres niet opheffen."
+}

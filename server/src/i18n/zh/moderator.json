@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "禁令仅适用于常客。",
+  "banlistUnavailable": "当前数据库模式下禁止列表不可用。",
+  "ipRequired": "需要 IP 地址。",
+  "banFailed": "封禁IP失败。",
+  "unbanFailed": "解禁IP失败。"
+}

@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Sessão inválida. Faça login novamente.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "Falha ao adicionar a sugestão à fila.",
+  "QUEUE_ADD_FAILED": "Falha ao adicionar a música à fila.",
+  "QUEUE_REMOVE_FAILED": "Falha ao remover a música da fila.",
+  "QUEUE_SKIP_FAILED": "Falha ao pular a música.",
+  "QUEUE_GROUP_INSERT_FAILED": "Falha ao inserir o grupo de músicas.",
+  "SONG_NOT_FOUND": "Música não encontrada.",
+  "DONATIONS_TIERS_FAILED": "Falha ao calcular os preços dos níveis.",
+  "DONATIONS_CREATE_FAILED": "Falha ao criar a doação.",
+  "DONATIONS_STATUS_FAILED": "Falha ao verificar o status da doação.",
+  "DONATIONS_WEBHOOK_INVALID": "Webhook de doação inválido.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "Falha ao salvar as configurações de doação.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "Falha ao carregar as configurações de doação.",
+  "DONATIONS_HISTORY_FAILED": "Falha ao carregar o histórico de doações."
+}

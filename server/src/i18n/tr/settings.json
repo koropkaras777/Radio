@@ -1,0 +1,17 @@
+{
+  "guestMaxDuration": "Konuk maksimum oturum süresi {min}–{max} dakika içinde olmalıdır.",
+  "specialGuestMaxDuration": "Özel misafirin maksimum oturum süresi {min}–{max} dakika içinde olmalıdır.",
+  "backgroundMusicMode": "Arka plan müziği çalma modu \"rastgele\" veya \"ana bilgisayar seçimi\" olmalıdır.",
+  "dayLibraryTooShort": "Toplam günlük radyo süresi 1 saatin altındadır. Kuyruk oluşturma engellendi.",
+  "nightLibraryTooShort": "Toplam gece radyosu süresi 1 saatin altındadır. Kuyruk oluşturma engellendi.",
+  "maxDayDuration": "Maksimum günlük radyo süresi {min}–{max} dakika içinde olmalıdır.",
+  "maxNightDuration": "Maksimum gece radyosu süresi {min}–{max} dakika içinde olmalıdır.",
+  "songsPerSection": "Bölüm başına ortalama şarkılar {min}-{max} aralığında olmalıdır.",
+  "nightSongsPerSection": "Bölüm başına ortalama şarkılar (gece radyosu) {min}-{max} aralığında olmalıdır.",
+  "needTwoGroups": "Mevcut şarkıları olan en az 2 boş olmayan grup gereklidir.",
+  "needTwoGenreGroups": "En az 2 boş olmayan tür grubu gereklidir.",
+  "notEnoughSongsDuration": "Yeterli şarkı yok: maksimum süre ~{minutes} dk (≥ 60 dakika gerekir).",
+  "algorithmDeferred": "Ayarlar kaydedildi ancak algoritma değişikliği bir sonraki radyo döngüsünde etkili olacak.",
+  "changesInEffect": "Değişiklikler artık yürürlükte.",
+  "libraryTooSmall": "{folder} kitaplığı 1 saatten az müzik içerir."
+}

@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "该曲目当前正在播放。",
+  "playsNext": "接下来将播放该曲目。",
+  "waitSeconds": "请再等 {seconds} 秒。",
+  "notEnoughTime": "时间不够。距离模式更改仅剩 {minutes} 分钟。",
+  "alreadyQueuedNearby": "这首歌已经在这个位置排队了。",
+  "trackNotInQueue": "在队列中未找到曲目。",
+  "moveCloudOnly": "Move 仅在云模式下可用。",
+  "trackNotFound": "未找到曲目。",
+  "filenameExistsInTarget": "目标模式中已存在具有此文件名的曲目。",
+  "nightModeDisabled": "夜间模式已禁用。",
+  "modeAlreadyActive": "模式已激活",
+  "modeSwitchAlreadyScheduled": "模式切换已安排。请在 {mins} 分钟后重试",
+  "nextModeSwitchIn": "下一个模式切换时间为 {mins} 分钟",
+  "modeSwitchUnavailable": "此时模式切换不可用（{hour}:xx–{nextHour}:00）",
+  "cannotSwitchDonated": "无法切换模式：捐赠的歌曲已排队",
+  "scheduledBeforeBoundary": "预定时间必须在{boundary}:00之前（自然模式边界）"
+}

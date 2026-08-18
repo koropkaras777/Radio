@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "Veld \"{field}\" is verplicht.",
+  "fieldTooShort": "Veld \"{field}\" moet minimaal {min} tekens lang zijn.",
+  "fieldTooLong": "Veld \"{field}\" mag niet langer zijn dan {max} tekens."
+}

@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "अमान्य सत्र. कृपया पुनः साइन इन करें.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "सुझाव को कतार में जोड़ने में विफल.",
+  "QUEUE_ADD_FAILED": "गीत को कतार में जोड़ने में विफल.",
+  "QUEUE_REMOVE_FAILED": "गीत को कतार से हटाने में विफल रहा.",
+  "QUEUE_SKIP_FAILED": "गाना छोड़ने में विफल.",
+  "QUEUE_GROUP_INSERT_FAILED": "गीत समूह सम्मिलित करने में विफल.",
+  "SONG_NOT_FOUND": "गाना नहीं मिला.",
+  "DONATIONS_TIERS_FAILED": "स्तरीय कीमतों की गणना करने में विफल.",
+  "DONATIONS_CREATE_FAILED": "दान बनाने में विफल.",
+  "DONATIONS_STATUS_FAILED": "दान की स्थिति की जाँच करने में विफल.",
+  "DONATIONS_WEBHOOK_INVALID": "अमान्य दान वेबहुक.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "दान सेटिंग सहेजने में विफल.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "दान सेटिंग लोड करने में विफल.",
+  "DONATIONS_HISTORY_FAILED": "दान इतिहास लोड करने में विफल."
+}

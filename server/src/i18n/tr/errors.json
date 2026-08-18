@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Geçersiz oturum. Lütfen tekrar oturum açın.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "Öneri sıraya eklenemedi.",
+  "QUEUE_ADD_FAILED": "Şarkı sıraya eklenemedi.",
+  "QUEUE_REMOVE_FAILED": "Şarkı sıradan kaldırılamadı.",
+  "QUEUE_SKIP_FAILED": "Şarkı atlanamadı.",
+  "QUEUE_GROUP_INSERT_FAILED": "Şarkı grubu eklenemedi.",
+  "SONG_NOT_FOUND": "Şarkı bulunamadı.",
+  "DONATIONS_TIERS_FAILED": "Katman fiyatları hesaplanamadı.",
+  "DONATIONS_CREATE_FAILED": "Bağış oluşturulamadı.",
+  "DONATIONS_STATUS_FAILED": "Bağış durumu kontrol edilemedi.",
+  "DONATIONS_WEBHOOK_INVALID": "Geçersiz bağış web kancası.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "Bağış ayarları kaydedilemedi.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "Bağış ayarları yüklenemedi.",
+  "DONATIONS_HISTORY_FAILED": "Bağış geçmişi yüklenemedi."
+}

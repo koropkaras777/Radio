@@ -1,0 +1,18 @@
+{
+    "currentlyPlaying": "Ця пісня зараз грає.",
+    "playsNext": "Ця пісня буде грати наступною.",
+    "waitSeconds": "Зачекайте ще {seconds} сек.",
+    "notEnoughTime": "Недостатньо часу. До зміни режиму залишилось {minutes} хв.",
+    "alreadyQueuedNearby": "Ця пісня вже стоїть у черзі поруч із цим місцем.",
+    "trackNotInQueue": "Пісню не знайдено в черзі.",
+    "moveCloudOnly": "Переміщення доступне лише у хмарному режимі.",
+    "trackNotFound": "Пісню не знайдено.",
+    "filenameExistsInTarget": "Пісня з такою назвою вже є в цільовому ефірі.",
+    "nightModeDisabled": "Нічний режим вимкнено.",
+    "modeAlreadyActive": "Режим вже активний",
+    "modeSwitchAlreadyScheduled": "Зміна режиму вже запланована. Повторити через {mins} хв",
+    "nextModeSwitchIn": "Повторна зміна буде доступна через {mins} хв",
+    "modeSwitchUnavailable": "Зміна режиму недоступна в цей час ({hour}:xx–{nextHour}:00)",
+    "cannotSwitchDonated": "Неможливо змінити режим: є донатні пісні в черзі",
+    "scheduledBeforeBoundary": "Час перемикання має бути до {boundary}:00 (природній перехід режиму)"
+}

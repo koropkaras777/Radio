@@ -1,0 +1,18 @@
+{
+  "notFound": "Liedtext nicht gefunden",
+  "syncedFetched": "Synchronisierte Liedtexte abgerufen",
+  "plainFetched": "Einfacher Liedtext abgerufen",
+  "songsIndexFailed": "Der Index der Liedtexte konnte nicht geladen werden",
+  "cacheLoadFailed": "Liedtext-Cache konnte nicht geladen werden",
+  "offsetsLoadFailed": "Fehler beim Laden der Offsets",
+  "titleArtistRequired": "Titel und Künstler erforderlich",
+  "titleArtistEntryRequired": "Titel, Künstler und Eintrag erforderlich",
+  "songIdOrTitleArtistRequired": "Song-ID oder Titel und Künstler erforderlich",
+  "trackNotFound": "Titel nicht gefunden",
+  "previewUrlFailed": "Vorschau-URL konnte nicht generiert werden",
+  "saveFailed": "Liedtexteintrag konnte nicht gespeichert werden",
+  "cacheIndexFailed": "Der Liedtext-Cache-Index konnte nicht geladen werden",
+  "entryLoadFailed": "Liedtexteintrag konnte nicht geladen werden",
+  "deleteFailed": "Liedtexteintrag konnte nicht gelöscht werden",
+  "fetchFailed": "Der Liedtext konnte nicht abgerufen werden."
+}

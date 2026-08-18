@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Недействительная сессия. Войдите снова.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "Не удалось добавить предложение в очередь.",
+  "QUEUE_ADD_FAILED": "Не удалось добавить песню в очередь.",
+  "QUEUE_REMOVE_FAILED": "Не удалось удалить песню из очереди.",
+  "QUEUE_SKIP_FAILED": "Не удалось пропустить песню.",
+  "QUEUE_GROUP_INSERT_FAILED": "Не удалось вставить группу песен.",
+  "SONG_NOT_FOUND": "Песня не найдена.",
+  "DONATIONS_TIERS_FAILED": "Не удалось рассчитать цены очередей.",
+  "DONATIONS_CREATE_FAILED": "Не удалось оформить донат.",
+  "DONATIONS_STATUS_FAILED": "Не удалось проверить статус доната.",
+  "DONATIONS_WEBHOOK_INVALID": "Недействительный веб-донат.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "Не удалось сохранить настройки донатов.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "Не удалось загрузить настройки донатов.",
+  "DONATIONS_HISTORY_FAILED": "Не удалось скачать историю донатов."
+}

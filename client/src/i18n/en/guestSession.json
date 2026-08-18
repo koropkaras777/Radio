@@ -1,0 +1,14 @@
+{
+  "guestTitle": "You're in the guest room",
+  "specialGuestTitle": "You're the special guest",
+  "connect": "Connect to broadcast",
+  "disconnect": "Disconnect",
+  "micOn": "Microphone on",
+  "micOff": "Microphone off",
+  "micDenied": "Microphone access is blocked - allow it in the browser and try again.",
+  "connecting": "Connecting…",
+  "timeLeft": "Time left: {m}:{s}",
+  "error": "Could not connect. Please try again.",
+  "participants": "Live with you",
+  "noParticipants": "You're the only other voice live right now"
+}

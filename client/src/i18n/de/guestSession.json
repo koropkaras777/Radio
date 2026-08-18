@@ -1,0 +1,14 @@
+{
+  "guestTitle": "Du bist im Gästezimmer",
+  "specialGuestTitle": "Du bist der besondere Gast",
+  "connect": "Stellen Sie eine Verbindung zur Übertragung her",
+  "disconnect": "Trennen",
+  "micOn": "Mikrofon an",
+  "micOff": "Mikrofon aus",
+  "micDenied": "Der Mikrofonzugriff ist blockiert. Erlauben Sie ihn im Browser und versuchen Sie es erneut.",
+  "connecting": "Verbinden…",
+  "timeLeft": "Verbleibende Zeit: {m}:{s}",
+  "error": "Es konnte keine Verbindung hergestellt werden. Bitte versuchen Sie es erneut.",
+  "participants": "Lebe mit dir",
+  "noParticipants": "Du bist derzeit die einzige andere Stimme, die live ist"
+}

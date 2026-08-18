@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "This track is currently playing.",
+  "playsNext": "This track will play next.",
+  "waitSeconds": "Please wait {seconds} more sec.",
+  "notEnoughTime": "Not enough time. Only {minutes} min left until mode change.",
+  "alreadyQueuedNearby": "This song is already queued at this position.",
+  "trackNotInQueue": "Track not found in queue.",
+  "moveCloudOnly": "Move is available in cloud mode only.",
+  "trackNotFound": "Track not found.",
+  "filenameExistsInTarget": "A track with this filename already exists in the target mode.",
+  "nightModeDisabled": "Night mode is disabled.",
+  "modeAlreadyActive": "Mode already active",
+  "modeSwitchAlreadyScheduled": "Mode switch already scheduled. Try again in {mins} min",
+  "nextModeSwitchIn": "Next mode switch available in {mins} min",
+  "modeSwitchUnavailable": "Mode switch unavailable at this time ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "Cannot switch mode: donated songs are queued",
+  "scheduledBeforeBoundary": "Scheduled time must be before {boundary}:00 (natural mode boundary)"
+}

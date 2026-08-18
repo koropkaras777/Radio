@@ -1,0 +1,14 @@
+{
+  "loadFailed": "Die Künstlerliste konnte nicht geladen werden.",
+  "invalidArtist": "Ungültiger Künstler.",
+  "notFound": "Kunst nicht gefunden.",
+  "serveFailed": "Kunst konnte nicht serviert werden.",
+  "jpgOnly": "Es werden nur JPG-Bilder unterstützt.",
+  "portraitRequired": "Das Bild muss im Hochformat sein.",
+  "saved": "Künstlerkunst erfolgreich gespeichert.",
+  "saveFailed": "Künstlerkunst konnte nicht gespeichert werden.",
+  "artistRequired": "Künstler ist erforderlich.",
+  "deleted": "Künstlerkunst erfolgreich gelöscht.",
+  "deleteFailed": "Künstlerkunst konnte nicht gelöscht werden.",
+  "deleteArtFailed": "Kunst konnte nicht gelöscht werden."
+}

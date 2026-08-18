@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "権限が不十分です。",
+  "insufficientPrivilegesForAction": "このアクションを実行する権限がありません。",
+  "participantNotFound": "参加者が見つかりません。",
+  "unauthorized": "無許可",
+  "somethingWentWrong": "何か問題が発生しました。",
+  "internalServerError": "内部サーバーエラー",
+  "invalidMode": "無効なモードです。",
+  "invalidModeDayNight": "無効なモード (昼または夜)。",
+  "idsRequired": "ids 配列は必須です。",
+  "songIdsRequired": "SongIds 配列は必須です。",
+  "songIdRequired": "曲IDは必須です。",
+  "fileRequired": "ファイルが必要です",
+  "artistRequired": "アーティストは必須です",
+  "trackNotFound": "トラックが見つかりません。",
+  "mp3Only": "MP3 ファイルのみがサポートされています。",
+  "noFilePayload": "ファイル ペイロードが提供されていませんでした。",
+  "featureUnavailable": "この機能は現在のサーバー構成では使用できません。"
+}

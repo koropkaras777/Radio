@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Админ не может быть подключен как гость.",
+  "nicknameRequired": "Укажите никнэйм.",
+  "tooManyAttempts": "Слишком много попыток. Попытайтесь позже.",
+  "codeExpiredOrDeactivated": "Код просрочен или деактивирован.",
+  "invalidCode": "Неверный код.",
+  "adminCannotSubmitRequest": "Админ не может подать заявку гостя.",
+  "accessBlocked": "Доступ заблокирован.",
+  "requestNotFound": "Заявка не найдена.",
+  "slotJustTaken": "Слот только что заняли.",
+  "codeAlreadyActive": "Код уже активен."
+}

@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "La fonctionnalité d’hôtes radio est désactivée.",
+  "noFreeHostSlots": "Aucun emplacement d'hôte gratuit pour le moment.",
+  "noFreeSlots": "Pas de créneaux gratuits pour le moment.",
+  "trackNotFound": "Piste introuvable.",
+  "sessionNotVerified": "Session non vérifiée. Veuillez passer par /guest à nouveau.",
+  "noHostLive": "Aucun hôte n'est en ligne pour le moment."
+}

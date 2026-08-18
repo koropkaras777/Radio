@@ -1,0 +1,14 @@
+{
+  "loadFailed": "No se pudo cargar la lista de artistas.",
+  "invalidArtist": "Artista no válido.",
+  "notFound": "Arte no encontrado.",
+  "serveFailed": "No se pudo entregar el art.",
+  "jpgOnly": "Sólo se admiten imágenes JPG.",
+  "portraitRequired": "La imagen debe estar orientada al retrato.",
+  "saved": "El arte del artista se guardó correctamente.",
+  "saveFailed": "No se pudo guardar el arte del artista.",
+  "artistRequired": "Se requiere artista.",
+  "deleted": "El arte del artista se eliminó correctamente.",
+  "deleteFailed": "No se pudo eliminar el arte del artista.",
+  "deleteArtFailed": "No se pudo eliminar el art."
+}

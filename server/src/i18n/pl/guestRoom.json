@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Administrator nie może połączyć się jako gość.",
+  "nicknameRequired": "Wpisz pseudonim.",
+  "tooManyAttempts": "Zbyt wiele prób. Spróbuj ponownie później.",
+  "codeExpiredOrDeactivated": "Kod wygasł lub został dezaktywowany.",
+  "invalidCode": "Nieprawidłowy kod.",
+  "adminCannotSubmitRequest": "Administrator nie może przesłać aplikacji gościa.",
+  "accessBlocked": "Dostęp jest zablokowany.",
+  "requestNotFound": "Nie znaleziono aplikacji.",
+  "slotJustTaken": "Miejsce zostało właśnie zajęte.",
+  "codeAlreadyActive": "Kod jest już aktywny."
+}

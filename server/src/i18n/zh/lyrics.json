@@ -1,0 +1,18 @@
+{
+  "notFound": "找不到歌词",
+  "syncedFetched": "已获取同步歌词",
+  "plainFetched": "获取简单歌词",
+  "songsIndexFailed": "无法加载歌词歌曲索引",
+  "cacheLoadFailed": "加载歌词缓存失败",
+  "offsetsLoadFailed": "无法加载偏移量",
+  "titleArtistRequired": "需要标题和艺术家",
+  "titleArtistEntryRequired": "需要标题、艺术家和参赛作品",
+  "songIdOrTitleArtistRequired": "需要歌曲 ID 或标题和艺术家",
+  "trackNotFound": "未找到曲目",
+  "previewUrlFailed": "生成预览 URL 失败",
+  "saveFailed": "保存歌词条目失败",
+  "cacheIndexFailed": "无法加载歌词缓存索引",
+  "entryLoadFailed": "无法加载歌词条目",
+  "deleteFailed": "删除歌词条目失败",
+  "fetchFailed": "获取歌词失败。"
+}

@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "广播主机功能已禁用。",
+  "noFreeHostSlots": "目前没有空闲的主机插槽。",
+  "noFreeSlots": "目前没有免费插槽。",
+  "trackNotFound": "未找到曲目。",
+  "sessionNotVerified": "会话未验证。请再次访问/guest。",
+  "noHostLive": "目前没有主持人在线。"
+}

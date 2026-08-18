@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Hide scrollbar ─────────────────────────────────────────────────────────── */
+ 
+html {
+  overflow-y: overlay;
+  scrollbar-width: none;
+}
+ 
+::-webkit-scrollbar {
+  display: none;
+}
+
+input[type="range"].vertical {
+  writing-mode: vertical-lr;
+  direction: rtl;
+}
+
+.marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: mask-image 0.3s ease;
+}
+
+.mask-active {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
+.flex.w-max {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.animate-marquee {
+  animation: marquee 15s linear infinite;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 1.5rem));
+  }
+}
+
+.radio-title-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 36px;
+  transform: scale(1);
+  transition: transform 2s ease-in-out;
+  transform-origin: center center;
+  will-change: transform;
+  z-index: 1;
+}
+
+.radio-title-wrapper.dio-mode {
+  transform: scale(0.83);
+}
+
+.word-static {
+  display: inline-block;
+  white-space: nowrap;
+  transition: transform 2s ease-in-out 2s;
+  position: relative;
+}
+
+.word-left {
+  margin-right: 6px;
+}
+.word-right {
+  margin-left: 6px;
+}
+
+.dio-mode .word-left {
+  transform: translateX(-14px); 
+}
+
+.dio-mode .word-right {
+  transform: translateX(54px); 
+}
+
+.koza-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 64px;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 4s, opacity 2s ease-in-out 4s;
+}
+
+.dio-mode .koza-overlay {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}

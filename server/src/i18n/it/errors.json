@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Sessione non valida. Per favore accedi di nuovo.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "Impossibile aggiungere il suggerimento alla coda.",
+  "QUEUE_ADD_FAILED": "Impossibile aggiungere il brano alla coda.",
+  "QUEUE_REMOVE_FAILED": "Impossibile rimuovere il brano dalla coda.",
+  "QUEUE_SKIP_FAILED": "Impossibile saltare la canzone.",
+  "QUEUE_GROUP_INSERT_FAILED": "Impossibile inserire il gruppo di brani.",
+  "SONG_NOT_FOUND": "Canzone non trovata.",
+  "DONATIONS_TIERS_FAILED": "Impossibile calcolare i prezzi dei livelli.",
+  "DONATIONS_CREATE_FAILED": "Impossibile creare la donazione.",
+  "DONATIONS_STATUS_FAILED": "Impossibile verificare lo stato della donazione.",
+  "DONATIONS_WEBHOOK_INVALID": "Webhook di donazione non valido.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "Impossibile salvare le impostazioni di donazione.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "Impossibile caricare le impostazioni per la donazione.",
+  "DONATIONS_HISTORY_FAILED": "Impossibile caricare la cronologia delle donazioni."
+}

@@ -1,0 +1,18 @@
+{
+  "notFound": "Şarkı sözleri bulunamadı",
+  "syncedFetched": "Senkronize şarkı sözleri getirildi",
+  "plainFetched": "Sade şarkı sözleri getirildi",
+  "songsIndexFailed": "Şarkı sözleri şarkı dizini yüklenemedi",
+  "cacheLoadFailed": "Şarkı sözü önbelleği yüklenemedi",
+  "offsetsLoadFailed": "Ofsetler yüklenemedi",
+  "titleArtistRequired": "başlık ve sanatçı gerekli",
+  "titleArtistEntryRequired": "başlık, sanatçı ve giriş gerekli",
+  "songIdOrTitleArtistRequired": "şarkı kimliği veya başlık ve sanatçı gerekli",
+  "trackNotFound": "Parça bulunamadı",
+  "previewUrlFailed": "Önizleme URL'si oluşturulamadı",
+  "saveFailed": "Şarkı sözü girişi kaydedilemedi",
+  "cacheIndexFailed": "Şarkı sözleri önbellek dizini yüklenemedi",
+  "entryLoadFailed": "Şarkı sözü girişi yüklenemedi",
+  "deleteFailed": "Şarkı sözü girişi silinemedi",
+  "fetchFailed": "Şarkı sözleri getirilemedi."
+}

@@ -1,0 +1,14 @@
+{
+  "nameRequired": "歌曲组名称为必填项。",
+  "modeRequired": "请选择白天或夜间模式。",
+  "needAtLeastOneSong": "歌曲组必须至少包含一首歌曲。",
+  "invalidSong": "歌曲组包含来自其他模式的歌曲或不可用的曲目。",
+  "nameExists": "已存在同名歌曲组。",
+  "created": "歌团成立。",
+  "updated": "歌曲组已更新。",
+  "deleted": "歌曲组已删除。",
+  "notFound": "找不到歌曲组。",
+  "inserted": "歌曲组插入队列。",
+  "insertNightOnly": "夜间歌曲组只能在夜间模式下插入。",
+  "insertDayOnly": "日间歌曲组只能在日间模式下插入。"
+}

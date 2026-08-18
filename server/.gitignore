@@ -1,0 +1,12 @@
+node_modules/
+
+media/*
+
+data/sql/*
+data/json/*
+migration-history/*
+translate-history/*
+*.mp3
+*.ogg
+*.log
+.env

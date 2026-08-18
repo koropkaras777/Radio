@@ -1,0 +1,14 @@
+{
+  "nameRequired": "Le nom du groupe de chansons est requis.",
+  "modeRequired": "Veuillez choisir le mode jour ou nuit.",
+  "needAtLeastOneSong": "Le groupe de chansons doit contenir au moins une chanson.",
+  "invalidSong": "Le groupe de chansons contient une chanson d'un autre mode ou une piste indisponible.",
+  "nameExists": "Un groupe de chansons portant ce nom existe déjà.",
+  "created": "Groupe de chansons créé.",
+  "updated": "Groupe de chansons mis à jour.",
+  "deleted": "Groupe de chansons supprimé.",
+  "notFound": "Groupe de chansons introuvable.",
+  "inserted": "Groupe de chansons inséré dans la file d'attente.",
+  "insertNightOnly": "Les groupes de chansons de nuit ne peuvent être insérés qu'en mode nuit.",
+  "insertDayOnly": "Les groupes de chansons diurnes ne peuvent être insérés qu’en mode jour."
+}

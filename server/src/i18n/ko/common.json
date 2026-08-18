@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "권한이 부족합니다.",
+  "insufficientPrivilegesForAction": "이 작업을 수행할 권한이 없습니다.",
+  "participantNotFound": "참가자를 찾을 수 없습니다.",
+  "unauthorized": "승인되지 않은",
+  "somethingWentWrong": "문제가 발생했습니다.",
+  "internalServerError": "내부 서버 오류",
+  "invalidMode": "잘못된 모드입니다.",
+  "invalidModeDayNight": "잘못된 모드(낮 또는 밤)입니다.",
+  "idsRequired": "ids 배열이 필요합니다.",
+  "songIdsRequired": "songIds 배열이 필요합니다.",
+  "songIdRequired": "노래 ID가 필요합니다.",
+  "fileRequired": "파일이 필요합니다",
+  "artistRequired": "아티스트는 필수 항목입니다.",
+  "trackNotFound": "트랙을 찾을 수 없습니다.",
+  "mp3Only": "MP3 파일만 지원됩니다.",
+  "noFilePayload": "파일 페이로드가 제공되지 않았습니다.",
+  "featureUnavailable": "현재 서버 구성에서는 이 기능을 사용할 수 없습니다."
+}

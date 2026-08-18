@@ -1,0 +1,18 @@
+{
+  "notFound": "Nie znaleziono tekstu",
+  "syncedFetched": "Zaostrzony zsynchronizowany tekst",
+  "plainFetched": "Zwykły tekst jest podkreślony",
+  "songsIndexFailed": "Nie udało się załadować indeksu utworu z tekstami",
+  "cacheLoadFailed": "Nie udało się załadować pamięci podręcznej tekstu",
+  "offsetsLoadFailed": "Nie udało się wczytać przesunięcia",
+  "titleArtistRequired": "Tytuł i wykonawca są wymagane",
+  "titleArtistEntryRequired": "Tytuł, wykonawca i wpis są wymagane",
+  "songIdOrTitleArtistRequired": "Wymagany jest identyfikator utworu lub tytuł i wykonawca",
+  "trackNotFound": "Nie znaleziono utworu",
+  "previewUrlFailed": "Nie udało się utworzyć adresu URL podglądu",
+  "saveFailed": "Nie udało się zapisać tekstu",
+  "cacheIndexFailed": "Nie udało się załadować indeksu pamięci podręcznej tekstu",
+  "entryLoadFailed": "Nie udało się załadować tekstu",
+  "deleteFailed": "Nie udało się usunąć tekstu",
+  "fetchFailed": "Nie udało się pobrać tekstu."
+}

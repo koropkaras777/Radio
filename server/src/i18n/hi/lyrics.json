@@ -1,0 +1,18 @@
+{
+  "notFound": "गीत नहीं मिले",
+  "syncedFetched": "सिंक किए गए गीत लाए गए",
+  "plainFetched": "सादे गीत लाए गए",
+  "songsIndexFailed": "गीत गीत अनुक्रमणिका लोड करने में विफल",
+  "cacheLoadFailed": "गीत कैश लोड करने में विफल",
+  "offsetsLoadFailed": "ऑफसेट लोड करने में विफल",
+  "titleArtistRequired": "शीर्षक और कलाकार की आवश्यकता है",
+  "titleArtistEntryRequired": "शीर्षक, कलाकार और प्रविष्टि आवश्यक है",
+  "songIdOrTitleArtistRequired": "गीतआईडी या शीर्षक और कलाकार आवश्यक",
+  "trackNotFound": "ट्रैक नहीं मिला",
+  "previewUrlFailed": "पूर्वावलोकन URL जनरेट करने में विफल",
+  "saveFailed": "गीत प्रविष्टि सहेजने में विफल",
+  "cacheIndexFailed": "गीत कैश इंडेक्स लोड करने में विफल",
+  "entryLoadFailed": "गीत प्रविष्टि लोड करने में विफल",
+  "deleteFailed": "गीत प्रविष्टि हटाने में विफल",
+  "fetchFailed": "गीत लाने में विफल."
+}

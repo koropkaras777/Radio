@@ -1,0 +1,14 @@
+{
+  "guestTitle": "Misafir odasındasın",
+  "specialGuestTitle": "Sen özel misafirsin",
+  "connect": "Yayına bağlanın",
+  "disconnect": "Bağlantıyı kes",
+  "micOn": "Mikrofon açık",
+  "micOff": "Mikrofon kapalı",
+  "micDenied": "Mikrofon erişimi engellendi; tarayıcıda buna izin verin ve tekrar deneyin.",
+  "connecting": "Bağlanıyor…",
+  "timeLeft": "Kalan süre: {m}:{s}",
+  "error": "Bağlantı kurulamadı. Lütfen tekrar deneyin.",
+  "participants": "seninle yaşamak",
+  "noParticipants": "Şu anda canlı olan diğer tek ses sensin"
+}

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /adlogin
+Disallow: /adpanel
+
+Sitemap: https://radiosmihun.com/sitemap.xml

@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "Esta pista se está reproduciendo actualmente.",
+  "playsNext": "Esta pista se reproducirá a continuación.",
+  "waitSeconds": "Espere {seconds} segundos más.",
+  "notEnoughTime": "No hay suficiente tiempo. Sólo quedan {minutes} min hasta el cambio de modo.",
+  "alreadyQueuedNearby": "Esta canción ya está en cola en esta posición.",
+  "trackNotInQueue": "Pista no encontrada en la cola.",
+  "moveCloudOnly": "Move solo está disponible en modo nube.",
+  "trackNotFound": "Pista no encontrada.",
+  "filenameExistsInTarget": "Ya existe una pista con este nombre de archivo en el modo de destino.",
+  "nightModeDisabled": "El modo nocturno está desactivado.",
+  "modeAlreadyActive": "Modo ya activo",
+  "modeSwitchAlreadyScheduled": "Cambio de modo ya programado. Vuelve a intentarlo en {mins} min.",
+  "nextModeSwitchIn": "Siguiente cambio de modo disponible en {mins} min",
+  "modeSwitchUnavailable": "El interruptor de modo no está disponible en este momento ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "No se puede cambiar de modo: las canciones donadas están en cola",
+  "scheduledBeforeBoundary": "La hora programada debe ser anterior a {boundary}:00 (límite del modo natural)"
+}

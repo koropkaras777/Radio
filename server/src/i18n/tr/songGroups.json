@@ -1,0 +1,14 @@
+{
+  "nameRequired": "Şarkı grubu adı gerekli.",
+  "modeRequired": "Lütfen gündüz veya gece modunu seçin.",
+  "needAtLeastOneSong": "Şarkı grubu en az bir şarkı içermelidir.",
+  "invalidSong": "Şarkı grubu başka bir moddan bir şarkı veya kullanılamayan bir parça içeriyor.",
+  "nameExists": "Bu ada sahip bir şarkı grubu zaten mevcut.",
+  "created": "Şarkı grubu oluşturuldu.",
+  "updated": "Şarkı grubu güncellendi.",
+  "deleted": "Şarkı grubu silindi.",
+  "notFound": "Şarkı grubu bulunamadı.",
+  "inserted": "Şarkı grubu sıraya eklendi.",
+  "insertNightOnly": "Gece şarkı grupları yalnızca gece modunda eklenebilir.",
+  "insertDayOnly": "Gündüz şarkı grupları yalnızca gündüz modunda eklenebilir."
+}

@@ -1,0 +1,14 @@
+{
+  "guestTitle": "Estás en la habitación de invitados.",
+  "specialGuestTitle": "Eres el invitado especial",
+  "connect": "Conéctate para transmitir",
+  "disconnect": "Desconectar",
+  "micOn": "Micrófono encendido",
+  "micOff": "Micrófono apagado",
+  "micDenied": "El acceso al micrófono está bloqueado: permítalo en el navegador y vuelva a intentarlo.",
+  "connecting": "Conectando…",
+  "timeLeft": "Tiempo restante: {m}:{s}",
+  "error": "No se pudo conectar. Por favor inténtalo de nuevo.",
+  "participants": "vivir contigo",
+  "noParticipants": "Eres la única otra voz en vivo ahora mismo"
+}

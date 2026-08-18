@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "Ta piosenka jest teraz odtwarzana.",
+  "playsNext": "Ta piosenka będzie odtwarzana jako następna.",
+  "waitSeconds": "Poczekaj kolejne {seconds} sek.",
+  "notEnoughTime": "Za mało czasu. Pozostało {minutes} minut do zmiany trybu.",
+  "alreadyQueuedNearby": "Ten utwór znajduje się już w kolejce obok tej lokalizacji.",
+  "trackNotInQueue": "Nie znaleziono utworu w kolejce.",
+  "moveCloudOnly": "Ruch jest dostępny tylko w trybie chmury.",
+  "trackNotFound": "Nie znaleziono utworu.",
+  "filenameExistsInTarget": "Piosenka o tej nazwie jest już na docelowych falach radiowych.",
+  "nightModeDisabled": "Tryb nocny jest wyłączony.",
+  "modeAlreadyActive": "Tryb jest już aktywny",
+  "modeSwitchAlreadyScheduled": "Zaplanowano już zmianę reżimu. Powtórzyć po {mins} min",
+  "nextModeSwitchIn": "Następna zmiana będzie dostępna za {mins} min",
+  "modeSwitchUnavailable": "Zmiana trybu nie jest obecnie dostępna ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "Nie można zmienić trybu: w kolejce znajdują się utwory przekazane przez darowiznę",
+  "scheduledBeforeBoundary": "Czas przełączania powinien być wcześniejszy niż {boundary}:00 (przejście w tryb naturalny)"
+}

@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "الحظر متاح فقط للضيف العادي.",
+  "banlistUnavailable": "قائمة الحظر غير متاحة في وضع قاعدة البيانات الحالي.",
+  "ipRequired": "عنوان IP مطلوب.",
+  "banFailed": "فشل في حظر IP.",
+  "unbanFailed": "فشل في إلغاء حظر IP."
+}

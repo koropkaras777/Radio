@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "O banimento está disponível apenas para hóspedes regulares.",
+  "banlistUnavailable": "A lista de banimentos não está disponível no modo de banco de dados atual.",
+  "ipRequired": "O endereço IP é obrigatório.",
+  "banFailed": "Falha ao banir o IP.",
+  "unbanFailed": "Falha ao cancelar o banimento do IP."
+}

@@ -1,0 +1,18 @@
+{
+  "notFound": "Songtekst niet gevonden",
+  "syncedFetched": "Gesynchroniseerde songtekst opgehaald",
+  "plainFetched": "Duidelijke teksten opgehaald",
+  "songsIndexFailed": "Kan de index van songteksten niet laden",
+  "cacheLoadFailed": "Kan songtekstcache niet laden",
+  "offsetsLoadFailed": "Kan offsets niet laden",
+  "titleArtistRequired": "titel en artiest vereist",
+  "titleArtistEntryRequired": "titel, artiest en inschrijving vereist",
+  "songIdOrTitleArtistRequired": "songId of titel en artiest vereist",
+  "trackNotFound": "Track niet gevonden",
+  "previewUrlFailed": "Kan voorbeeld-URL niet genereren",
+  "saveFailed": "Kan songtekstinvoer niet opslaan",
+  "cacheIndexFailed": "Kan de songtekstcache-index niet laden",
+  "entryLoadFailed": "Kan songtekstinvoer niet laden",
+  "deleteFailed": "Kan songtekstinvoer niet verwijderen",
+  "fetchFailed": "Kan de songtekst niet ophalen."
+}

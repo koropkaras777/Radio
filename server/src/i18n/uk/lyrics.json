@@ -1,0 +1,18 @@
+{
+    "notFound": "Текст не знайдено",
+    "syncedFetched": "Підтягнуто синхронізований текст",
+    "plainFetched": "Підтягнуто звичайний текст",
+    "songsIndexFailed": "Не вдалося завантажити індекс пісень з текстами",
+    "cacheLoadFailed": "Не вдалося завантажити кеш текстів",
+    "offsetsLoadFailed": "Не вдалося завантажити зміщення",
+    "titleArtistRequired": "Потрібні title і artist",
+    "titleArtistEntryRequired": "Потрібні title, artist і entry",
+    "songIdOrTitleArtistRequired": "Потрібен songId або title і artist",
+    "trackNotFound": "Трек не знайдено",
+    "previewUrlFailed": "Не вдалося створити URL прев'ю",
+    "saveFailed": "Не вдалося зберегти текст",
+    "cacheIndexFailed": "Не вдалося завантажити індекс кешу текстів",
+    "entryLoadFailed": "Не вдалося завантажити текст",
+    "deleteFailed": "Не вдалося видалити текст",
+    "fetchFailed": "Не вдалося отримати текст пісні."
+}

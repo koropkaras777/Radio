@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "Field \"{field}\" is required.",
+  "fieldTooShort": "Field \"{field}\" must be at least {min} characters long.",
+  "fieldTooLong": "Field \"{field}\" must be no longer than {max} characters."
+}

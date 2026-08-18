@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "Pole \"{field}\" jest wymagane.",
+  "fieldTooShort": "Pole \"{field}\" musi zawierać co najmniej {min} znaków.",
+  "fieldTooLong": "Pole \"{field}\" nie może zawierać więcej niż {max} znaków."
+}

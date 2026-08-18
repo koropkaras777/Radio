@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "החסימה זמינה רק לאורח קבוע.",
+  "banlistUnavailable": "ה-banlist אינו זמין במצב מסד הנתונים הנוכחי.",
+  "ipRequired": "נדרשת כתובת IP.",
+  "banFailed": "לא הצליח לחסום את ה-IP.",
+  "unbanFailed": "ביטול החסימה של ה-IP נכשל."
+}

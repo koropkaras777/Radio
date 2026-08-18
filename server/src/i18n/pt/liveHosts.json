@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "O recurso de hosts de rádio está desativado.",
+  "noFreeHostSlots": "Não há slots de host gratuitos no momento.",
+  "noFreeSlots": "Não há vagas gratuitas no momento.",
+  "trackNotFound": "Faixa não encontrada.",
+  "sessionNotVerified": "Sessão não verificada. Por favor, acesse /guest novamente.",
+  "noHostLive": "Nenhum host está ativo no momento."
+}

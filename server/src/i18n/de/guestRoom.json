@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Administratoren können nicht als Gast beitreten.",
+  "nicknameRequired": "Spitzname ist erforderlich.",
+  "tooManyAttempts": "Zu viele Versuche. Versuchen Sie es später noch einmal.",
+  "codeExpiredOrDeactivated": "Der Code ist abgelaufen oder wurde deaktiviert.",
+  "invalidCode": "Ungültiger Code.",
+  "adminCannotSubmitRequest": "Administratoren können keine Gastanfrage stellen.",
+  "accessBlocked": "Zugriff gesperrt.",
+  "requestNotFound": "Anfrage nicht gefunden.",
+  "slotJustTaken": "Der Platz war gerade vergeben.",
+  "codeAlreadyActive": "Ein Code ist bereits aktiv."
+}

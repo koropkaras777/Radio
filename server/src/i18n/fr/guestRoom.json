@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Les administrateurs ne peuvent pas rejoindre en tant qu'invité.",
+  "nicknameRequired": "Le pseudo est obligatoire.",
+  "tooManyAttempts": "Trop de tentatives. Réessayez plus tard.",
+  "codeExpiredOrDeactivated": "Le code a expiré ou a été désactivé.",
+  "invalidCode": "Code invalide.",
+  "adminCannotSubmitRequest": "Les administrateurs ne peuvent pas soumettre de demande d'invité.",
+  "accessBlocked": "Accès bloqué.",
+  "requestNotFound": "Demande introuvable.",
+  "slotJustTaken": "La place vient d'être prise.",
+  "codeAlreadyActive": "Un code est déjà actif."
+}

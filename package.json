@@ -1,0 +1,24 @@
+{
+  "name": "radio-project-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Synchronized, self-hosted online radio - Node.js/Express/Socket.io backend, React/Vite frontend.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koropkaras777/radio.git"
+  },
+  "homepage": "https://github.com/koropkaras777/radio",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "install-all": "npm install --prefix server && npm install --prefix client --include=dev && npm install --prefix docs --include=dev",
+    "build-client": "npm run build --prefix client",
+    "build-docs": "npm run build --prefix docs",
+    "build": "npm run build-client && npm run build-docs",
+    "start": "node server/index.js",
+    "dev": "npm run dev --prefix server",
+    "dev-docs": "npm run dev --prefix docs"
+  }
+}

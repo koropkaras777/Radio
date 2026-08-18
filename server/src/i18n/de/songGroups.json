@@ -1,0 +1,14 @@
+{
+  "nameRequired": "Der Name der Songgruppe ist erforderlich.",
+  "modeRequired": "Bitte wählen Sie Tag- oder Nachtmodus.",
+  "needAtLeastOneSong": "Die Liedgruppe muss mindestens ein Lied enthalten.",
+  "invalidSong": "Die Songgruppe enthält einen Song aus einem anderen Modus oder einen nicht verfügbaren Titel.",
+  "nameExists": "Eine Songgruppe mit diesem Namen existiert bereits.",
+  "created": "Songgruppe erstellt.",
+  "updated": "Songgruppe aktualisiert.",
+  "deleted": "Songgruppe gelöscht.",
+  "notFound": "Songgruppe nicht gefunden.",
+  "inserted": "Songgruppe in die Warteschlange eingefügt.",
+  "insertNightOnly": "Nachtliedgruppen können nur im Nachtmodus eingefügt werden.",
+  "insertDayOnly": "Tagesliedgruppen können nur im Tagmodus eingefügt werden."
+}

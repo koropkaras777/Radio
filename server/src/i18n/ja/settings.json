@@ -1,0 +1,17 @@
+{
+  "guestMaxDuration": "ゲストの最大セッション期間は {min} ～ {max} 分以内である必要があります。",
+  "specialGuestMaxDuration": "特別ゲストの最大セッション時間は {min}–{max} 分以内である必要があります。",
+  "backgroundMusicMode": "BGM 再生モードは「ランダム」または「ホスト選択」である必要があります。",
+  "dayLibraryTooShort": "1 日のラジオの総再生時間は 1 時間未満です。キューの生成はブロックされます。",
+  "nightLibraryTooShort": "Total night radio duration is below 1 hour.キューの生成はブロックされます。",
+  "maxDayDuration": "最大 1 日のラジオ継続時間は {min}–{max} 分以内である必要があります。",
+  "maxNightDuration": "夜間ラジオの最大継続時間は {min}–{max} 分以内である必要があります。",
+  "songsPerSection": "セクションごとの平均曲数は {min} ～ {max} 以内でなければなりません。",
+  "nightSongsPerSection": "セクションごとの平均曲数 (夜間ラジオ) は {min} ～ {max} 以内でなければなりません。",
+  "needTwoGroups": "利用可能な曲が含まれる空ではないグループが少なくとも 2 つ必要です。",
+  "needTwoGenreGroups": "少なくとも 2 つの空ではないジャンル グループが必要です。",
+  "notEnoughSongsDuration": "曲が足りません: 最大再生時間 ~{minutes} 分 (60 分以上必要)。",
+  "algorithmDeferred": "設定は保存されましたが、アルゴリズムの変更は次の無線サイクルで有効になります。",
+  "changesInEffect": "変更は現在有効です。",
+  "libraryTooSmall": "{folder} ライブラリには 1 時間未満の音楽が含まれています。"
+}

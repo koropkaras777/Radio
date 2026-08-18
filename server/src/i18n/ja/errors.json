@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "無効なセッションです。再度サインインしてください。",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "提案をキューに追加できませんでした。",
+  "QUEUE_ADD_FAILED": "曲をキューに追加できませんでした。",
+  "QUEUE_REMOVE_FAILED": "キューから曲を削除できませんでした。",
+  "QUEUE_SKIP_FAILED": "曲のスキップに失敗しました。",
+  "QUEUE_GROUP_INSERT_FAILED": "ソンググループの挿入に失敗しました。",
+  "SONG_NOT_FOUND": "曲が見つかりません。",
+  "DONATIONS_TIERS_FAILED": "階層価格の計算に失敗しました。",
+  "DONATIONS_CREATE_FAILED": "寄付を作成できませんでした。",
+  "DONATIONS_STATUS_FAILED": "寄付状況の確認に失敗しました。",
+  "DONATIONS_WEBHOOK_INVALID": "寄付 Webhook が無効です。",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "寄付設定を保存できませんでした。",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "寄付設定の読み込みに失敗しました。",
+  "DONATIONS_HISTORY_FAILED": "寄付履歴の読み込みに失敗しました。"
+}

@@ -1,0 +1,14 @@
+{
+  "guestTitle": "Sei nella stanza degli ospiti",
+  "specialGuestTitle": "Tu sei l'ospite speciale",
+  "connect": "Connettiti per trasmettere",
+  "disconnect": "Disconnetti",
+  "micOn": "Microfono acceso",
+  "micOff": "Microfono spento",
+  "micDenied": "L'accesso al microfono è bloccato: consentilo nel browser e riprova.",
+  "connecting": "Connessione…",
+  "timeLeft": "Tempo rimasto: {m}:{s}",
+  "error": "Impossibile connettersi. Per favore riprova.",
+  "participants": "Vivi con te",
+  "noParticipants": "Sei l'unica altra voce dal vivo in questo momento"
+}

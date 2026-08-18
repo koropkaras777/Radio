@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "管理者はゲストとして参加できません。",
+  "nicknameRequired": "ニックネームは必須です。",
+  "tooManyAttempts": "試行回数が多すぎます。後でもう一度試してください。",
+  "codeExpiredOrDeactivated": "コードの有効期限が切れているか、無効化されています。",
+  "invalidCode": "無効なコードです。",
+  "adminCannotSubmitRequest": "管理者はゲストリクエストを送信できません。",
+  "accessBlocked": "アクセスがブロックされました。",
+  "requestNotFound": "リクエストが見つかりません。",
+  "slotJustTaken": "スロットが取られたばかりです。",
+  "codeAlreadyActive": "コードはすでにアクティブです。"
+}

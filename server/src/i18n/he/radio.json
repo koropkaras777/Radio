@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "רצועה זו פועלת כעת.",
+  "playsNext": "הרצועה הזו תתנגן בשלב הבא.",
+  "waitSeconds": "אנא המתן {seconds} שניות נוספות.",
+  "notEnoughTime": "אין מספיק זמן. נותרו רק {minutes} דקות עד לשינוי המצב.",
+  "alreadyQueuedNearby": "השיר הזה כבר בתור בעמדה הזו.",
+  "trackNotInQueue": "הרצועה לא נמצאה בתור.",
+  "moveCloudOnly": "Move זמין במצב ענן בלבד.",
+  "trackNotFound": "המסלול לא נמצא.",
+  "filenameExistsInTarget": "רצועה בשם הקובץ הזה כבר קיימת במצב היעד.",
+  "nightModeDisabled": "מצב לילה מושבת.",
+  "modeAlreadyActive": "המצב כבר פעיל",
+  "modeSwitchAlreadyScheduled": "החלפת מצב כבר תוזמנה. נסה שוב בעוד {mins} דקות",
+  "nextModeSwitchIn": "מתג המצב הבא זמין בעוד {mins} דקות",
+  "modeSwitchUnavailable": "מתג המצב אינו זמין בשלב זה ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "לא ניתן להחליף מצב: שירים שנתרמו נמצאים בתור",
+  "scheduledBeforeBoundary": "הזמן המתוכנן חייב להיות לפני {boundary}:00 (גבול מצב טבעי)"
+}

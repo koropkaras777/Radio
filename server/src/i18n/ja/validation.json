@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "フィールド「{field}」は必須です。",
+  "fieldTooShort": "フィールド「{field}」は少なくとも {min} 文字の長さである必要があります。",
+  "fieldTooLong": "フィールド「{field}」は {max} 文字以下にする必要があります。"
+}

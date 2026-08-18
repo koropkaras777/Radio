@@ -1,0 +1,14 @@
+{
+  "loadFailed": "Kan de artiestenlijst niet laden.",
+  "invalidArtist": "Ongeldige artiest.",
+  "notFound": "Kunst niet gevonden.",
+  "serveFailed": "Het is niet gelukt om art.",
+  "jpgOnly": "Alleen JPG-afbeeldingen worden ondersteund.",
+  "portraitRequired": "Het beeld moet portretgericht zijn.",
+  "saved": "Kunst van kunstenaars succesvol opgeslagen.",
+  "saveFailed": "Kan de kunst van de kunstenaar niet opslaan.",
+  "artistRequired": "Artiest is vereist.",
+  "deleted": "Artiestenkunst is succesvol verwijderd.",
+  "deleteFailed": "Kan artiestkunst niet verwijderen.",
+  "deleteArtFailed": "Kan kunst niet verwijderen."
+}

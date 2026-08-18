@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "Funkcja prezentera jest wyłączona.",
+  "noFreeHostSlots": "Brak dostępnych miejsc dla prezenterów.",
+  "noFreeSlots": "Nie ma darmowych slotów.",
+  "trackNotFound": "Nie znaleziono kompozycji.",
+  "sessionNotVerified": "Sesja niepotwierdzona. Spróbuj zalogować się ponownie przez /guest.",
+  "noHostLive": "Obecnie na antenie nie ma żadnego gospodarza."
+}

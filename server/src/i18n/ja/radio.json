@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "このトラックは現在再生中です。",
+  "playsNext": "次にこのトラックが再生されます。",
+  "waitSeconds": "{seconds} 秒ほどお待ちください。",
+  "notEnoughTime": "時間が足りません。モード変更まで残り {minutes} 分です。",
+  "alreadyQueuedNearby": "この曲はすでにこの位置にキューされています。",
+  "trackNotInQueue": "キュー内にトラックが見つかりません。",
+  "moveCloudOnly": "移動はクラウド モードでのみ使用できます。",
+  "trackNotFound": "トラックが見つかりません。",
+  "filenameExistsInTarget": "このファイル名のトラックはターゲット モードにすでに存在します。",
+  "nightModeDisabled": "ナイトモードは無効になっています。",
+  "modeAlreadyActive": "モードはすでにアクティブです",
+  "modeSwitchAlreadyScheduled": "モード切り替えはすでにスケジュールされています。 {mins} 分後にもう一度お試しください",
+  "nextModeSwitchIn": "次のモード切り替えは {mins} 分で利用可能になります",
+  "modeSwitchUnavailable": "現時点ではモード切り替えは利用できません ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "モードを切り替えられません: 寄付された曲がキューに登録されています",
+  "scheduledBeforeBoundary": "スケジュールされた時刻は {boundary}:00 (ナチュラル モード境界) より前である必要があります。"
+}

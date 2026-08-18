@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "\"{field}\" alanı gereklidir.",
+  "fieldTooShort": "\"{field}\" alanı en az {min} karakter uzunluğunda olmalıdır.",
+  "fieldTooLong": "\"{field}\" alanı {max} karakterden uzun olmamalıdır."
+}

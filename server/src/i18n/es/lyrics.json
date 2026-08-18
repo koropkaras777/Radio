@@ -1,0 +1,18 @@
+{
+  "notFound": "Letras no encontradas",
+  "syncedFetched": "Letras sincronizadas obtenidas",
+  "plainFetched": "Letras sencillas recuperadas",
+  "songsIndexFailed": "No se pudo cargar el índice de letras de canciones",
+  "cacheLoadFailed": "No se pudo cargar el caché de letras",
+  "offsetsLoadFailed": "No se pudieron cargar las compensaciones",
+  "titleArtistRequired": "título y artista requeridos",
+  "titleArtistEntryRequired": "título, artista y entrada requerida",
+  "songIdOrTitleArtistRequired": "Se requiere ID de canción o título y artista.",
+  "trackNotFound": "Pista no encontrada",
+  "previewUrlFailed": "No se pudo generar la URL de vista previa",
+  "saveFailed": "No se pudo guardar la entrada de la letra",
+  "cacheIndexFailed": "No se pudo cargar el índice de caché de letras",
+  "entryLoadFailed": "No se pudo cargar la entrada de la letra",
+  "deleteFailed": "No se pudo eliminar la entrada de letra",
+  "fetchFailed": "No se pudo recuperar la letra."
+}

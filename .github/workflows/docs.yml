@@ -1,0 +1,35 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - 'server/src/**'
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+
+jobs:
+  check:
+    name: API reference is up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: docs/.vitepress/package-lock.json
+
+      - name: Install dependencies
+        working-directory: docs/.vitepress
+        run: npm ci
+
+      - name: Check reference against the code
+        working-directory: docs/.vitepress
+        run: npm run check
+
+      - name: Build site
+        working-directory: docs/.vitepress
+        run: npm run build

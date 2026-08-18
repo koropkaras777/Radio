@@ -1,0 +1,18 @@
+{
+  "notFound": "מילות השיר לא נמצאו",
+  "syncedFetched": "מילים מסונכרנות הובאו",
+  "plainFetched": "מילים פשוטות הובאו",
+  "songsIndexFailed": "טעינת אינדקס שירי המילים נכשלה",
+  "cacheLoadFailed": "טעינת המטמון של המילים נכשלה",
+  "offsetsLoadFailed": "טעינת ההיסטים נכשלה",
+  "titleArtistRequired": "דרושים תואר ואמן",
+  "titleArtistEntryRequired": "תואר, אמן וערך נדרשים",
+  "songIdOrTitleArtistRequired": "נדרש מזהה שיר או כותרת ואומן",
+  "trackNotFound": "המסלול לא נמצא",
+  "previewUrlFailed": "יצירת כתובת URL לתצוגה מקדימה נכשלה",
+  "saveFailed": "שמירת רשומת המילים נכשלה",
+  "cacheIndexFailed": "טעינת אינדקס המטמון של המילים נכשלה",
+  "entryLoadFailed": "טעינת הערך של מילות השיר נכשלה",
+  "deleteFailed": "נכשל מחיקת הערך של מילות השיר",
+  "fetchFailed": "שליפת המילים נכשלה."
+}

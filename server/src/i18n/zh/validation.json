@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "字段\"{field}\"是必需的。",
+  "fieldTooShort": "字段\"{field}\"的长度必须至少为 {min} 个字符。",
+  "fieldTooLong": "字段\"{field}\"不得超过 {max} 个字符。"
+}

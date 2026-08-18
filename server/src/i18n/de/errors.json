@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Ungültige Sitzung. Bitte melden Sie sich erneut an.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "Der Vorschlag konnte nicht zur Warteschlange hinzugefügt werden.",
+  "QUEUE_ADD_FAILED": "Das Lied konnte nicht zur Warteschlange hinzugefügt werden.",
+  "QUEUE_REMOVE_FAILED": "Das Lied konnte nicht aus der Warteschlange entfernt werden.",
+  "QUEUE_SKIP_FAILED": "Das Lied konnte nicht übersprungen werden.",
+  "QUEUE_GROUP_INSERT_FAILED": "Die Songgruppe konnte nicht eingefügt werden.",
+  "SONG_NOT_FOUND": "Lied nicht gefunden.",
+  "DONATIONS_TIERS_FAILED": "Die Berechnung der Staffelpreise ist fehlgeschlagen.",
+  "DONATIONS_CREATE_FAILED": "Die Spende konnte nicht erstellt werden.",
+  "DONATIONS_STATUS_FAILED": "Der Spendenstatus konnte nicht überprüft werden.",
+  "DONATIONS_WEBHOOK_INVALID": "Ungültiger Spenden-Webhook.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "Die Spendeneinstellungen konnten nicht gespeichert werden.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "Die Spendeneinstellungen konnten nicht geladen werden.",
+  "DONATIONS_HISTORY_FAILED": "Der Spendenverlauf konnte nicht geladen werden."
+}

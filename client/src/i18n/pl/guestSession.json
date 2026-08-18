@@ -1,0 +1,14 @@
+{
+  "guestTitle": "Jesteś w pokoju gościnnym",
+  "specialGuestTitle": "Jesteś gościem specjalnym audycji",
+  "connect": "Połącz się z powietrzem",
+  "disconnect": "odłączyć",
+  "micOn": "Mikrofon jest włączony",
+  "micOff": "Mikrofon jest wyłączony",
+  "micDenied": "Nie można uzyskać dostępu do mikrofonu — włącz go w przeglądarce i spróbuj ponownie.",
+  "connecting": "Złączony…",
+  "timeLeft": "Pozostały czas: {m}:{s}",
+  "error": "Nie udało się połączyć. Spróbuj ponownie.",
+  "participants": "Na antenie z tobą",
+  "noParticipants": "Jesteś obecnie jedynym rozmówcą na antenie"
+}

@@ -1,0 +1,14 @@
+{
+  "loadFailed": "Sanatçı listesi yüklenemedi.",
+  "invalidArtist": "Geçersiz sanatçı.",
+  "notFound": "Sanat bulunamadı.",
+  "serveFailed": "Sanata hizmet edilemedi.",
+  "jpgOnly": "Yalnızca JPG görselleri desteklenir.",
+  "portraitRequired": "Resim portre odaklı olmalıdır.",
+  "saved": "Sanatçı sanatı başarıyla kaydedildi.",
+  "saveFailed": "Sanatçı sanatı kaydedilemedi.",
+  "artistRequired": "Sanatçı gereklidir.",
+  "deleted": "Sanatçının resmi başarıyla silindi.",
+  "deleteFailed": "Sanatçının resmi silinemedi.",
+  "deleteArtFailed": "Sanat silinemedi."
+}

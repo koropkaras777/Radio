@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "Radyo ana bilgisayarları özelliği devre dışı bırakıldı.",
+  "noFreeHostSlots": "Şu anda ücretsiz barındırma yuvası yok.",
+  "noFreeSlots": "Şu anda ücretsiz slot yok.",
+  "trackNotFound": "Parça bulunamadı.",
+  "sessionNotVerified": "Oturum doğrulanmadı. Lütfen /guest'i tekrar deneyin.",
+  "noHostLive": "Şu anda hiçbir sunucu canlı değil."
+}

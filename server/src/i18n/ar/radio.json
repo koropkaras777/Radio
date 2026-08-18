@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "يتم تشغيل هذا المسار حاليًا.",
+  "playsNext": "سيتم تشغيل هذا المسار بعد ذلك.",
+  "waitSeconds": "يرجى الانتظار {seconds} ثانية أخرى.",
+  "notEnoughTime": "لا يوجد ما يكفي من الوقت. لم يتبق سوى {minutes} دقيقة حتى يتم تغيير الوضع.",
+  "alreadyQueuedNearby": "هذه الأغنية موجودة بالفعل في قائمة الانتظار في هذا الموضع.",
+  "trackNotInQueue": "لم يتم العثور على المسار في قائمة الانتظار.",
+  "moveCloudOnly": "الحركة متاحة في الوضع السحابي فقط.",
+  "trackNotFound": "لم يتم العثور على المسار.",
+  "filenameExistsInTarget": "يوجد مسار يحمل اسم الملف هذا بالفعل في الوضع الهدف.",
+  "nightModeDisabled": "تم تعطيل الوضع الليلي.",
+  "modeAlreadyActive": "الوضع نشط بالفعل",
+  "modeSwitchAlreadyScheduled": "تم جدولة تبديل الوضع بالفعل. حاول مرة أخرى خلال {mins} دقيقة",
+  "nextModeSwitchIn": "مفتاح الوضع التالي متاح في {mins} دقيقة",
+  "modeSwitchUnavailable": "مفتاح الوضع غير متاح في الوقت الحالي ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "لا يمكن تبديل الوضع: الأغاني التي تم التبرع بها موجودة في قائمة الانتظار",
+  "scheduledBeforeBoundary": "يجب أن يكون الوقت المجدول قبل {boundary}:00 (حدود الوضع الطبيعي)"
+}

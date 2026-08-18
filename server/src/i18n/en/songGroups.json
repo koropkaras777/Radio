@@ -1,0 +1,14 @@
+{
+  "nameRequired": "Song group name is required.",
+  "modeRequired": "Please choose day or night mode.",
+  "needAtLeastOneSong": "Song group must contain at least one song.",
+  "invalidSong": "Song group contains a song from another mode or an unavailable track.",
+  "nameExists": "A song group with this name already exists.",
+  "created": "Song group created.",
+  "updated": "Song group updated.",
+  "deleted": "Song group deleted.",
+  "notFound": "Song group not found.",
+  "inserted": "Song group inserted into the queue.",
+  "insertNightOnly": "Night song groups can only be inserted during night mode.",
+  "insertDayOnly": "Day song groups can only be inserted during day mode."
+}

@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "Il divieto è disponibile solo per un ospite abituale.",
+  "banlistUnavailable": "La banlist non è disponibile nella modalità database corrente.",
+  "ipRequired": "L'indirizzo IP è obbligatorio.",
+  "banFailed": "Impossibile vietare l'IP.",
+  "unbanFailed": "Impossibile sbloccare l'IP."
+}

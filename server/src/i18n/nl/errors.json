@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Ongeldige sessie. Meld u opnieuw aan.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "Kan de suggestie niet aan de wachtrij toevoegen.",
+  "QUEUE_ADD_FAILED": "Kan het nummer niet aan de wachtrij toevoegen.",
+  "QUEUE_REMOVE_FAILED": "Kan het nummer niet uit de wachtrij verwijderen.",
+  "QUEUE_SKIP_FAILED": "Kan het nummer niet overslaan.",
+  "QUEUE_GROUP_INSERT_FAILED": "Kan de songgroep niet invoegen.",
+  "SONG_NOT_FOUND": "Lied niet gevonden.",
+  "DONATIONS_TIERS_FAILED": "Kan niveauprijzen niet berekenen.",
+  "DONATIONS_CREATE_FAILED": "Kan de donatie niet aanmaken.",
+  "DONATIONS_STATUS_FAILED": "Kan de donatiestatus niet controleren.",
+  "DONATIONS_WEBHOOK_INVALID": "Ongeldige donatie-webhook.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "Kan donatie-instellingen niet opslaan.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "Kan donatie-instellingen niet laden.",
+  "DONATIONS_HISTORY_FAILED": "Kan de donatiegeschiedenis niet laden."
+}

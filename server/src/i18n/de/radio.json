@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "Dieser Titel wird gerade abgespielt.",
+  "playsNext": "Dieser Titel wird als nächstes abgespielt.",
+  "waitSeconds": "Bitte warten Sie noch {seconds} Sekunden.",
+  "notEnoughTime": "Nicht genug Zeit. Nur noch {minutes} Minuten bis zum Moduswechsel.",
+  "alreadyQueuedNearby": "Dieses Lied befindet sich bereits an dieser Position in der Warteschlange.",
+  "trackNotInQueue": "Der Titel wurde in der Warteschlange nicht gefunden.",
+  "moveCloudOnly": "Move ist nur im Cloud-Modus verfügbar.",
+  "trackNotFound": "Titel nicht gefunden.",
+  "filenameExistsInTarget": "Im Zielmodus existiert bereits ein Track mit diesem Dateinamen.",
+  "nightModeDisabled": "Der Nachtmodus ist deaktiviert.",
+  "modeAlreadyActive": "Modus bereits aktiv",
+  "modeSwitchAlreadyScheduled": "Moduswechsel bereits geplant. Versuchen Sie es in {mins} Min. noch einmal",
+  "nextModeSwitchIn": "Nächster Modusschalter verfügbar in {mins} min",
+  "modeSwitchUnavailable": "Modusschalter derzeit nicht verfügbar ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "Der Modus kann nicht gewechselt werden: Gespendete Songs stehen in der Warteschlange",
+  "scheduledBeforeBoundary": "Die geplante Zeit muss vor {boundary}:00 (Grenze des natürlichen Modus) liegen."
+}

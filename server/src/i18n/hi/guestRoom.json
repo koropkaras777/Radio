@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "व्यवस्थापक अतिथि के रूप में शामिल नहीं हो सकते.",
+  "nicknameRequired": "उपनाम आवश्यक है.",
+  "tooManyAttempts": "बहुत अधिक प्रयास. बाद में पुन: प्रयास।",
+  "codeExpiredOrDeactivated": "कोड समाप्त हो गया है या निष्क्रिय कर दिया गया है.",
+  "invalidCode": "अवैध कोड।",
+  "adminCannotSubmitRequest": "व्यवस्थापक अतिथि अनुरोध सबमिट नहीं कर सकते.",
+  "accessBlocked": "प्रवेश अवरुद्ध.",
+  "requestNotFound": "अनुरोध नहीं मिला.",
+  "slotJustTaken": "स्लॉट अभी लिया गया था.",
+  "codeAlreadyActive": "एक कोड पहले से ही सक्रिय है."
+}

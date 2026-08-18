@@ -1,0 +1,5 @@
+{
+  "fieldRequired": "שדה \"{field}\" נדרש.",
+  "fieldTooShort": "שדה \"{field}\" חייב להיות באורך של לפחות {min} תווים.",
+  "fieldTooLong": "השדה \"{field}\" לא יכול להיות ארוך מ-{max} תווים."
+}

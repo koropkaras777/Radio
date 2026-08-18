@@ -1,0 +1,18 @@
+{
+  "notFound": "Lyrics not found",
+  "syncedFetched": "Synced lyrics fetched",
+  "plainFetched": "Plain lyrics fetched",
+  "songsIndexFailed": "Failed to load lyrics songs index",
+  "cacheLoadFailed": "Failed to load lyrics cache",
+  "offsetsLoadFailed": "Failed to load offsets",
+  "titleArtistRequired": "title and artist required",
+  "titleArtistEntryRequired": "title, artist and entry required",
+  "songIdOrTitleArtistRequired": "songId or title and artist required",
+  "trackNotFound": "Track not found",
+  "previewUrlFailed": "Failed to generate preview URL",
+  "saveFailed": "Failed to save lyrics entry",
+  "cacheIndexFailed": "Failed to load lyrics cache index",
+  "entryLoadFailed": "Failed to load lyrics entry",
+  "deleteFailed": "Failed to delete lyrics entry",
+  "fetchFailed": "Failed to fetch lyrics."
+}

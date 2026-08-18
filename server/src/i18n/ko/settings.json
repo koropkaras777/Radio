@@ -1,0 +1,17 @@
+{
+  "guestMaxDuration": "게스트 최대 세션 시간은 {min}~{max}분 이내여야 합니다.",
+  "specialGuestMaxDuration": "특별 게스트의 최대 세션 시간은 {min}~{max}분 이내여야 합니다.",
+  "backgroundMusicMode": "배경 음악 재생 모드는 \"무작위\" 또는 \"호스트 선택\"이어야 합니다.",
+  "dayLibraryTooShort": "하루 총 라디오 지속 시간은 1시간 미만입니다. 대기열 생성이 차단되었습니다.",
+  "nightLibraryTooShort": "총 야간 라디오 지속 시간은 1시간 미만입니다. 대기열 생성이 차단되었습니다.",
+  "maxDayDuration": "일일 최대 라디오 지속 시간은 {min}~{max}분 이내여야 합니다.",
+  "maxNightDuration": "최대 야간 라디오 지속 시간은 {min}~{max}분 이내여야 합니다.",
+  "songsPerSection": "섹션당 평균 노래는 {min}-{max} 내에 있어야 합니다.",
+  "nightSongsPerSection": "섹션(심야 라디오)당 평균 노래는 {min}-{max} 내에 있어야 합니다.",
+  "needTwoGroups": "사용 가능한 노래가 있는 비어 있지 않은 그룹이 2개 이상 필요합니다.",
+  "needTwoGenreGroups": "비어 있지 않은 장르 그룹이 2개 이상 필요합니다.",
+  "notEnoughSongsDuration": "노래가 충분하지 않음: 최대 기간 ~{minutes}분(60분 이상 필요)",
+  "algorithmDeferred": "설정이 저장되었지만 알고리즘 변경 사항은 다음 무선 주기부터 적용됩니다.",
+  "changesInEffect": "이제 변경 사항이 적용됩니다.",
+  "libraryTooSmall": "{folder} 라이브러리에는 1시간 미만의 음악이 포함되어 있습니다."
+}

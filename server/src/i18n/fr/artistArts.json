@@ -1,0 +1,14 @@
+{
+  "loadFailed": "Échec du chargement de la liste des artistes.",
+  "invalidArtist": "Artiste invalide.",
+  "notFound": "Art introuvable.",
+  "serveFailed": "N'a pas servi l'art.",
+  "jpgOnly": "Seules les images JPG sont prises en charge.",
+  "portraitRequired": "L'image doit être orientée portrait.",
+  "saved": "L'œuvre de l'artiste a été enregistrée avec succès.",
+  "saveFailed": "Échec de l'enregistrement de l'illustration de l'artiste.",
+  "artistRequired": "L'artiste est requis.",
+  "deleted": "L'œuvre de l'artiste a été supprimée avec succès.",
+  "deleteFailed": "Échec de la suppression de l'illustration de l'artiste.",
+  "deleteArtFailed": "Échec de la suppression de l'art."
+}

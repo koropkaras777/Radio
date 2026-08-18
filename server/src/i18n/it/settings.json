@@ -1,0 +1,17 @@
+{
+  "guestMaxDuration": "La durata massima della sessione ospite deve essere compresa tra {min}–{max} min.",
+  "specialGuestMaxDuration": "La durata massima della sessione per gli ospiti speciali deve essere compresa tra {min}–{max} min.",
+  "backgroundMusicMode": "La modalità di riproduzione della musica di sottofondo deve essere \"casuale\" o \"scelta dell'host\".",
+  "dayLibraryTooShort": "La durata totale della radio durante il giorno è inferiore a 1 ora. La generazione della coda è bloccata.",
+  "nightLibraryTooShort": "La durata totale della radio notturna è inferiore a 1 ora. La generazione della coda è bloccata.",
+  "maxDayDuration": "La durata massima della radio diurna deve essere compresa tra {min}–{max} min.",
+  "maxNightDuration": "La durata massima della radio notturna deve essere compresa tra {min}–{max} min.",
+  "songsPerSection": "La media dei brani per sezione deve essere compresa tra {min}-{max}.",
+  "nightSongsPerSection": "La media dei brani per sezione (radio notturna) deve essere compresa tra {min}-{max}.",
+  "needTwoGroups": "Sono richiesti almeno 2 gruppi non vuoti con brani disponibili.",
+  "needTwoGenreGroups": "Sono richiesti almeno 2 gruppi di genere non vuoti.",
+  "notEnoughSongsDuration": "Canzoni insufficienti: durata massima ~{minutes} min (richiede ≥ 60 min).",
+  "algorithmDeferred": "Le impostazioni sono state salvate, ma la modifica dell'algoritmo avrà effetto con il successivo ciclo radio.",
+  "changesInEffect": "Le modifiche sono ora in vigore.",
+  "libraryTooSmall": "La libreria {folder} contiene meno di 1 ora di musica."
+}

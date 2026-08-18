@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Yöneticiler misafir olarak katılamaz.",
+  "nicknameRequired": "Takma ad gerekli.",
+  "tooManyAttempts": "Çok fazla deneme. Daha sonra tekrar deneyin.",
+  "codeExpiredOrDeactivated": "Kodun süresi dolmuş veya devre dışı bırakılmış.",
+  "invalidCode": "Geçersiz kod.",
+  "adminCannotSubmitRequest": "Yöneticiler misafir isteği gönderemez.",
+  "accessBlocked": "Erişim engellendi.",
+  "requestNotFound": "İstek bulunamadı.",
+  "slotJustTaken": "Slot yeni alındı.",
+  "codeAlreadyActive": "Bir kod zaten etkin."
+}

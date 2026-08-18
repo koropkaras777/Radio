@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "权限不够。",
+  "insufficientPrivilegesForAction": "您没有执行此操作的权限。",
+  "participantNotFound": "未找到参与者。",
+  "unauthorized": "未经授权",
+  "somethingWentWrong": "出了点问题。",
+  "internalServerError": "内部服务器错误",
+  "invalidMode": "模式无效。",
+  "invalidModeDayNight": "无效模式（白天或夜间）。",
+  "idsRequired": "ids 数组是必需的。",
+  "songIdsRequired": "SongIds 数组是必需的。",
+  "songIdRequired": "歌曲 ID 为必填项。",
+  "fileRequired": "需要文件",
+  "artistRequired": "需要艺术家",
+  "trackNotFound": "未找到曲目。",
+  "mp3Only": "仅支持 MP3 文件。",
+  "noFilePayload": "未提供文件有效负载。",
+  "featureUnavailable": "此功能在当前服务器配置中不可用。"
+}

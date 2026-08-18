@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "이 트랙은 현재 재생 중입니다.",
+  "playsNext": "이 트랙이 다음에 재생됩니다.",
+  "waitSeconds": "{seconds}초만 더 기다려 주세요.",
+  "notEnoughTime": "시간이 충분하지 않습니다. 모드 변경까지 {minutes}분 남았습니다.",
+  "alreadyQueuedNearby": "이 노래는 이미 이 위치에 대기열에 있습니다.",
+  "trackNotInQueue": "대기열에서 트랙을 찾을 수 없습니다.",
+  "moveCloudOnly": "이동은 클라우드 모드에서만 가능합니다.",
+  "trackNotFound": "트랙을 찾을 수 없습니다.",
+  "filenameExistsInTarget": "이 파일 이름을 가진 트랙이 이미 대상 모드에 존재합니다.",
+  "nightModeDisabled": "야간 모드가 비활성화되었습니다.",
+  "modeAlreadyActive": "모드가 이미 활성화되어 있습니다.",
+  "modeSwitchAlreadyScheduled": "모드 전환이 이미 예약되었습니다. {mins}분 후에 다시 시도하세요",
+  "nextModeSwitchIn": "{mins}분 후에 다음 모드 전환 가능",
+  "modeSwitchUnavailable": "현재 모드 전환을 사용할 수 없습니다({hour}:xx–{nextHour}:00).",
+  "cannotSwitchDonated": "모드를 전환할 수 없습니다. 기부된 노래가 대기 중입니다.",
+  "scheduledBeforeBoundary": "예약된 시간은 {boundary}:00(자연 모드 경계) 이전이어야 합니다."
+}

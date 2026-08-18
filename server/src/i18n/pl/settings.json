@@ -1,0 +1,17 @@
+{
+  "guestMaxDuration": "Maksymalny czas trwania sesji gościa powinien mieścić się w przedziale {min}–{max} minut.",
+  "specialGuestMaxDuration": "Maksymalny czas trwania sesji gościa specjalnego powinien mieścić się w przedziale {min}–{max} minut.",
+  "backgroundMusicMode": "Sposób odtwarzania muzyki w tle powinien być \"losowy\" lub \"wybrany przez prezentera\".",
+  "dayLibraryTooShort": "Całkowity czas trwania codziennej audycji wynosi mniej niż 1 godzinę. Nie ma możliwości utworzenia kolejki.",
+  "nightLibraryTooShort": "Całkowity czas trwania audycji nocnej wynosi niecałe 1 godzinę. Nie ma możliwości utworzenia kolejki.",
+  "maxDayDuration": "Maksymalny czas trwania audycji dziennej powinien mieścić się w przedziale {min}–{max} minut.",
+  "maxNightDuration": "Maksymalny czas trwania audycji nocnej powinien mieścić się w przedziale {min}–{max} minut.",
+  "songsPerSection": "Średnia liczba utworów w sekcji powinna wynosić od {min} do {max}.",
+  "nightSongsPerSection": "Średnia liczba utworów na sekcję (nadawanie nocne) powinna mieścić się w przedziale {min}-{max}.",
+  "needTwoGroups": "Wymagane są co najmniej 2 niepuste grupy z istniejącymi utworami.",
+  "needTwoGenreGroups": "Wymagane są co najmniej 2 niepuste grupy tematyczne.",
+  "notEnoughSongsDuration": "Za mało utworów: maksymalna długość ~{minutes} min (wymaga ≥ 60 min).",
+  "algorithmDeferred": "Ustawienie zostanie zapisane, ale zmiana algorytmu zacznie obowiązywać od następnego cyklu transmisji.",
+  "changesInEffect": "Zmiany weszły w życie.",
+  "libraryTooSmall": "W bibliotece {folder} jest mniej niż 1 godzina muzyki."
+}

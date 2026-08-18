@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "Die Funktion \"Radiomoderatoren\" ist deaktiviert.",
+  "noFreeHostSlots": "Im Moment sind keine freien Host-Slots verfügbar.",
+  "noFreeSlots": "Im Moment gibt es keine freien Slots.",
+  "trackNotFound": "Titel nicht gefunden.",
+  "sessionNotVerified": "Sitzung nicht bestätigt. Bitte gehen Sie erneut über /guest.",
+  "noHostLive": "Im Moment ist kein Host online."
+}

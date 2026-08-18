@@ -1,0 +1,14 @@
+{
+  "guestTitle": "Je bent in de logeerkamer",
+  "specialGuestTitle": "Jij bent de speciale gast",
+  "connect": "Maak verbinding met uitzending",
+  "disconnect": "Verbreek de verbinding",
+  "micOn": "Microfoon aan",
+  "micOff": "Microfoon uit",
+  "micDenied": "Microfoontoegang is geblokkeerd. Sta dit toe in de browser en probeer het opnieuw.",
+  "connecting": "Verbinden…",
+  "timeLeft": "Resterende tijd: {m}:{s}",
+  "error": "Kan geen verbinding maken. Probeer het opnieuw.",
+  "participants": "Leef met jou mee",
+  "noParticipants": "Jij bent de enige andere stem die momenteel live is"
+}

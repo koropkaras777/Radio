@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "Banは一般ゲストのみが利用できます。",
+  "banlistUnavailable": "禁止リストは現在のデータベース モードでは使用できません。",
+  "ipRequired": "IPアドレスは必須です。",
+  "banFailed": "IP を禁止できませんでした。",
+  "unbanFailed": "IP の禁止を解除できませんでした。"
+}

@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "금지는 일반 손님에게만 가능합니다.",
+  "banlistUnavailable": "현재 데이터베이스 모드에서는 금지 목록을 사용할 수 없습니다.",
+  "ipRequired": "IP 주소가 필요합니다.",
+  "banFailed": "해당 IP를 차단하지 못했습니다.",
+  "unbanFailed": "IP 차단을 해제하지 못했습니다."
+}

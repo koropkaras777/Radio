@@ -1,0 +1,7 @@
+{
+  "banOnlyForGuest": "Das Verbot gilt nur für Stammgäste.",
+  "banlistUnavailable": "Die Banlist ist im aktuellen Datenbankmodus nicht verfügbar.",
+  "ipRequired": "IP-Adresse ist erforderlich.",
+  "banFailed": "Die IP konnte nicht gesperrt werden.",
+  "unbanFailed": "Die Sperrung der IP konnte nicht aufgehoben werden."
+}

@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "Yetersiz ayrıcalıklar.",
+  "insufficientPrivilegesForAction": "Bu eylemi gerçekleştirme izniniz yok.",
+  "participantNotFound": "Katılımcı bulunamadı.",
+  "unauthorized": "Yetkisiz",
+  "somethingWentWrong": "Bir şeyler ters gitti.",
+  "internalServerError": "İç Sunucu Hatası",
+  "invalidMode": "Geçersiz mod.",
+  "invalidModeDayNight": "Geçersiz mod (gündüz veya gece).",
+  "idsRequired": "ids dizisi gerekli.",
+  "songIdsRequired": "SongIds dizisi gerekli.",
+  "songIdRequired": "şarkı kimliği gerekli.",
+  "fileRequired": "Dosya gerekli",
+  "artistRequired": "Sanatçı gerekli",
+  "trackNotFound": "Parça bulunamadı.",
+  "mp3Only": "Yalnızca MP3 dosyaları desteklenir.",
+  "noFilePayload": "Hiçbir dosya yükü sağlanmadı.",
+  "featureUnavailable": "Bu özellik mevcut sunucu yapılandırmasında mevcut değildir."
+}

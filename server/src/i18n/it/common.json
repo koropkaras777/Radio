@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "Privilegi insufficienti.",
+  "insufficientPrivilegesForAction": "Non hai l'autorizzazione per eseguire questa azione.",
+  "participantNotFound": "Partecipante non trovato.",
+  "unauthorized": "Non autorizzato",
+  "somethingWentWrong": "Qualcosa è andato storto.",
+  "internalServerError": "Errore interno del server",
+  "invalidMode": "Modalità non valida.",
+  "invalidModeDayNight": "Modalità non valida (giorno o notte).",
+  "idsRequired": "l'array id è obbligatorio.",
+  "songIdsRequired": "L'array songIds è obbligatorio.",
+  "songIdRequired": "l'ID canzone è obbligatorio.",
+  "fileRequired": "Il file è obbligatorio",
+  "artistRequired": "L'artista è richiesto",
+  "trackNotFound": "Traccia non trovata.",
+  "mp3Only": "Sono supportati solo i file MP3.",
+  "noFilePayload": "Non è stato fornito alcun payload del file.",
+  "featureUnavailable": "Questa funzionalità non è disponibile nella configurazione attuale del server."
+}

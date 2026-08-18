@@ -1,0 +1,18 @@
+{
+  "notFound": "Testo non trovato",
+  "syncedFetched": "Testi sincronizzati recuperati",
+  "plainFetched": "Testi semplici recuperati",
+  "songsIndexFailed": "Impossibile caricare l'indice dei testi dei brani",
+  "cacheLoadFailed": "Impossibile caricare la cache dei testi",
+  "offsetsLoadFailed": "Impossibile caricare gli offset",
+  "titleArtistRequired": "titolo e artista richiesti",
+  "titleArtistEntryRequired": "titolo, artista e voce richiesti",
+  "songIdOrTitleArtistRequired": "songId o titolo e artista obbligatori",
+  "trackNotFound": "Traccia non trovata",
+  "previewUrlFailed": "Impossibile generare l'URL di anteprima",
+  "saveFailed": "Impossibile salvare la voce del testo",
+  "cacheIndexFailed": "Impossibile caricare l'indice della cache dei testi",
+  "entryLoadFailed": "Impossibile caricare la voce del testo",
+  "deleteFailed": "Impossibile eliminare la voce del testo",
+  "fetchFailed": "Impossibile recuperare il testo."
+}

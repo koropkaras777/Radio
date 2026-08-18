@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "Bu parça şu anda çalıyor.",
+  "playsNext": "Bu parça daha sonra çalınacak.",
+  "waitSeconds": "Lütfen {seconds} saniye daha bekleyin.",
+  "notEnoughTime": "Yeterli zaman yok. Mod değişikliğine yalnızca {minutes} dakika kaldı.",
+  "alreadyQueuedNearby": "Bu şarkı zaten bu konumda sıraya alındı.",
+  "trackNotInQueue": "Parça kuyrukta bulunamadı.",
+  "moveCloudOnly": "Taşıma yalnızca bulut modunda kullanılabilir.",
+  "trackNotFound": "Parça bulunamadı.",
+  "filenameExistsInTarget": "Hedef modda bu dosya adına sahip bir parça zaten mevcut.",
+  "nightModeDisabled": "Gece modu devre dışı.",
+  "modeAlreadyActive": "Mod zaten etkin",
+  "modeSwitchAlreadyScheduled": "Mod değişimi zaten planlandı. {mins} dakika sonra tekrar deneyin",
+  "nextModeSwitchIn": "Sonraki mod geçişi {mins} dk içinde kullanılabilir",
+  "modeSwitchUnavailable": "Mod değiştirme şu anda kullanılamıyor ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "Mod değiştirilemiyor: bağışlanan şarkılar sıraya alındı",
+  "scheduledBeforeBoundary": "Planlanan zaman {boundary}:00'dan önce olmalıdır (doğal mod sınırı)"
+}

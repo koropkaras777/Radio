@@ -1,0 +1,17 @@
+{
+  "guestMaxDuration": "De maximale sessieduur voor gasten moet binnen {min}–{max} min liggen.",
+  "specialGuestMaxDuration": "De maximale sessieduur voor speciale gasten moet binnen {min}–{max} min liggen.",
+  "backgroundMusicMode": "De afspeelmodus voor achtergrondmuziek moet \"willekeurig\" of \"hostkeuze\" zijn.",
+  "dayLibraryTooShort": "De totale radioduur van de dag is minder dan 1 uur. Het genereren van wachtrijen is geblokkeerd.",
+  "nightLibraryTooShort": "De totale nachtradioduur is minder dan 1 uur. Het genereren van wachtrijen is geblokkeerd.",
+  "maxDayDuration": "De maximale radioduur overdag moet binnen {min}–{max} min liggen.",
+  "maxNightDuration": "De maximale duur van nachtradio moet binnen {min}–{max} min liggen.",
+  "songsPerSection": "Het gemiddelde aantal nummers per sectie moet tussen {min}-{max} liggen.",
+  "nightSongsPerSection": "Het gemiddelde aantal nummers per sectie (nachtradio) moet tussen {min}-{max} liggen.",
+  "needTwoGroups": "Er zijn minimaal 2 niet-lege groepen met beschikbare nummers vereist.",
+  "needTwoGenreGroups": "Er zijn minimaal 2 niet-lege genregroepen vereist.",
+  "notEnoughSongsDuration": "Niet genoeg nummers: maximale duur ~{minutes} min (≥ 60 min nodig).",
+  "algorithmDeferred": "De instellingen zijn opgeslagen, maar de algoritmewijziging wordt van kracht bij de volgende radiocyclus.",
+  "changesInEffect": "De wijzigingen zijn nu van kracht.",
+  "libraryTooSmall": "De {folder}-bibliotheek bevat minder dan 1 uur muziek."
+}

@@ -1,0 +1,16 @@
+{
+    "ADMIN_INVALID_SESSION": "Недійсна сесія. Увійдіть повторно.",
+    "QUEUE_SUGGESTION_INJECT_FAILED": "Не вдалося додати пропозицію до черги.",
+    "QUEUE_ADD_FAILED": "Не вдалося додати пісню до черги.",
+    "QUEUE_REMOVE_FAILED": "Не вдалося видалити пісню з черги.",
+    "QUEUE_SKIP_FAILED": "Не вдалося пропустити пісню.",
+    "QUEUE_GROUP_INSERT_FAILED": "Не вдалося вставити групу пісень.",
+    "SONG_NOT_FOUND": "Пісню не знайдено.",
+    "DONATIONS_TIERS_FAILED": "Не вдалося розрахувати ціни черг.",
+    "DONATIONS_CREATE_FAILED": "Не вдалося оформити донат.",
+    "DONATIONS_STATUS_FAILED": "Не вдалося перевірити статус донату.",
+    "DONATIONS_WEBHOOK_INVALID": "Недійсний вебхук донату.",
+    "DONATIONS_SETTINGS_SAVE_FAILED": "Не вдалося зберегти налаштування донатів.",
+    "DONATIONS_SETTINGS_LOAD_FAILED": "Не вдалося завантажити налаштування донатів.",
+    "DONATIONS_HISTORY_FAILED": "Не вдалося завантажити історію донатів."
+}

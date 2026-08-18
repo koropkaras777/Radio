@@ -1,0 +1,14 @@
+{
+  "loadFailed": "Failed to load artists list.",
+  "invalidArtist": "Invalid artist.",
+  "notFound": "Art not found.",
+  "serveFailed": "Failed to serve art.",
+  "jpgOnly": "Only JPG images are supported.",
+  "portraitRequired": "Image must be portrait-oriented.",
+  "saved": "Artist art saved successfully.",
+  "saveFailed": "Failed to save artist art.",
+  "artistRequired": "Artist is required.",
+  "deleted": "Artist art deleted successfully.",
+  "deleteFailed": "Failed to delete artist art.",
+  "deleteArtFailed": "Failed to delete art."
+}

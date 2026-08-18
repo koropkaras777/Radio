@@ -1,0 +1,14 @@
+{
+  "loadFailed": "Nie udało się pobrać listy artystów.",
+  "invalidArtist": "Niewłaściwy wykonawca.",
+  "notFound": "Nie znaleziono sztuki.",
+  "serveFailed": "Sztuki nie można było oddać.",
+  "jpgOnly": "Obsługiwane są tylko obrazy JPG.",
+  "portraitRequired": "Obraz musi być w orientacji pionowej.",
+  "saved": "Sztuka została pomyślnie zapisana.",
+  "saveFailed": "Nie udało się zapisać grafiki.",
+  "artistRequired": "Wykonawca nie jest wskazany.",
+  "deleted": "Pomyślnie usunięto grafikę.",
+  "deleteFailed": "Nie udało się usunąć sztuki.",
+  "deleteArtFailed": "Nie udało się usunąć sztuki."
+}

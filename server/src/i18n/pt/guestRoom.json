@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Os administradores não podem participar como convidados.",
+  "nicknameRequired": "O apelido é obrigatório.",
+  "tooManyAttempts": "Muitas tentativas. Tente novamente mais tarde.",
+  "codeExpiredOrDeactivated": "O código expirou ou foi desativado.",
+  "invalidCode": "Código inválido.",
+  "adminCannotSubmitRequest": "Os administradores não podem enviar uma solicitação de convidado.",
+  "accessBlocked": "Acesso bloqueado.",
+  "requestNotFound": "Solicitação não encontrada.",
+  "slotJustTaken": "A vaga acabou de ser ocupada.",
+  "codeAlreadyActive": "Um código já está ativo."
+}

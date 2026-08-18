@@ -1,0 +1,14 @@
+{
+  "nameRequired": "Naam van de songgroep is vereist.",
+  "modeRequired": "Kies de dag- of nachtmodus.",
+  "needAtLeastOneSong": "De nummergroep moet minimaal één nummer bevatten.",
+  "invalidSong": "De songgroep bevat een nummer uit een andere modus of een niet-beschikbare track.",
+  "nameExists": "Er bestaat al een songgroep met deze naam.",
+  "created": "Songgroep gemaakt.",
+  "updated": "Nummergroep bijgewerkt.",
+  "deleted": "Nummergroep verwijderd.",
+  "notFound": "Nummergroep niet gevonden.",
+  "inserted": "Nummergroep ingevoegd in de wachtrij.",
+  "insertNightOnly": "Nachtliedgroepen kunnen alleen in de nachtmodus worden ingevoegd.",
+  "insertDayOnly": "Dagliedgroepen kunnen alleen in de dagmodus worden ingevoegd."
+}

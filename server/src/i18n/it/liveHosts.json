@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "La funzione conduttore radiofonico è disabilitata.",
+  "noFreeHostSlots": "Nessuno slot host libero al momento.",
+  "noFreeSlots": "Non ci sono slot liberi in questo momento.",
+  "trackNotFound": "Traccia non trovata.",
+  "sessionNotVerified": "Sessione non verificata. Per favore, vai di nuovo attraverso /guest.",
+  "noHostLive": "Nessun host è attivo in questo momento."
+}

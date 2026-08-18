@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "Sesión no válida. Por favor inicia sesión nuevamente.",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "No se pudo agregar la sugerencia a la cola.",
+  "QUEUE_ADD_FAILED": "No se pudo agregar la canción a la cola.",
+  "QUEUE_REMOVE_FAILED": "No se pudo eliminar la canción de la cola.",
+  "QUEUE_SKIP_FAILED": "No se pudo omitir la canción.",
+  "QUEUE_GROUP_INSERT_FAILED": "No se pudo insertar el grupo de canciones.",
+  "SONG_NOT_FOUND": "Canción no encontrada.",
+  "DONATIONS_TIERS_FAILED": "No se pudieron calcular los precios de los niveles.",
+  "DONATIONS_CREATE_FAILED": "No se pudo crear la donación.",
+  "DONATIONS_STATUS_FAILED": "No se pudo verificar el estado de la donación.",
+  "DONATIONS_WEBHOOK_INVALID": "Webhook de donación no válido.",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "No se pudo guardar la configuración de donación.",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "No se pudo cargar la configuración de donación.",
+  "DONATIONS_HISTORY_FAILED": "No se pudo cargar el historial de donaciones."
+}

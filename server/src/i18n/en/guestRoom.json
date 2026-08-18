@@ -1,0 +1,12 @@
+{
+  "adminCannotJoinAsGuest": "Admins cannot join as a guest.",
+  "nicknameRequired": "Nickname is required.",
+  "tooManyAttempts": "Too many attempts. Try again later.",
+  "codeExpiredOrDeactivated": "The code has expired or was deactivated.",
+  "invalidCode": "Invalid code.",
+  "adminCannotSubmitRequest": "Admins cannot submit a guest request.",
+  "accessBlocked": "Access blocked.",
+  "requestNotFound": "Request not found.",
+  "slotJustTaken": "The slot was just taken.",
+  "codeAlreadyActive": "A code is already active."
+}

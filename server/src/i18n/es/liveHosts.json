@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "La función de locutores de radio está deshabilitada.",
+  "noFreeHostSlots": "No hay espacios de host gratuitos en este momento.",
+  "noFreeSlots": "No hay espacios libres en este momento.",
+  "trackNotFound": "Pista no encontrada.",
+  "sessionNotVerified": "Sesión no verificada. Por favor, revisa /guest nuevamente.",
+  "noHostLive": "Ningún anfitrión está en vivo en este momento."
+}

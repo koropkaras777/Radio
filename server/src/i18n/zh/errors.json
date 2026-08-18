@@ -1,0 +1,16 @@
+{
+  "ADMIN_INVALID_SESSION": "无效会话。请重新登录。",
+  "QUEUE_SUGGESTION_INJECT_FAILED": "无法将建议添加到队列中。",
+  "QUEUE_ADD_FAILED": "无法将歌曲添加到队列中。",
+  "QUEUE_REMOVE_FAILED": "无法从队列中删除歌曲。",
+  "QUEUE_SKIP_FAILED": "无法跳过歌曲。",
+  "QUEUE_GROUP_INSERT_FAILED": "插入歌曲组失败。",
+  "SONG_NOT_FOUND": "找不到歌曲。",
+  "DONATIONS_TIERS_FAILED": "无法计算等级价格。",
+  "DONATIONS_CREATE_FAILED": "无法创建捐赠。",
+  "DONATIONS_STATUS_FAILED": "无法查看捐赠状态。",
+  "DONATIONS_WEBHOOK_INVALID": "捐赠网络钩子无效。",
+  "DONATIONS_SETTINGS_SAVE_FAILED": "无法保存捐赠设置。",
+  "DONATIONS_SETTINGS_LOAD_FAILED": "无法加载捐赠设置。",
+  "DONATIONS_HISTORY_FAILED": "无法加载捐赠历史记录。"
+}

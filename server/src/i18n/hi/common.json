@@ -1,0 +1,19 @@
+{
+  "insufficientPrivileges": "अपर्याप्त विशेषाधिकार.",
+  "insufficientPrivilegesForAction": "आपके पास यह कार्रवाई करने की अनुमति नहीं है.",
+  "participantNotFound": "प्रतिभागी नहीं मिला.",
+  "unauthorized": "अनधिकृत",
+  "somethingWentWrong": "कुछ गलत हो गया।",
+  "internalServerError": "आंतरिक सर्वर त्रुटि",
+  "invalidMode": "अमान्य मोड.",
+  "invalidModeDayNight": "अमान्य मोड (दिन या रात)।",
+  "idsRequired": "आईडी सरणी आवश्यक है.",
+  "songIdsRequired": "सोंगआईड्स सारणी आवश्यक है।",
+  "songIdRequired": "गीत आईडी आवश्यक है.",
+  "fileRequired": "फ़ाइल आवश्यक है",
+  "artistRequired": "कलाकार की आवश्यकता है",
+  "trackNotFound": "ट्रैक नहीं मिला.",
+  "mp3Only": "केवल MP3 फ़ाइलें समर्थित हैं.",
+  "noFilePayload": "कोई फ़ाइल पेलोड प्रदान नहीं किया गया था.",
+  "featureUnavailable": "यह सुविधा वर्तमान सर्वर कॉन्फ़िगरेशन में उपलब्ध नहीं है."
+}

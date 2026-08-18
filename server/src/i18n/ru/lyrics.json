@@ -1,0 +1,18 @@
+{
+  "notFound": "Текст не найден",
+  "syncedFetched": "Подтянут синхронизированный текст",
+  "plainFetched": "Подтянут обычный текст",
+  "songsIndexFailed": "Не удалось загрузить индекс песен с текстами",
+  "cacheLoadFailed": "Не удалось загрузить кэш текстов",
+  "offsetsLoadFailed": "Не удалось загрузить смещение",
+  "titleArtistRequired": "Нужны title и artist",
+  "titleArtistEntryRequired": "Нужны title, artist и entry",
+  "songIdOrTitleArtistRequired": "Нужен songId или title и artist",
+  "trackNotFound": "Трек не найден",
+  "previewUrlFailed": "Не удалось создать URL превью",
+  "saveFailed": "Не удалось сохранить текст",
+  "cacheIndexFailed": "Не удалось загрузить индекс кэша текстов",
+  "entryLoadFailed": "Не удалось загрузить текст",
+  "deleteFailed": "Не удалось удалить текст",
+  "fetchFailed": "Не удалось получить текст песни."
+}

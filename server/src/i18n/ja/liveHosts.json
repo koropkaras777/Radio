@@ -1,0 +1,8 @@
+{
+  "featureDisabled": "無線ホスト機能が無効になっています。",
+  "noFreeHostSlots": "現在、空きホスト スロットはありません。",
+  "noFreeSlots": "現在、空きスロットはありません。",
+  "trackNotFound": "トラックが見つかりません。",
+  "sessionNotVerified": "セッションが検証されていません。 /guest をもう一度実行してください。",
+  "noHostLive": "現在ライブ中のホストはいません。"
+}

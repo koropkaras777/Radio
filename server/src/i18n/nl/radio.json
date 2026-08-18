@@ -1,0 +1,18 @@
+{
+  "currentlyPlaying": "Dit nummer wordt momenteel afgespeeld.",
+  "playsNext": "Dit nummer wordt als volgende afgespeeld.",
+  "waitSeconds": "Wacht nog {seconds} nog een seconde.",
+  "notEnoughTime": "Niet genoeg tijd. Nog slechts {minutes} min tot de moduswijziging.",
+  "alreadyQueuedNearby": "Dit nummer staat al in de wachtrij op deze positie.",
+  "trackNotInQueue": "Track niet gevonden in wachtrij.",
+  "moveCloudOnly": "Move is alleen beschikbaar in de cloudmodus.",
+  "trackNotFound": "Track niet gevonden.",
+  "filenameExistsInTarget": "Er bestaat al een track met deze bestandsnaam in de doelmodus.",
+  "nightModeDisabled": "Nachtmodus is uitgeschakeld.",
+  "modeAlreadyActive": "Modus al actief",
+  "modeSwitchAlreadyScheduled": "Modusschakelaar al gepland. Probeer het opnieuw over {mins} min",
+  "nextModeSwitchIn": "Volgende modusschakelaar beschikbaar over {mins} min",
+  "modeSwitchUnavailable": "Modusschakelaar momenteel niet beschikbaar ({hour}:xx–{nextHour}:00)",
+  "cannotSwitchDonated": "Kan niet van modus wisselen: gedoneerde nummers staan ​​in de wachtrij",
+  "scheduledBeforeBoundary": "De geplande tijd moet vóór {boundary}:00 liggen (grens natuurlijke modus)"
+}
