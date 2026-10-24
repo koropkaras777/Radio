@@ -13,7 +13,9 @@ import json
 import argparse
 import subprocess
 import tempfile
+import shutil
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 import yt_dlp
 from yt_dlp.postprocessor import EmbedThumbnailPP
@@ -230,7 +232,8 @@ def get_playlist_tracks(playlist_url, debug=False):
             continue
         seen_ids.add(vid_id)
         url = f"https://music.youtube.com/watch?v={vid_id}"
-        tracks.append({"url": url, "title": entry.get("title") or vid_id})
+        metadata = preview_metadata(entry)
+        tracks.append({"url": url, "title": " - ".join(filter(None, [metadata["artist"], metadata["title"]])) or vid_id, "metadata": metadata})
 
     if skipped:
         log(f"  ⚠ Пропущено {skipped} недоступних/нерозпізнаних записів у плейлисті", "warn")
@@ -241,35 +244,16 @@ def get_playlist_tracks(playlist_url, debug=False):
     return pl_title, tracks
 
 
-_JUNK_WORD = (
-    r"remaster(?:ed)?"
-    r"|edition|version|mix|re-?release"
-    r"|official\s*(?:audio|video|music\s*video|lyric\s*video)"
-    r"|deluxe|expanded|anniversary|special|collector'?s?"
-    r"|mono|stereo|hd|4k|hq|hi[- ]?res"
-    r"|explicit|clean|radio\s*edit|single|album"
-    r"|original|motion\s*picture|soundtrack|score"
-    r"|bonus(?:\s*track)?|studio(?:\s*track|\s*version)?"
-)
-JUNK_PATTERNS = [
-    r"\((?=[^)]*(?:" + _JUNK_WORD + r"))[^)]*\)",
-    r"\b\d{4}\s*(?:remaster(?:ed)?|edition|version|mix|re-?release)\b",
-    r"\b(?:remaster(?:ed)?|official\s*(?:audio|video|music\s*video|lyric\s*video))\b",
-    r"\b(?:deluxe|expanded|anniversary|special|collector'?s?)\s*(?:edition|version)?\b",
-    r"\b(?:mono|stereo|hd|4k|hq|hi[- ]?res)\s*(?:version|remaster)?\b",
-    r"\b(?:explicit|clean|radio\s*edit|single\s*version|album\s*version)\b",
-    r"\b(?:original\s*(?:motion\s*picture\s*)?(?:soundtrack|score|version))\b",
-    r"\[.*?\]",
-    r"\(\s*\)",
-]
-
-
 def clean_string(s, strip_junk=True):
     if not s:
         return s
     if strip_junk:
-        for pattern in JUNK_PATTERNS:
-            s = re.sub(pattern, "", s, flags=re.IGNORECASE)
+        marker = r"remaster(?:ed)?|deluxe|expanded|anniversary|collector'?s?|special\s+edition|official\s+(?:audio|music\s+video|video|lyrics?)|(?:mono|stereo|radio|album|single)\s+(?:version|mix|edit)|bonus\s+tracks?|\b(?:hd|hq|4k)\b"
+        qualifier = r"(?:\d{4}\s+)?(?:remaster(?:ed)?(?:\s+(?:in\s+)?\d{4})?|(?:deluxe|expanded|anniversary|special|collector'?s?)(?:\s+edition)?|official\s+(?:audio|music\s+video|video|lyric(?:s)?(?:\s+video)?)|(?:mono|stereo|radio|album|single)\s+(?:version|mix|edit)|bonus\s+tracks?|(?:hd|hq|4k))(?:\s+edition)?"
+        bare = r"(?:\d{4}\s+)?remaster(?:ed)?(?:\s+(?:in\s+)?\d{4})?|(?:deluxe|expanded|anniversary|special|collector'?s?)\s+edition|official\s+(?:audio|music\s+video|video|lyric(?:s)?(?:\s+video)?)|(?:mono|stereo|radio|album|single)\s+(?:version|mix|edit)"
+        for _ in range(3):
+            s = re.sub(r"\s*[\[(][^\[\]()]*(?:" + marker + r")[^\[\]()]*(?:\)|\])", "", s, flags=re.IGNORECASE)
+            s = re.sub(r"(?:\s+[-–—:]\s*" + qualifier + r"|\s+(?:" + bare + r"))\s*$", "", s, flags=re.IGNORECASE)
     s = re.sub(r"[\s\-–—]+$", "", s)
     s = re.sub(r"^[\s\-–—]+", "", s)
     s = re.sub(r"\s{2,}", " ", s)
@@ -306,9 +290,6 @@ def extract_year_from_info(info):
     rd = info.get("release_date") or ""
     if len(rd) >= 4 and rd[:4].isdigit():
         return rd[:4]
-    ud = info.get("upload_date") or ""
-    if len(ud) >= 4 and ud[:4].isdigit():
-        return ud[:4]
     return None
 
 
@@ -901,6 +882,20 @@ def run_batch(file_path, output_dir, strip_junk, fetch_lrc, lang, debug=False,
             log(f"✗ Помилка: {e}", "err")
 
 
+def preview_metadata(info):
+    raw_title = info.get("track") or info.get("title") or ""
+    parsed = parse_artist_title(raw_title) if not info.get("track") else None
+    artist = info.get("artist") or (parsed[0] if parsed else re.sub(r"\s*-\s*Topic$", "", info.get("uploader") or info.get("channel") or ""))
+    title = parsed[1] if parsed else raw_title
+    date = str(info.get("release_year") or info.get("release_date") or "")
+    return {
+        "artist": clean_string(artist),
+        "title": clean_string(title),
+        "album": clean_string(info.get("album") or ""),
+        "year": date[:4] if re.match(r"^\d{4}", date) else None,
+    }
+
+
 def get_single_track_info(url, debug=False):
     """Lightweight metadata-only lookup for a single (non-playlist) video -
     just enough to build a display title, without touching format
@@ -914,8 +909,15 @@ def get_single_track_info(url, debug=False):
         **_cookies_opts(),
         **_js_runtime_opts(),
     }
-    with yt_dlp.YoutubeDL(opts) as ydl:
-        info = ydl.extract_info(url, download=False)
+    # yt-dlp saves its cookie jar on exit. Give parallel playlist lookups
+    # independent files so they cannot truncate one another's cookies.
+    with tempfile.TemporaryDirectory(prefix="ytb-metadata-") as temp_dir:
+        if opts.get("cookiefile"):
+            cookie_copy = os.path.join(temp_dir, "cookies.txt")
+            shutil.copyfile(opts["cookiefile"], cookie_copy)
+            opts["cookiefile"] = cookie_copy
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            info = ydl.extract_info(url, download=False)
 
     if is_ytmusic_track(info):
         artist = (info.get("artist") or "").strip()
@@ -924,10 +926,32 @@ def get_single_track_info(url, debug=False):
     else:
         title = info.get("title") or "Unknown"
 
-    return [{"title": title, "url": url}]
+    metadata = preview_metadata(info)
+    return [{"title": " - ".join(filter(None, [metadata["artist"], metadata["title"]])) or title, "url": url, "metadata": metadata}]
 
 
-def run_list(url, output_file, with_titles, lang, debug=False):
+def enrich_playlist_metadata(tracks, debug=False):
+    """Flat playlist entries omit album/release metadata; resolve each video.
+
+    Keep playlist order and retain the flat entry if a video is unavailable.
+    Limit concurrent lookups to avoid a burst of requests for large playlists.
+    """
+    def resolve(track):
+        try:
+            details = get_single_track_info(track["url"], debug=debug)[0]
+            metadata = dict(track.get("metadata") or {})
+            metadata.update({key: value for key, value in details["metadata"].items()
+                             if value not in (None, "")})
+            return {**track, "title": details["title"], "metadata": metadata}
+        except Exception as error:
+            log(f"  Metadata lookup failed for {track['url']}: {error}", "warn")
+            return track
+
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        return list(pool.map(resolve, tracks))
+
+
+def run_list(url, output_file, with_titles, lang, debug=False, json_metadata=False):
     """Print (or save) the link(s) for a playlist or a single track, without downloading anything."""
     t = lambda k: STRINGS[lang].get(k, STRINGS["en"][k])
 
@@ -937,6 +961,8 @@ def run_list(url, output_file, with_titles, lang, debug=False):
     if is_playlist_url(url):
         log(t("log_playlist"), "section")
         pl_title, tracks = get_playlist_tracks(url, debug=debug)
+        if json_metadata:
+            tracks = enrich_playlist_metadata(tracks, debug=debug)
         log(f"{t('log_pl_title')} : {pl_title}", "ok")
         log(f"{t('log_pl_count')} : {len(tracks)}", "info")
     else:
@@ -947,18 +973,19 @@ def run_list(url, output_file, with_titles, lang, debug=False):
 
     if total == 0:
         log(t("log_list_none"), "warn")
-        return
+        if not json_metadata:
+            return
 
     lines = [f"{tr['url']}\t{tr['title']}" if with_titles else tr["url"] for tr in tracks]
+    output = json.dumps(tracks, ensure_ascii=False, indent=2) if json_metadata else "\n".join(lines)
 
     if output_file:
         with open(output_file, "w", encoding="utf-8") as f:
-            f.write("\n".join(lines) + "\n")
+            f.write(output + "\n")
         log(f"{t('log_list_saved')} {output_file}", "ok")
     else:
         print()
-        for line in lines:
-            print(line)
+        print(output)
 
 
 def _add_common_options(sp):
@@ -1020,6 +1047,8 @@ def build_list_parser():
                      help="Write links to this text file (one per line) instead of printing them")
     p.add_argument("--titles", action="store_true",
                      help="Also print/save each track's title next to its link, tab-separated")
+    p.add_argument("--json", dest="json_metadata", action="store_true",
+                     help="Print/save JSON with url, display title and cleaned artist/title/album/release year metadata")
     p.add_argument("--lang", choices=["uk", "en"], default="en",
                      help="Log language (default: en)")
     p.add_argument("--debug", action="store_true",
@@ -1068,7 +1097,7 @@ def main():
         args = parser.parse_args(argv[1:])
         COOKIES_FILE = args.cookies or _live_cookies_path() or os.environ.get("YTB_COOKIES_FILE")
         try:
-            run_list(args.url, args.output, args.titles, args.lang, debug=args.debug)
+            run_list(args.url, args.output, args.titles, args.lang, debug=args.debug, json_metadata=args.json_metadata)
         except KeyboardInterrupt:
             print()
             log("Перервано користувачем.", "warn")

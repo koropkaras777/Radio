@@ -3,7 +3,6 @@ import { useState } from 'react';
 // ─── AlgorithmRow ────────────────────────────────────────────────────────────
 export function AlgorithmRow({ label, hint, info, infoTitle, infoClose, canUse, blockedMsg, blockedLabel, checked, onChange, isNight, t }) {
   const [infoOpen, setInfoOpen] = useState(false);
-  const accentBg = isNight ? 'bg-red-700' : 'bg-blue-600';
 
   return (
     <div>
@@ -35,21 +34,24 @@ export function AlgorithmRow({ label, hint, info, infoTitle, infoClose, canUse, 
       </div>
 
       {infoOpen && (
-        <div className="fixed inset-0 z-[450] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={() => setInfoOpen(false)}>
+        <div className="fixed inset-0 z-[450] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div
             className={`w-full max-w-sm rounded-2xl border p-5 shadow-2xl ${isNight ? 'bg-[#1a0505] border-red-900/40' : 'bg-gray-800 border-white/10'}`}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className={`text-sm font-black mb-3 ${isNight ? 'text-red-400' : 'text-blue-400'}`}>{infoTitle}: {label}</div>
-            <p className="text-sm text-gray-300 leading-relaxed">{info}</p>
-            <div className="flex justify-end mt-4">
+            <div className="flex items-start justify-between gap-3 mb-3">
+              <div className={`text-sm font-black ${isNight ? 'text-red-400' : 'text-blue-400'}`}>{infoTitle}: {label}</div>
               <button
                 onClick={() => setInfoOpen(false)}
-                className={`rounded-lg px-4 py-2 text-xs font-black text-white ${accentBg}`}
+                aria-label={infoClose}
+                className="w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
               >
-                {infoClose}
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
               </button>
             </div>
+            <p className="text-sm text-gray-300 leading-relaxed">{info}</p>
           </div>
         </div>
       )}

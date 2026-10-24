@@ -2,6 +2,7 @@ import { SUPER_ADMIN_LOGIN } from '../../../config/env.js';
 import { Router } from 'express';
 import { requireAdmin, getErrorPayload } from '../../../middleware/auth.js';
 import { auditLogger, AUDIT_TYPES } from '../../../audit/auditLogger.js';
+import { auditDetails, settingsSnapshot } from '../../../audit/auditDetails.js';
 import { PRIVILEGES } from '../../../config/privileges.js';
 import { t, LOCALES } from '../../../i18n/index.js';
 import { requireCapability } from '../shared/capabilities.js';
@@ -113,13 +114,24 @@ export function createSettingsRouter({ io, radioEngine, mediaProvider, dataProvi
           return res.status(403).json({ error: t('auth.insufficientPrivilegesForAction') });
         }
 
+        const before = settingsSnapshot(radioEngine.settings);
         const payload = await radioEngine.updateSettings(validatedBody);
+        const details = auditDetails(before, settingsSnapshot(radioEngine.settings));
+        for (const change of details.changes) {
+          if (!/^generation\.PHRASES_(DAY|NIGHT)_ID$/.test(change.field)) continue;
+          for (const side of ['before', 'after']) {
+            const id = change[side];
+            if (!id) continue;
+            const phrase = await radioEngine.dataProvider?.getPhraseById?.(id).catch(() => null);
+            if (phrase?.filename) change[side] = `${phrase.filename} [${id}]`;
+          }
+        }
         io.emit('sync', radioEngine.getState());
-        auditLogger.log({
+        if (details.changes.length) auditLogger.log({
           adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
           operationType: AUDIT_TYPES.SETTINGS_SAVE,
-          data:          { sections: changed },
+          data:          { sections: [...new Set(details.changes.map((change) => change.field.split('.')[0]))], details },
         }).catch(() => {});
         res.json(payload);
       } catch (err) {

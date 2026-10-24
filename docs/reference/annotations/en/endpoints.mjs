@@ -154,9 +154,9 @@ export const ENDPOINT_DOCS = {
       '`<mode>/<filename>`.',
   },
   'POST /api/admin/upload-song-file': {
-    summary: 'Upload step 1: stores the MP3 and reads its tags.',
+    summary: 'Upload step 1: reads and cleans tags, applies metadata edits, and stores the MP3.',
     query: '`mode` — `day` or `night` (default `day`)',
-    headers: '`X-File-Name` — percent-encoded filename; `Content-Type: audio/mpeg`',
+    headers: '`X-File-Name` — percent-encoded filename; `Content-Type: audio/mpeg`; optional `X-Song-Metadata` — JSON `{ artist?, title?, album?, year? }` encoded with `encodeURIComponent`',
     body: 'raw MP3 bytes, not multipart. Limit: 80 MB',
     errors:
       '`400` — empty body or not an MP3; `409` — a track with that filename exists; ' +
@@ -168,10 +168,11 @@ export const ENDPOINT_DOCS = {
       'does not enter the library yet.',
   },
   'POST /api/admin/upload-song-lyrics': {
-    summary: 'Upload step 2: looks the lyrics up through LRCLIB.',
+    summary: 'Looks lyrics up through LRCLIB for uploads or song editor updates.',
     errors: '`400` — `title` or `artist` missing; `500` — LRCLIB could not be reached',
     notes:
-      'This step is optional and needs no credentials at all: LRCLIB is open. ' +
+      'Requires admin authentication and upload_songs or editor_lyrics; editor_meta alone does not grant access. ' +
+      'Search does not persist lyrics: use song-editor/save for updates. LRCLIB is open. ' +
       'Even on `500` the response contains a usable `lyricsEntry` with ' +
       '`notFound: true`, so the upload can continue.',
   },
@@ -195,6 +196,7 @@ export const ENDPOINT_DOCS = {
   metadataChanged: false,   // the flags decide which privileges are required
   lyricsEntry: { … },  lyricsChanged: false,
   offset: 0,           offsetChanged: false,
+  auditContext: { source: 'bulk', force: false }, // optional audit origin hint
 }`,
     errors:
       '`400` — `songId` or `metadata` missing; `403` — missing the privilege for ' +
@@ -267,18 +269,25 @@ export const ENDPOINT_DOCS = {
   'POST /api/admin/youtube-track-info': {
     summary: 'Reads the track list behind a video or playlist URL.',
     errors:
-      '`400` — URL missing or not a YouTube link; `503` — the tool is unavailable; ' +
+      '`403` with `code: YTBDOWN_AUTH_REQUIRED` and `cookiesProvided` — YouTube rejected the session; `400` — URL missing or not a YouTube link; `503` — the tool is unavailable; ' +
       '`504` — reading the playlist took too long',
     notes:
       'Downloads nothing — it only reports what the URL contains so the user can ' +
-      'choose.',
+      'choose. `metadata` contains cleaned editable preview fields; `year` is the release year or an empty string when unknown. ' +
+      'For playlists, the CLI fetches each video’s metadata separately (up to three concurrent lookups), because abbreviated entries omit album/year. ' +
+      'Track order is preserved. If an individual video is unavailable, its abbreviated data is retained; unknown album/year remain empty. ' +
+      'The video upload year never replaces the release year. Extra lookups increase response time; the CLI timeout is 120 seconds (`504`). ' +
+      'Full metadata requires the current CLI with `list --json`; older TSV fallback only derives artist/title from the display title. ' +
+      'See [upload metadata](/en/guide/admin-song-editor#metadata-before-upload).',
   },
   'POST /api/admin/upload-song-url': {
     summary: 'Downloads audio from YouTube into storage.',
+    errors: '`403` with `code: YTBDOWN_AUTH_REQUIRED`, `cookiesProvided`, and a localized message — YouTube rejected the session or requires a bot check',
+    body: `{ url: 'https://www.youtube.com/watch?v=…', mode: 'day', lang: 'uk', metadata: { artist: 'Artist', title: 'Song', album: 'Album', year: '1986' } }`,
     notes:
       'The longest operation in the whole API: it includes downloading and ' +
       're-encoding through FFmpeg. The track then goes through the same lyrics and ' +
-      'commit steps as a normal file upload.',
+      'commit steps as a normal file upload. Optional `metadata` overrides supplied fields only; empty album/year clears them. Edits are written to ID3 before storage. Limits: artist 150, title/album 200 characters, year 4 digits (1000–9999).',
   },
   'POST /api/admin/youtube-cookies': {
     summary: 'Stores YouTube cookies for age-restricted videos.',
@@ -334,17 +343,20 @@ export const ENDPOINT_DOCS = {
   },
   'GET /api/admin/audit': {
     summary: 'The admin action log.',
-    query: '`window` — `24h` and other spans; `limit` (default 30); `offset`',
+    query: '`window` — `1h`, `6h`, `24h` (default), `7d`; also `31d` with retention ≥31, `186d` with ≥186, `365d` with ≥365 days; `limit` (default 30); `offset`',
     notes:
+      '`data.details` is optional; old entries omit it. Field format and new operation types: [detailed audit](/en/guide/audit-log). ' +
       'Served from an in-memory cache, so the query is cheap. Entries are purged ' +
       'automatically after `LOG_RETENTION_DAYS` days. No special privilege — every ' +
-      'admin may read it.',
+      'admin may read it. `retentionDays` reports the active `LOG_RETENTION_DAYS`; unsupported or unknown windows fall back to `24h`. ' +
+      'The client shows Month, Half a year and Year at the corresponding thresholds. Client search matches title, artist, localized category and admin within the selected categories and time range; it loads the entire available cache result to search it.',
   },
   'GET /api/admin/history': {
     summary: 'The full playback history.',
     notes:
       'Requires the `stats` privilege. Entries are purged automatically after ' +
-      '`LOG_RETENTION_DAYS` days — the same schedule as the admin action log.',
+      '`LOG_RETENTION_DAYS` days — the same schedule as the admin action log. `retentionDays` tells the client which time spans are available. ' +
+      'The API returns the full list; the client filters by time, title and artist and renders 30 songs at a time using a load-more button.',
   },
 
   // ── Settings ──────────────────────────────────────────────────────────────

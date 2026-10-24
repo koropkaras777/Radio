@@ -8,6 +8,8 @@ import { WINDOWS, WINDOW_MS, CATEGORIES, CATEGORY_BY_TYPE, formatOpLabel } from 
 import { formatDateHeader, formatTime, isSameDay } from './auditDateHelpers.js';
 import { WindowSelect } from './WindowSelect.jsx';
 import { CategoryFilter } from './CategoryFilter.jsx';
+import { AuditDetails } from './AuditDetails.jsx';
+import { hasAuditDetails } from './auditDetails.js';
 
 const PAGE_SIZE = 30;
 
@@ -17,6 +19,12 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
   const [historyLoading, setHistoryLoading] = useState(false);
   const [historyErrorMsg, setHistoryErrorMsg] = useState('');
   const [historyWindow, setHistoryWindow] = useState('24h');
+  const [search, setSearch] = useState('');
+  const [retentionDays, setRetentionDays] = useState(7);
+  const [historyLimit, setHistoryLimit] = useState(PAGE_SIZE);
+  const [actionLimit, setActionLimit] = useState(PAGE_SIZE);
+  const requestId = useRef(0);
+  const windows = WINDOWS.filter((win) => !win.minRetention || retentionDays >= win.minRetention);
 
   const [window_,      setWindow]       = useState('24h');
   const [entries,      setEntries]      = useState([]);
@@ -25,7 +33,9 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
   const [loading,      setLoading]      = useState(false);
   const [loadingMore,  setLoadingMore]  = useState(false);
   const [pendingNew,   setPendingNew]   = useState([]);
+  const [expandedIds, setExpandedIds] = useState(() => new Set());
   const listRef  = useRef(null);
+  const historyListRef = useRef(null);
 
   const visibleCategories = useMemo(() => CATEGORIES.filter((cat) => {
     if (cat.key === 'jingles' && !streamMode) return false;
@@ -51,6 +61,7 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
   const [loadErrorMsg, setLoadErrorMsg] = useState('');
 
   const fetchEntries = useCallback(async (win, currentLimit, isLoadMore = false) => {
+    const id = ++requestId.current;
     if (!isLoadMore) setLoading(true); else setLoadingMore(true);
     setLoadErrorMsg('');
     try {
@@ -59,7 +70,9 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
         { credentials: 'include' }
       );
       const data = await res.json();
+      if (id !== requestId.current) return;
       if (res.ok) {
+        setRetentionDays(data.retentionDays ?? 7);
         setEntries(data.entries);
         const realTotal = data.entries.length < currentLimit
           ? data.entries.length
@@ -70,9 +83,11 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
         setLoadErrorMsg(pickLocalized(data.localized || data.message || data.error, lang) || translate('auditLog.loadError', {}, lang));
       }
     } catch {
+      if (id !== requestId.current) return;
       setLoadErrorMsg(translate('common.connectionError', {}, lang));
     }
-    if (!isLoadMore) setLoading(false); else setLoadingMore(false);
+    setLoading(false);
+    setLoadingMore(false);
   }, [lang]);
 
   const fetchHistory = useCallback(async () => {
@@ -83,6 +98,7 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
       const data = await res.json();
       if (res.ok) {
         setHistoryEntries(data.entries);
+        setRetentionDays(data.retentionDays ?? 7);
       } else {
         setHistoryErrorMsg(pickLocalized(data.localized || data.message || data.error, lang) || translate('auditLog.historyLoadError', {}, lang));
       }
@@ -135,6 +151,7 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
   const applyPending = useCallback(async () => {
     setPendingNew([]);
     setDisplayLimit(PAGE_SIZE);
+    setExpandedIds(new Set());
     await fetchEntries(window_, PAGE_SIZE, false);
   }, [window_, fetchEntries]);
 
@@ -142,23 +159,23 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
     if (!open) return;
     setPendingNew([]);
     setDisplayLimit(PAGE_SIZE);
+    setActionLimit(PAGE_SIZE);
+    setExpandedIds(new Set());
     fetchEntries(window_, PAGE_SIZE, false);
   }, [open, window_, fetchEntries]);
 
   useEffect(() => {
-    if (!open || loading || loadingMore) return;
-    if (activeCategories.size === visibleCategoryKeys.length) return;
+    if (!open || activeTab !== 'actions' || loading || loadingMore || loadErrorMsg) return;
+    if (activeCategories.size === visibleCategoryKeys.length && !search.trim()) return;
     if (entries.length >= total) return;
-
-    const hasVisibleMatch = entries.some((entry) => {
-      if (hiddenTypeKeys.has(entry.operationType)) return false;
-      const catKey = CATEGORY_BY_TYPE.get(entry.operationType);
-      return !catKey || activeCategories.has(catKey);
-    });
-    if (hasVisibleMatch) return;
-
     fetchEntries(window_, total, true);
-  }, [open, activeCategories, visibleCategoryKeys, hiddenTypeKeys, entries, total, loading, loadingMore, window_, fetchEntries]);
+  }, [open, activeTab, search, activeCategories, visibleCategoryKeys, entries, total, loading, loadingMore, loadErrorMsg, window_, fetchEntries]);
+
+  useEffect(() => {
+    setActionLimit(PAGE_SIZE);
+    setHistoryLimit(PAGE_SIZE);
+    if (historyListRef.current) historyListRef.current.scrollTop = 0;
+  }, [search, activeCategories, historyWindow, activeTab, open]);
 
   useEffect(() => {
     if (!loading && entries.length > 0 && listRef.current) {
@@ -170,16 +187,34 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
 
   const reversed    = [...entries].reverse();
   const modeVisible = reversed.filter((entry) => !hiddenTypeKeys.has(entry.operationType));
-  const filtered    = activeCategories.size === visibleCategoryKeys.length
+  const categoryFiltered = activeCategories.size === visibleCategoryKeys.length
     ? modeVisible
     : modeVisible.filter((entry) => {
         const catKey = CATEGORY_BY_TYPE.get(entry.operationType);
         return !catKey || activeCategories.has(catKey);
       });
-  const hasMore    = entries.length < total;
+  const words = search.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+  const matches = (values) => {
+    const text = values.filter(Boolean).join(' ').toLocaleLowerCase();
+    return words.every((word) => text.includes(word));
+  };
+  const matchesFiltered = categoryFiltered.filter((entry) => {
+    if (!words.length) return true;
+    const category = CATEGORIES.find((cat) => cat.key === CATEGORY_BY_TYPE.get(entry.operationType));
+    return matches([
+      entry.data?.title, entry.data?.artist,
+      category && t(category.labelKey),
+      formatOpLabel(entry.operationType, entry.data, t, lang),
+      entry.adminLogin, entry.adminId === 'super' ? t('superAdmin') : entry.adminId,
+    ]);
+  });
+  const filtered = matchesFiltered.slice(-actionLimit);
+  const remaining = matchesFiltered.length - filtered.length;
+  const hasMore = entries.length < total || remaining > 0;
 
   const historySince    = Date.now() - (WINDOW_MS[historyWindow] ?? WINDOW_MS['24h']);
-  const historyFiltered = historyEntries.filter((entry) => entry.playedAt >= historySince);
+  const historyMatches = historyEntries.filter((entry) => entry.playedAt >= historySince && matches([entry.title, entry.artist]));
+  const historyFiltered = historyMatches.slice(0, historyLimit);
 
   return (
     <div className="fixed inset-0 z-[300] flex items-start justify-center bg-black/60 backdrop-blur-sm overflow-y-auto py-8 px-4">
@@ -218,6 +253,17 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
           </div>
         )}
 
+        <div className="px-6 pt-3 shrink-0">
+          <input
+            type="search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder={t(activeTab === 'actions' ? 'searchActions' : 'searchHistory')}
+            aria-label={t(activeTab === 'actions' ? 'searchActions' : 'searchHistory')}
+            className={`w-full rounded-lg border bg-black/20 px-3 py-2 text-sm text-white outline-none transition-colors ${isNight ? 'border-red-900/40 focus:border-red-600' : 'border-white/15 focus:border-blue-500'}`}
+          />
+        </div>
+
         {activeTab === 'actions' ? (
           <>
             {loadErrorMsg && (
@@ -230,7 +276,7 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
               <WindowSelect
                 value={window_}
                 onChange={(w) => { setWindow(w); }}
-                windows={WINDOWS}
+                windows={windows}
                 t={t}
                 isNight={isNight}
               />
@@ -266,13 +312,16 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
 
               {hasMore && !loading && (
                 <button
-                  onClick={() => fetchEntries(window_, displayLimit + PAGE_SIZE, true)}
+                  onClick={() => {
+                    setActionLimit((limit) => limit + PAGE_SIZE);
+                    if (entries.length < total) fetchEntries(window_, displayLimit + PAGE_SIZE, true);
+                  }}
                   disabled={loadingMore}
                   className={`w-full py-2 rounded-xl text-[10px] font-black uppercase transition-all border-2 mb-3 ${
                     isNight ? 'border-red-900/40 text-red-700 hover:bg-red-900/10' : 'border-white/20 text-white/50 hover:bg-white/5'
                   } disabled:opacity-30`}
                 >
-                  {loadingMore ? t('loading') : t('loadMore', { count: total - entries.length })}
+                  {loadingMore ? t('loading') : t('loadMore', { count: remaining + total - entries.length })}
                 </button>
               )}
 
@@ -288,7 +337,9 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
                 filtered.map((entry, idx) => {
                   const prevEntry   = filtered[idx - 1] || null;
                   const showDayHeader = !prevEntry || !isSameDay(prevEntry.createdAt, entry.createdAt);
-                  const label = formatOpLabel(entry.operationType, entry.data, t);
+                  const label = formatOpLabel(entry.operationType, entry.data, t, lang);
+                  const expandable = hasAuditDetails(entry.data);
+                  const expanded = expandedIds.has(entry.id);
                   const adminName = entry.adminId === 'super'
                     ? t('superAdmin')
                     : (entry.adminLogin || entry.adminId);
@@ -305,12 +356,27 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
                           {formatTime(entry.createdAt)}
                         </span>
                         <span className="text-white/70">
-                          {label}
+                          {expandable ? (
+                            <button
+                              type="button"
+                              aria-expanded={expanded}
+                              aria-controls={`audit-details-${entry.id}`}
+                              className="text-start hover:text-white focus-visible:outline focus-visible:outline-1 rounded"
+                              onClick={() => setExpandedIds((prev) => {
+                                const next = new Set(prev);
+                                if (next.has(entry.id)) next.delete(entry.id); else next.add(entry.id);
+                                return next;
+                              })}
+                            >
+                              {label} <span aria-hidden="true" className="ms-1 text-[10px]">{expanded ? '▲' : '▼'}</span>
+                            </button>
+                          ) : label}
                           <span className={`ms-1.5 text-[10px] font-black ${isNight ? 'text-red-700/70' : 'text-white/30'}`}>
                             ({adminName})
                           </span>
                         </span>
                       </div>
+                      {expanded && expandable && <div id={`audit-details-${entry.id}`}><AuditDetails data={entry.data} lang={lang} t={t} /></div>}
                     </div>
                   );
                 })
@@ -329,13 +395,13 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
               <WindowSelect
                 value={historyWindow}
                 onChange={(w) => { setHistoryWindow(w); }}
-                windows={WINDOWS}
+                windows={windows}
                 t={t}
                 isNight={isNight}
               />
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-1 min-h-0">
+            <div ref={historyListRef} className="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-1 min-h-0">
               {historyLoading ? (
                 <div className="flex-1 flex items-center justify-center py-16">
                   <span className="text-xs text-white/30 font-black uppercase">{t('loading')}</span>
@@ -367,6 +433,15 @@ export function AuditLogModal({ open, onClose, isNight, lang = 'uk', socketRef, 
                     </div>
                   );
                 })
+              )}
+              {!historyLoading && historyFiltered.length < historyMatches.length && (
+                <button
+                  type="button"
+                  onClick={() => setHistoryLimit((limit) => limit + PAGE_SIZE)}
+                  className={`w-full py-2 rounded-xl text-[10px] font-black uppercase transition-all border-2 mt-3 ${isNight ? 'border-red-900/40 text-red-700 hover:bg-red-900/10' : 'border-white/20 text-white/50 hover:bg-white/5'}`}
+                >
+                  {t('loadMore', { count: historyMatches.length - historyFiltered.length })}
+                </button>
               )}
             </div>
           </>

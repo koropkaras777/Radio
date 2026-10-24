@@ -38,6 +38,7 @@ export function createModeRouter({ radioEngine }) {
         scheduledAtMs = candidate.getTime() + offsetMs;
       }
 
+      const fromMode = radioEngine.currentMode;
       const result = radioEngine.requestModeSwitch(targetMode, scheduledAtMs);
       if (!result.ok) {
         return res.status(409).json({ error: result.error, donated: result.donated || false });
@@ -46,7 +47,7 @@ export function createModeRouter({ radioEngine }) {
         adminId:       req.admin.adminId || 'super',
         adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
         operationType: AUDIT_TYPES.MODE_SWITCH,
-        data:          { targetMode, ...(scheduledTime ? { scheduledTime } : {}) },
+        data:          { fromMode, targetMode, scheduledAt: scheduledAtMs, timeZone: TIME_ZONE, ...(scheduledTime ? { scheduledTime } : {}) },
       }).catch(() => {});
       return res.json({ ok: true });
     },

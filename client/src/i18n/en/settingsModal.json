@@ -115,5 +115,8 @@
   "readOnlyNotice": "Read-only: this host discards its filesystem, so saved settings would not survive a restart. Use a remote database to enable editing.",
   "artistArtsSection": "Artists' art",
   "artistArtsDayEnabled": "Turn on arts for the daytime broadcast",
-  "artistArtsNightEnabled": "Turn on arts for the night broadcast"
+  "artistArtsNightEnabled": "Turn on arts for the night broadcast",
+  "copyUnassigned": "Copy all unassigned artists",
+  "copied": "Copied",
+  "copyFailed": "Could not copy the list"
 }

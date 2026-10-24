@@ -54,5 +54,6 @@
   "phraseUpdateFailed": "No se pudo actualizar la frase.",
   "phraseUrlFailed": "No se pudo obtener la URL de la frase.",
   "phraseCountFailed": "No se pudieron contar frases.",
-  "phrasesUnavailable": "Las frases no están disponibles en esta configuración: necesitan transmisión y almacenamiento que sobreviva al reinicio."
+  "phrasesUnavailable": "Las frases no están disponibles en esta configuración: necesitan transmisión y almacenamiento que sobreviva al reinicio.",
+  "youtubeAuthRequired": "YouTube rechazó esta sesión o requiere una verificación de bot. Las cookies guardadas pueden caducar o ser rechazadas. Verifique la sesión de YouTube utilizada para exportar cookies y guarde un archivo cookies.txt nuevo."
 }

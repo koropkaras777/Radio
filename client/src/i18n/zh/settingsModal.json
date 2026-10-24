@@ -112,5 +112,8 @@
   "readOnlyNotice": "只读：该主机丢弃其文件系统，因此保存的设置在重新启动后将无法保留。使用远程数据库来启用编辑。",
   "artistArtsSection": "艺术家的艺术",
   "artistArtsDayEnabled": "打开日间广播的艺术",
-  "artistArtsNightEnabled": "打开夜间广播的艺术"
+  "artistArtsNightEnabled": "打开夜间广播的艺术",
+  "copyUnassigned": "复制所有未分配的艺术家",
+  "copied": "已复制",
+  "copyFailed": "无法复制列表"
 }

@@ -85,5 +85,22 @@
   "bulkDeleteBody_one": "{count} Başlık silindi. Bu eylem geri alınamaz.",
   "bulkDeleteBody_other": "{count} Başlıklar silinir. Bu eylem geri alınamaz.",
   "bulkMoveBody_one": "{count} başlığı {modeWord} gösterisine taşındı.",
-  "bulkMoveBody_other": "{count} başlıkları {modeWord} yayınına taşınır."
+  "bulkMoveBody_other": "{count} başlıkları {modeWord} yayınına taşınır.",
+  "findTextBtn": "Şarkı sözlerini ara",
+  "refetchTextBtn": "Şarkı sözlerini güncelle",
+  "refetchTextTitle": "Şarkı sözleri yeniden getirilsin mi?",
+  "refetchTextBody": "Mevcut şarkı sözleri kaybolacak.",
+  "refetchTextYes": "Yeniden getir",
+  "refetchTextNo": "İptal etmek",
+  "lyricsSearching": "Şarkı sözleri aranıyor...",
+  "lyricsFoundSynced": "Senkronize şarkı sözleri bulundu",
+  "lyricsFoundPlain": "Sade şarkı sözleri bulundu",
+  "lyricsNotFound": "Şarkı sözleri bulunamadı",
+  "filterNoText": "Şarkı sözleri olmadan",
+  "forceLyricsUpdate": "Güncellemeyi zorla",
+  "forceLyricsUpdateDescription": "Şarkı sözleri bulunduğunda seçilen her şarkının sözlerini, şarkının zaten sözleri olsa bile değiştirin.",
+  "lyricsUnchanged": "Şarkı sözleri değişmedi",
+  "bulkLyricsUpdateWarning": "Güncellenen şarkıların mevcut sözleri kaybolacak. Zorla güncelleme yapılmazsa, yalnızca daha iyi durumdaki şarkı sözleri değiştirilecektir.",
+  "bulkUpdateLyrics_one": "Şarkı sözlerini güncelle",
+  "bulkUpdateLyrics_other": "Şarkı sözlerini güncelle"
 }

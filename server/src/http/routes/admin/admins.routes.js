@@ -5,6 +5,7 @@ import { session, socketHasPrivilege } from '../../../session/session.js';
 import { ALL_PRIVILEGES, PRIVILEGES } from '../../../config/privileges.js';
 import { t } from '../../../i18n/index.js';
 import { auditLogger, AUDIT_TYPES } from '../../../audit/auditLogger.js';
+import { auditDetails } from '../../../audit/auditDetails.js';
 import { requireCapability } from '../shared/capabilities.js';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -81,7 +82,7 @@ export function createAdminsRouter({ io, dataProvider, mediaProvider }) {
         adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
         operationType: AUDIT_TYPES.ADMIN_CREATE,
-        data:          { login: safe.login, adminId: safe.adminId },
+        data:          { login: safe.login, adminId: safe.adminId, details: auditDetails({}, {}, { privileges: safe.privileges || [] }) },
       }).catch(() => {});
       res.json({ ok: true, admin: safe, message: t('admins.created') });
     } catch (err) {
@@ -96,15 +97,18 @@ export function createAdminsRouter({ io, dataProvider, mediaProvider }) {
     const { id } = req.params;
 
     try {
+      const previous = await dataProvider.getAdminById(id);
       const newPrivileges = await dataProvider.updateAdminPrivileges(id, privileges);
       const fresh = await dataProvider.getAdminById(id).catch(() => null);
       softUpdateAdmin(io, id, newPrivileges, fresh?.authorized ?? true);
       broadcastAdminOnline(io);
-      auditLogger.log({
+      const added = newPrivileges.filter((privilege) => !previous?.privileges?.includes(privilege));
+      const removed = (previous?.privileges || []).filter((privilege) => !newPrivileges.includes(privilege));
+      if (added.length || removed.length) auditLogger.log({
         adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
         operationType: AUDIT_TYPES.ADMIN_PRIVILEGES,
-        data:          { targetAdminId: id, login: fresh?.login || id, privileges: newPrivileges },
+        data:          { targetAdminId: id, login: fresh?.login || id, privileges: newPrivileges, details: auditDetails({}, {}, { privilegesAdded: added, privilegesRemoved: removed }) },
       }).catch(() => {});
       res.json({
         ok: true,
@@ -213,11 +217,14 @@ export function createAdminsRouter({ io, dataProvider, mediaProvider }) {
     const { newLogin, currentPassword } = req.body || {};
 
     try {
+      const previous = await dataProvider.getAdminById(req.admin.adminId);
       await dataProvider.changeAdminLogin(req.admin.adminId, newLogin, currentPassword);
+      const fresh = await dataProvider.getAdminById(req.admin.adminId);
       auditLogger.log({
         adminId:       req.admin.adminId,
+        adminLogin:    fresh.login,
         operationType: AUDIT_TYPES.ADMIN_LOGIN_CHANGE,
-        data:          { newLogin },
+        data:          { newLogin: fresh.login, details: auditDetails({ login: previous.login }, { login: fresh.login }) },
       }).catch(() => {});
       res.json({ ok: true, message: t('admins.loginUpdated') });
     } catch (err) {

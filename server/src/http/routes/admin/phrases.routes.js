@@ -3,6 +3,7 @@ import express     from 'express';
 import { parseBuffer } from 'music-metadata';
 import { requireAdmin, getErrorPayload } from '../../../middleware/auth.js';
 import { auditLogger, AUDIT_TYPES } from '../../../audit/auditLogger.js';
+import { auditDetails } from '../../../audit/auditDetails.js';
 import { SUPER_ADMIN_LOGIN } from '../../../config/env.js';
 import { requireCapability } from '../shared/capabilities.js';
 import { sanitizeUploadedFilename, ensureMp3Filename } from './songs/songUploadHelpers.js';
@@ -130,8 +131,10 @@ export function createPhrasesRouter({ io, radioEngine, mediaProvider }) {
     const { id } = req.params;
     const used = Boolean(req.body?.used);
     try {
+      const previous = await radioEngine.dataProvider.getPhraseById(id);
       const updated = await radioEngine.dataProvider.updatePhraseUsed(id, used);
       if (!updated) return res.status(404).json(getErrorPayload(null, 'upload.phraseNotFound'));
+      if (Boolean(previous?.used) !== Boolean(updated.used)) auditLogger.log({ adminId: req.admin.adminId || 'super', adminLogin: req.admin.login || SUPER_ADMIN_LOGIN, operationType: AUDIT_TYPES.PHRASE_EDIT, data: { filename: updated.filename, details: auditDetails({ used: Boolean(previous?.used) }, { used: Boolean(updated.used) }) } }).catch(() => {});
       io.emit('phrases_updated');
       res.json({ ok: true, phrase: updated });
     } catch (err) {
@@ -231,6 +234,7 @@ export function createPhrasesRouter({ io, radioEngine, mediaProvider }) {
         await mediaProvider.deletePhrase(phrase.mode, phrase.filename);
 
         await radioEngine.dataProvider.movePhraseMode(phrase.id, targetMode);
+        auditLogger.log({ adminId: req.admin.adminId || 'super', adminLogin: req.admin.login || SUPER_ADMIN_LOGIN, operationType: AUDIT_TYPES.PHRASE_EDIT, data: { filename: phrase.filename, details: auditDetails({ mode: phrase.mode }, { mode: targetMode }) } }).catch(() => {});
         results.push({ id, ok: true });
       } catch (err) {
         results.push({ id, ok: false, error: err.message });

@@ -190,7 +190,7 @@ export function ModeratorPanel({ open, onClose, isNight, lang, showToast, canMod
     : null;
 
   return (
-    <div className="fixed inset-0 z-[400] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-[400] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
       <div
         className={`w-full max-w-md rounded-2xl border shadow-2xl p-6 ${cardBg}`}
         onClick={(e) => e.stopPropagation()}

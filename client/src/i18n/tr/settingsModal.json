@@ -115,5 +115,8 @@
   "readOnlyNotice": "Salt okunur: Bu ana bilgisayar dosya sistemini atar, dolayısıyla kaydedilen ayarlar yeniden başlatmadan sonra hayatta kalamaz. Düzenlemeyi etkinleştirmek için uzak bir veritabanı kullanın.",
   "artistArtsSection": "Sanatçıların sanatı",
   "artistArtsDayEnabled": "Gündüz yayını için sanatı açın",
-  "artistArtsNightEnabled": "Gece yayını için sanatı açın"
+  "artistArtsNightEnabled": "Gece yayını için sanatı açın",
+  "copyUnassigned": "Atanmamış tüm sanatçıları kopyala",
+  "copied": "Kopyalandı",
+  "copyFailed": "Liste kopyalanamadı"
 }

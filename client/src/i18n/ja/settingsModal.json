@@ -112,5 +112,8 @@
   "readOnlyNotice": "読み取り専用: このホストはファイルシステムを破棄するため、保存された設定は再起動後に存続しません。リモート データベースを使用して編集を有効にします。",
   "artistArtsSection": "アーティストのアート",
   "artistArtsDayEnabled": "昼間の放送のためにアートをオンにします",
-  "artistArtsNightEnabled": "夜の放送のためにアートをオンにします"
+  "artistArtsNightEnabled": "夜の放送のためにアートをオンにします",
+  "copyUnassigned": "未割り当てのアーティストをすべてコピーする",
+  "copied": "コピーされました",
+  "copyFailed": "リストをコピーできませんでした"
 }

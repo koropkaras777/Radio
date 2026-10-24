@@ -115,5 +115,8 @@
   "readOnlyNotice": "Sólo lectura: este host descarta su sistema de archivos, por lo que la configuración guardada no sobrevivirá al reinicio. Utilice una base de datos remota para permitir la edición.",
   "artistArtsSection": "Arte de artistas",
   "artistArtsDayEnabled": "Activa las artes para la transmisión diurna",
-  "artistArtsNightEnabled": "Activa las artes para la transmisión nocturna"
+  "artistArtsNightEnabled": "Activa las artes para la transmisión nocturna",
+  "copyUnassigned": "Copiar todos los artistas no asignados",
+  "copied": "Copiado",
+  "copyFailed": "No se pudo copiar la lista"
 }

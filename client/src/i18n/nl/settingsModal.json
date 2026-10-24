@@ -115,5 +115,8 @@
   "readOnlyNotice": "Alleen-lezen: deze host gooit zijn bestandssysteem weg, zodat opgeslagen instellingen een herstart niet overleven. Gebruik een externe database om bewerken mogelijk te maken.",
   "artistArtsSection": "Kunst van kunstenaars",
   "artistArtsDayEnabled": "Zet kunst aan voor de uitzending overdag",
-  "artistArtsNightEnabled": "Zet kunst aan voor de nachtuitzending"
+  "artistArtsNightEnabled": "Zet kunst aan voor de nachtuitzending",
+  "copyUnassigned": "Kopieer alle niet-toegewezen artiesten",
+  "copied": "Gekopieerd",
+  "copyFailed": "Kan de lijst niet kopiëren"
 }

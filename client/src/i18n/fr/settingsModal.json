@@ -118,5 +118,8 @@
   "readOnlyNotice": "Lecture seule : cet hôte supprime son système de fichiers, les paramètres enregistrés ne survivront donc pas à un redémarrage. Use a remote database to enable editing.",
   "artistArtsSection": "L'art des artistes",
   "artistArtsDayEnabled": "Activez les arts pour la diffusion de jour",
-  "artistArtsNightEnabled": "Activez les arts pour la diffusion nocturne"
+  "artistArtsNightEnabled": "Activez les arts pour la diffusion nocturne",
+  "copyUnassigned": "Copier tous les artistes non alloués",
+  "copied": "Copié",
+  "copyFailed": "Échec de la copie de la liste"
 }

@@ -2,6 +2,7 @@ import { SUPER_ADMIN_LOGIN } from '../../config/env.js';
 import { t } from '../../i18n/index.js';
 import { session, isAdminSocket, isHostRoomEmpty, liveSession } from '../../session/session.js';
 import { auditLogger, AUDIT_TYPES } from '../../audit/auditLogger.js';
+import { auditDetails } from '../../audit/auditDetails.js';
 import {
   generateGuestCode, deactivateGuestCode, regenerateGuestCode, getActiveGuestCode,
 } from '../../tokens/guestHostToken.js';
@@ -37,7 +38,7 @@ export function registerModeratorHandlers(socket, ctx) {
       adminId:       adminEntry?.adminId || 'super',
       adminLogin:    adminEntry?.login || SUPER_ADMIN_LOGIN,
       operationType: AUDIT_TYPES.GUEST_CODE_GENERATE,
-      data:          { ttlHours: Number(ttlHours) || 8 },
+      data:          { ttlHours: Math.max(1, Number(ttlHours) || 8), expiresAt },
     }).catch(() => {});
 
     ack({ ok: true, code, expiresAt });
@@ -76,7 +77,7 @@ export function registerModeratorHandlers(socket, ctx) {
       adminId:       adminEntry?.adminId || 'super',
       adminLogin:    adminEntry?.login || SUPER_ADMIN_LOGIN,
       operationType: AUDIT_TYPES.GUEST_CODE_REGENERATE,
-      data:          { ttlHours: Number(ttlHours) || 8 },
+      data:          { ttlHours: Math.max(1, Number(ttlHours) || 8), expiresAt },
     }).catch(() => {});
 
     ack({ ok: true, code, expiresAt });
@@ -99,7 +100,16 @@ export function registerModeratorHandlers(socket, ctx) {
     }
 
     const isMuted = Boolean(muted);
+    const before = radioStream?.isParticipantMuted?.(targetId);
     radioStream?.setParticipantMuted(targetId, isMuted);
+    if (radioStream && before !== radioStream.isParticipantMuted(targetId)) {
+      const actor = session.activeAdminSockets.get(socket.id);
+      const participant = buildLiveHostsRoster().find((item) => item.socketId === targetId || item.id === targetId);
+      auditLogger.log({ adminId: actor?.adminId || 'super', adminLogin: actor?.login || SUPER_ADMIN_LOGIN,
+        operationType: AUDIT_TYPES.PARTICIPANT_MUTE,
+        data: { nickname: participant?.nickname || participant?.login || targetId, muted: isMuted, details: auditDetails({ muted: Boolean(before) }, { muted: isMuted }) },
+      }).catch(() => {});
+    }
 
     broadcastLiveHostsRoster();
     ack({ ok: true });

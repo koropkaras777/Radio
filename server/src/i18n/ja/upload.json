@@ -54,5 +54,6 @@
   "phraseUpdateFailed": "フレーズの更新に失敗しました。",
   "phraseUrlFailed": "フレーズURLの取得に失敗しました。",
   "phraseCountFailed": "フレーズのカウントに失敗しました。",
-  "phrasesUnavailable": "この構成ではフレーズは使用できません。フレーズには、再起動後も保存されるストリーミングとストレージが必要です。"
+  "phrasesUnavailable": "この構成ではフレーズは使用できません。フレーズには、再起動後も保存されるストリーミングとストレージが必要です。",
+  "youtubeAuthRequired": "YouTube がこのセッションを拒否したか、ボット チェックが必要です。保存された Cookie は期限切れになるか、拒否される場合があります。 Cookie のエクスポートに使用された YouTube セッションを確認し、新しい cookies.txt を保存します。"
 }

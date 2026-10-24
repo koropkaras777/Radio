@@ -115,5 +115,8 @@
   "readOnlyNotice": "Schreibgeschützt: Dieser Host verwirft sein Dateisystem, sodass gespeicherte Einstellungen einen Neustart nicht überleben würden. Verwenden Sie eine Remote-Datenbank, um die Bearbeitung zu ermöglichen.",
   "artistArtsSection": "Kunst der Künstler",
   "artistArtsDayEnabled": "Schalten Sie die Künste für die Tagesübertragung ein",
-  "artistArtsNightEnabled": "Schalten Sie die Künste für die Nachtübertragung ein"
+  "artistArtsNightEnabled": "Schalten Sie die Künste für die Nachtübertragung ein",
+  "copyUnassigned": "Kopieren Sie alle nicht zugewiesenen Künstler",
+  "copied": "Kopiert",
+  "copyFailed": "Die Liste konnte nicht kopiert werden"
 }

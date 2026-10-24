@@ -46,6 +46,9 @@ export function SongCard({ songId, songKey, songMeta, entry, initialOffset = 0, 
   const [savedMsg, setSavedMsg] = useState('');
   const [tcConfirm, setTcConfirm] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [refetchConfirmOpen, setRefetchConfirmOpen] = useState(false);
+  const [lyricsFetching, setLyricsFetching] = useState(false);
+  const [lyricsFetchStatus, setLyricsFetchStatus] = useState(null);
   const [markerTime, setMarkerTime] = useState(0);
   const [editOffset, setEditOffset] = useState(rawOffset);
   const [editSynced, setEditSynced] = useState(entry?.synced ?? false);
@@ -120,6 +123,44 @@ export function SongCard({ songId, songKey, songMeta, entry, initialOffset = 0, 
   };
 
   const handleJumpToTime = setMarkerTime;
+
+  const handleFetchLyrics = useCallback(async () => {
+    if (lyricsFetching) return;
+    setLyricsFetching(true);
+    setLyricsFetchStatus(null);
+    try {
+      const lyricsData = await apiRequest(`${SERVER_URL}/api/admin/upload-song-lyrics`, {
+        method: 'POST',
+        body: JSON.stringify({
+          title:    editMetaTitle || title,
+          artist:   editMetaArtist || artist,
+          album:    editMetaAlbum || album,
+          duration: songMeta?.duration,
+        }),
+      }, lang);
+
+      const newStatus = lyricsData?.lyricsStatus || 'none';
+      setLyricsFetchStatus(newStatus);
+
+      if (lyricsData?.lyricsEntry && !lyricsData.lyricsEntry.notFound) {
+        setEditText(lyricsToText(lyricsData.lyricsEntry));
+        setEditSynced(Boolean(lyricsData.lyricsEntry.synced));
+      }
+    } catch (err) {
+      setLyricsFetchStatus('none');
+      showToast?.(err.message, 'error');
+    } finally {
+      setLyricsFetching(false);
+    }
+  }, [lyricsFetching, editMetaTitle, editMetaArtist, editMetaAlbum, songMeta, title, artist, album, lang, showToast]);
+
+  const handleFindOrRefetchLyrics = () => {
+    if (allLines.length > 0) {
+      setRefetchConfirmOpen(true);
+    } else {
+      handleFetchLyrics();
+    }
+  };
 
   const handleSave = async () => {
     if (isLocked) {
@@ -275,6 +316,17 @@ export function SongCard({ songId, songKey, songMeta, entry, initialOffset = 0, 
         onYes={handleDelete}
         onNo={() => setDeleteConfirmOpen(false)}
       />
+      <ConfirmDialog
+        open={refetchConfirmOpen}
+        isNight={isNight}
+        title={t('refetchTextTitle')}
+        body={t('refetchTextBody')}
+        yesLabel={t('refetchTextYes')}
+        noLabel={t('refetchTextNo')}
+        yesClassName="bg-purple-700 hover:bg-purple-600"
+        onYes={() => { setRefetchConfirmOpen(false); handleFetchLyrics(); }}
+        onNo={() => setRefetchConfirmOpen(false)}
+      />
 
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
@@ -342,7 +394,39 @@ export function SongCard({ songId, songKey, songMeta, entry, initialOffset = 0, 
             )}
           </div>
 
-          <div className="flex justify-end gap-2">
+          <div className="flex items-center justify-end gap-2">
+            {lyricsFetching ? (
+              <span className="text-[11px] font-black text-gray-400">{t('lyricsSearching')}</span>
+            ) : lyricsFetchStatus === 'synced' ? (
+              <span className="text-[11px] font-black text-green-400">{t('lyricsFoundSynced')}</span>
+            ) : lyricsFetchStatus === 'plain' ? (
+              <span className="text-[11px] font-black text-purple-400">{t('lyricsFoundPlain')}</span>
+            ) : lyricsFetchStatus === 'none' ? (
+              <span className="text-[11px] font-black text-red-400">{t('lyricsNotFound')}</span>
+            ) : null}
+            <button
+              type="button"
+              onClick={handleFindOrRefetchLyrics}
+              disabled={lyricsFetching}
+              className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black text-white transition-all disabled:opacity-50 ${
+                allLines.length > 0
+                  ? 'bg-purple-700 hover:bg-purple-600'
+                  : 'bg-cyan-700 hover:bg-cyan-600'
+              }`}
+            >
+              {allLines.length > 0 ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-3.5 w-3.5 ${lyricsFetching ? 'animate-spin' : ''}`}>
+                  <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                  <polyline points="21 3 21 9 15 9" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                  <circle cx="11" cy="11" r="7" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              )}
+              {allLines.length > 0 ? t('refetchTextBtn') : t('findTextBtn')}
+            </button>
             <button type="button" onClick={() => setEditText('')} className="rounded-xl px-4 py-2 text-xs font-black text-white/80 bg-white/10 transition-all hover:bg-white/20">{t('clearBtn')}</button>
           </div>
 

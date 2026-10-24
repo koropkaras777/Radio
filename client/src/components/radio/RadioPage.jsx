@@ -136,7 +136,7 @@ function App() {
 
   // ── Derived values ────────────────────────────────────────────────────────
   const isNight        = currentMode === 'night';
-  const isDioPlaying   = currentArtist?.toLowerCase().includes('dio');
+  const isDioPlaying   = currentArtist?.trim().toLowerCase() === 'dio';
   const isHammerTrack  = currentArtist?.toLowerCase().includes('hammerfall');
   const isRainbowActive = currentArtist?.toLowerCase().includes('rainbow');
   const isBibleBlack   = currentTitle?.toLowerCase().includes('bible black');

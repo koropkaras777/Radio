@@ -54,5 +54,6 @@
   "phraseUpdateFailed": "Nie udało się zaktualizować frazy.",
   "phraseUrlFailed": "Nie udało się uzyskać odniesienia do frazy.",
   "phraseCountFailed": "Nie udało się zliczyć fraz.",
-  "phrasesUnavailable": "Zwroty niedostępne w bieżącej konfiguracji: wymagają przesyłania strumieniowego i przechowywania, które przetrwają ponowne uruchomienie serwera."
+  "phrasesUnavailable": "Zwroty niedostępne w bieżącej konfiguracji: wymagają przesyłania strumieniowego i przechowywania, które przetrwają ponowne uruchomienie serwera.",
+  "youtubeAuthRequired": "YouTube odrzucił Twoją sesję lub wymaga weryfikacji bez bota. Zapisane pliki cookies mogą być nieaktualne lub odrzucone. Sprawdź sesję YouTube, z której wyeksportowano pliki cookie i zapisz nowy plik cookies.txt."
 }

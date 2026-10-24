@@ -254,7 +254,6 @@ export function StatsModal({ open, onClose, isNight, lang, statsData, statsLoadi
   return (
     <div
       className="fixed inset-0 z-[400] flex items-center justify-center bg-black/60 backdrop-blur-sm"
-      onClick={onClose}
     >
       <div
         className={`relative w-full max-w-lg max-h-[80vh] flex flex-col rounded-2xl shadow-2xl ${
@@ -576,7 +575,6 @@ export function StatsModal({ open, onClose, isNight, lang, statsData, statsLoadi
       {exportOpen && (
         <div
           className="fixed inset-0 z-[500] flex items-center justify-center bg-black/70 backdrop-blur-sm"
-          onClick={() => setExportOpen(false)}
         >
           <div
             className={`w-full max-w-xs rounded-2xl shadow-2xl p-5 space-y-4 ${

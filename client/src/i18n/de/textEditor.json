@@ -85,5 +85,22 @@
   "bulkMoveBody_one": "Der Titel {count} wird in die Sendung {modeWord} verschoben.",
   "bulkMoveBody_other": "{count}-Titel werden in die {modeWord}-Sendung verschoben.",
   "modeNightGen": "Nacht",
-  "modeDayGen": "Tag"
+  "modeDayGen": "Tag",
+  "findTextBtn": "Songtexte suchen",
+  "refetchTextBtn": "Liedtext aktualisieren",
+  "refetchTextTitle": "Liedtext erneut abrufen?",
+  "refetchTextBody": "Der aktuelle Liedtext geht verloren.",
+  "refetchTextYes": "Erneut abrufen",
+  "refetchTextNo": "Stornieren",
+  "lyricsSearching": "Auf der Suche nach Songtexten...",
+  "lyricsFoundSynced": "Synchronisierter Liedtext gefunden",
+  "lyricsFoundPlain": "Einfacher Liedtext gefunden",
+  "lyricsNotFound": "Liedtext nicht gefunden",
+  "filterNoText": "Ohne Liedtext",
+  "forceLyricsUpdate": "Aktualisierung erzwingen",
+  "forceLyricsUpdateDescription": "Ersetzen Sie den Liedtext für jedes ausgewählte Lied, wenn Liedtext gefunden wird, auch wenn das Lied bereits Liedtext hat.",
+  "lyricsUnchanged": "Text unverändert",
+  "bulkLyricsUpdateWarning": "Die aktuellen Songtexte der aktualisierten Songs gehen verloren. Ohne Force-Update werden nur Liedtexte mit einem besseren Status ersetzt.",
+  "bulkUpdateLyrics_one": "Liedtext aktualisieren",
+  "bulkUpdateLyrics_other": "Liedtext aktualisieren"
 }

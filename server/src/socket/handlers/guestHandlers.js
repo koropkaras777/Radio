@@ -6,6 +6,7 @@ import {
 } from '../../session/session.js';
 import { PRIVILEGES } from '../../config/privileges.js';
 import { auditLogger, AUDIT_TYPES } from '../../audit/auditLogger.js';
+import { auditDetails } from '../../audit/auditDetails.js';
 import { hostMonitor } from '../../stream/hostMonitor.js';
 import {
   deactivateGuestCode, getActiveGuestCode, isGuestCodeValid,
@@ -81,7 +82,16 @@ export function registerGuestHandlers(socket, ctx) {
     }
 
     const isMuted = Boolean(muted);
+    const before = radioStream?.isParticipantMuted?.(targetId);
     radioStream?.setParticipantMuted(targetId, isMuted);
+    if (radioStream && before !== radioStream.isParticipantMuted(targetId)) {
+      const actor = session.activeAdminSockets.get(socket.id);
+      const target = io.sockets.sockets.get(targetId);
+      auditLogger.log({ adminId: actor?.adminId || 'super', adminLogin: actor?.login || SUPER_ADMIN_LOGIN,
+        operationType: AUDIT_TYPES.PARTICIPANT_MUTE,
+        data: { nickname: target?.data.guestSession?.nickname || targetId, role, muted: isMuted, details: auditDetails({ muted: Boolean(before) }, { muted: isMuted }) },
+      }).catch(() => {});
+    }
 
     broadcastLiveHostsRoster();
     ack({ ok: true });

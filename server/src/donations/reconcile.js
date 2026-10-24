@@ -1,4 +1,5 @@
 import { auditLogger, AUDIT_TYPES } from '../audit/auditLogger.js';
+import { auditDetails } from '../audit/auditDetails.js';
 import { radioStream } from '../stream/radioStream.js';
 import { broadcastSync } from '../socket/shared/ioHelpers.js';
 
@@ -54,7 +55,7 @@ export async function reconcileDonationPaid({ io, radioEngine, dataProvider, don
       adminId: 'donation',
       adminLogin: donation.uid,
       operationType: AUDIT_TYPES.DONATION_INSERT_FAILED,
-      data: { title: donation.songTitle, artist: donation.songArtist },
+      data: { title: donation.songTitle, artist: donation.songArtist, details: auditDetails({}, {}, { amount: donation.amount, currency: donation.currency, orderId: donation.id, failureReason: err.localized || null }) },
     }).catch(() => {});
     notifyDonor(io, donation.uid, { donationId: donation.id, accepted: false, reason: 'no_slot' });
   }

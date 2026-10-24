@@ -99,7 +99,6 @@ export function ArtistArtsUploadModal({
   return createPortal(
     <div
       className="fixed inset-0 z-[430] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
-      onClick={onClose}
     >
       <div
         className={`relative w-full max-w-5xl max-h-[90vh] flex flex-col rounded-2xl border shadow-2xl overflow-hidden ${accentPanel(isNight)}`}

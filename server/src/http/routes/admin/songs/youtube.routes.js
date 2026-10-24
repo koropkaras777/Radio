@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { writeFile } from 'fs/promises';
-import { tmpdir } from 'os';
-import path from 'path';
+import { prepareSongUpload, readMetadataOverrides } from './uploadMetadata.js';
+import { writeFile, rename, unlink } from 'fs/promises';
+import { randomUUID } from 'node:crypto';
 import { parseBuffer } from 'music-metadata';
 import { requireAdmin, requirePrivilege, getErrorPayload } from '../../../../middleware/auth.js';
 import { PRIVILEGES } from '../../../../config/privileges.js';
@@ -17,6 +17,7 @@ import {
   isPlaylistUrl,
   downloadYoutubeTrack,
   listYoutubeTracks,
+  YOUTUBE_COOKIES_PATH,
 } from '../../../../tools/ytbdown/ytbDownloader.js';
 
 const MAX_PLAYLIST_TRACKS = 100;
@@ -34,7 +35,7 @@ export function createYoutubeRouter({ radioEngine, mediaProvider }) {
     },
   );
 
-  const LIVE_COOKIES_PATH = path.join(tmpdir(), 'ytb-cookies.txt');
+  const LIVE_COOKIES_PATH = YOUTUBE_COOKIES_PATH;
 
   router.post(
     '/youtube-cookies',
@@ -46,7 +47,13 @@ export function createYoutubeRouter({ radioEngine, mediaProvider }) {
         return res.status(400).json(getErrorPayload(null, 'upload.cookiesRequired'));
       }
       try {
-        await writeFile(LIVE_COOKIES_PATH, cookies, 'utf8');
+        const temporary = `${LIVE_COOKIES_PATH}.${randomUUID()}.tmp`;
+        try {
+          await writeFile(temporary, cookies.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').trim() + '\n', { encoding: 'utf8', mode: 0o600 });
+          await rename(temporary, LIVE_COOKIES_PATH);
+        } finally {
+          await unlink(temporary).catch(() => {});
+        }
         res.json({ ok: true, path: LIVE_COOKIES_PATH });
       } catch (err) {
         res.status(500).json(getErrorPayload(err, 'upload.cookiesSaveFailed'));
@@ -96,6 +103,9 @@ export function createYoutubeRouter({ radioEngine, mediaProvider }) {
           return;
         }
         console.error('[Upload Song] youtube track info error:', err);
+        if (err.code === 'YTBDOWN_AUTH_REQUIRED') {
+          return res.status(403).json({ code: err.code, cookiesProvided: err.cookiesProvided, ...getErrorPayload(null, 'upload.youtubeAuthRequired') });
+        }
         if (err.code === 'YTBDOWN_NOT_FOUND') {
           return res.status(503).json(getErrorPayload(err, 'upload.ytbdownNotFound'));
         }
@@ -137,6 +147,7 @@ export function createYoutubeRouter({ radioEngine, mediaProvider }) {
       req.on('close', () => controller.abort());
 
       try {
+        const overrides = readMetadataOverrides(req.body?.metadata);
         const { buffer, filename } = await downloadYoutubeTrack(url, {
           quality: '128K',
           lang: cliLang === 'en' ? 'en' : 'uk',
@@ -155,14 +166,11 @@ export function createYoutubeRouter({ radioEngine, mediaProvider }) {
           return res.status(409).json(getErrorPayload(null, 'upload.trackFilenameExists'));
         }
 
-        await mediaProvider.uploadAudio(trackId, buffer, 'audio/mpeg');
+        const prepared = await prepareSongUpload(buffer, parsed, safeFilename, overrides);
+        await mediaProvider.uploadAudio(trackId, prepared.audio, 'audio/mpeg');
 
         const metadata = {
-          artist:     parsed.common.artist   || 'Unknown Artist',
-          title:      parsed.common.title    || safeFilename.replace(/\.mp3$/i, ''),
-          album:      parsed.common.album    || '',
-          year:       Number.isFinite(Number(parsed.common.year))     ? Number(parsed.common.year)     : null,
-          duration:   Number.isFinite(Number(parsed.format.duration)) ? Number(parsed.format.duration) : null,
+          ...prepared.metadata,
           mode,
           filename:   safeFilename,
           storageKey: trackId,
@@ -174,6 +182,9 @@ export function createYoutubeRouter({ radioEngine, mediaProvider }) {
           return;
         }
         console.error('[Upload Song] youtube download error:', err);
+        if (err.code === 'YTBDOWN_AUTH_REQUIRED') {
+          return res.status(403).json({ code: err.code, cookiesProvided: err.cookiesProvided, ...getErrorPayload(null, 'upload.youtubeAuthRequired') });
+        }
         if (err.code === 'YTBDOWN_NOT_FOUND') {
           return res.status(503).json(getErrorPayload(err, 'upload.ytbdownNotFound'));
         }

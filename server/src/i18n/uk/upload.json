@@ -1,4 +1,5 @@
 {
+    "youtubeAuthRequired": "YouTube відхилив сесію або вимагає перевірку «не бот». Збережені cookies могли застаріти або бути відхилені. Перевірте сесію YouTube, з якої експортували cookies, і збережіть свіжий cookies.txt.",
     "cookiesRequired": "Встав вміст cookies.txt (Netscape-формат) для youtube.com.",
     "cookiesSaveFailed": "Не вдалося зберегти cookies.",
     "youtubeLinkRequired": "Потрібне посилання на YouTube.",

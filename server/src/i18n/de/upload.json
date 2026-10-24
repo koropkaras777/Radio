@@ -54,5 +54,6 @@
   "phraseUpdateFailed": "Satz konnte nicht aktualisiert werden.",
   "phraseUrlFailed": "Die Phrasen-URL konnte nicht abgerufen werden.",
   "phraseCountFailed": "Phrasen konnten nicht gezählt werden.",
-  "phrasesUnavailable": "Phrasen sind in dieser Konfiguration nicht verfügbar: Sie benötigen Streaming und Speicher, der einen Neustart übersteht."
+  "phrasesUnavailable": "Phrasen sind in dieser Konfiguration nicht verfügbar: Sie benötigen Streaming und Speicher, der einen Neustart übersteht.",
+  "youtubeAuthRequired": "YouTube hat diese Sitzung abgelehnt oder erfordert eine Bot-Prüfung. Gespeicherte Cookies können abgelaufen sein oder abgelehnt werden. Überprüfen Sie die zum Exportieren von Cookies verwendete YouTube-Sitzung und speichern Sie eine neue Cookies.txt."
 }

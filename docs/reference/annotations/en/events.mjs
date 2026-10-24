@@ -501,7 +501,7 @@ export const EVENT_DOCS = {
   audit_new_entry: {
     summary: 'A new entry in the audit log.',
     payload: 'an entry object — the same shape as in `GET /api/admin/audit`',
-    notes: 'Lets you append to the log live instead of re-fetching the whole list.',
+    notes: 'Lets you append to the log live instead of re-fetching the whole list. Optional `data.details` contains before/after changes and context: [format and operation types](/en/guide/audit-log).',
   },
 
   library_updated: {

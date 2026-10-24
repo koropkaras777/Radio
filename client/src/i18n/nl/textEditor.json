@@ -85,5 +85,22 @@
   "bulkMoveBody_one": "{count} track wordt verplaatst naar {modeWord} uitzending.",
   "bulkMoveBody_other": "{count} tracks worden verplaatst naar {modeWord} uitzending.",
   "modeNightGen": "nacht",
-  "modeDayGen": "dag"
+  "modeDayGen": "dag",
+  "findTextBtn": "Zoek songteksten",
+  "refetchTextBtn": "Tekst bijwerken",
+  "refetchTextTitle": "Songtekst opnieuw ophalen?",
+  "refetchTextBody": "De huidige tekst gaat verloren.",
+  "refetchTextYes": "Ophalen",
+  "refetchTextNo": "Annuleren",
+  "lyricsSearching": "Zoeken naar songteksten...",
+  "lyricsFoundSynced": "Gesynchroniseerde songteksten gevonden",
+  "lyricsFoundPlain": "Duidelijke teksten gevonden",
+  "lyricsNotFound": "Songtekst niet gevonden",
+  "filterNoText": "Zonder teksten",
+  "forceLyricsUpdate": "Update forceren",
+  "forceLyricsUpdateDescription": "Vervang de songtekst voor elk geselecteerd nummer wanneer er songteksten worden gevonden, zelfs als de song al songteksten heeft.",
+  "lyricsUnchanged": "Tekst ongewijzigd",
+  "bulkLyricsUpdateWarning": "De huidige songtekst van nummers die worden bijgewerkt, gaat verloren. Zonder geforceerde update worden alleen songteksten met een betere status vervangen.",
+  "bulkUpdateLyrics_one": "Tekst bijwerken",
+  "bulkUpdateLyrics_other": "Tekst bijwerken"
 }

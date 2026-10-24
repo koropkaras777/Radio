@@ -121,5 +121,8 @@
   "readOnlyNotice": "Tylko do odczytu: ten host odrzuca swój system plików, więc zapisane ustawienia nie przetrwają ponownego uruchomienia. Użyj zdalnej bazy danych, aby umożliwić edycję.",
   "artistArtsSection": "Sztuka artystów",
   "artistArtsDayEnabled": "Włącz elementy artystyczne w dziennej transmisji",
-  "artistArtsNightEnabled": "Włącz elementy artystyczne w nocnej transmisji"
+  "artistArtsNightEnabled": "Włącz elementy artystyczne w nocnej transmisji",
+  "copyUnassigned": "Skopiuj wszystkich nieprzydzielonych wykonawców",
+  "copied": "Skopiowano",
+  "copyFailed": "Nie udało się skopiować listy"
 }

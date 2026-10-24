@@ -80,7 +80,7 @@ export function DonationSettingsModal({ open, onClose, isNight, lang = 'uk', sho
   const field = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 
   return (
-    <div className="fixed inset-0 z-[300] flex items-start justify-center bg-black/60 backdrop-blur-sm overflow-y-auto py-8 px-4" onClick={onClose}>
+    <div className="fixed inset-0 z-[300] flex items-start justify-center bg-black/60 backdrop-blur-sm overflow-y-auto py-8 px-4">
       <div className={`relative w-full max-w-lg rounded-2xl border shadow-2xl flex flex-col max-h-[85vh] ${accentPanel(isNight)}`} onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 shrink-0">
           <h2 className={`text-sm font-black uppercase tracking-wider ${isNight ? 'text-red-400' : 'text-blue-400'}`}>{t('title')}</h2>

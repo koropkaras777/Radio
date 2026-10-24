@@ -54,5 +54,6 @@
   "phraseUpdateFailed": "Échec de la mise à jour de la phrase.",
   "phraseUrlFailed": "Échec de l'obtention de la référence de l'expression.",
   "phraseCountFailed": "Impossible de compter les phrases.",
-  "phrasesUnavailable": "Phrases non disponibles dans la configuration actuelle : nécessite un streaming et un stockage qui survivent aux redémarrages du serveur."
+  "phrasesUnavailable": "Phrases non disponibles dans la configuration actuelle : nécessite un streaming et un stockage qui survivent aux redémarrages du serveur.",
+  "youtubeAuthRequired": "YouTube a rejeté votre session ou nécessite une vérification sans robot. Les cookies enregistrés peuvent être obsolètes ou rejetés. Vérifiez la session YouTube à partir de laquelle les cookies ont été exportés et enregistrez un nouveau cookie.txt."
 }

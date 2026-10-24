@@ -1,3 +1,5 @@
+import { metadataFromFilename, normalizeSongMetadata } from '../../../../../shared/songMetadata.mjs';
+
 export const createUploadItem = (file, index) => ({
   id: `${Date.now()}-${index}-${file.name}`,
   file,
@@ -13,11 +15,14 @@ export const createUploadItem = (file, index) => ({
   lyricsFormat: null,
   lyricsMessage: '',
   metadata: null,
+  draftMetadata: metadataFromFilename(file.name),
+  metadataEdits: {},
+  metadataLoading: true,
   storageKey: null,
   postAction: null,
 });
 
-export const createYoutubeUploadItem = (url, index, hintTitle = '') => ({
+export const createYoutubeUploadItem = (url, index, hintTitle = '', metadata = null) => ({
   id: `${Date.now()}-${index}-yt`,
   file: null,
   sourceType: 'youtube',
@@ -33,6 +38,8 @@ export const createYoutubeUploadItem = (url, index, hintTitle = '') => ({
   lyricsFormat: null,
   lyricsMessage: '',
   metadata: null,
+  draftMetadata: metadata ? normalizeSongMetadata(metadata) : metadataFromFilename(hintTitle),
+  metadataEdits: {},
   storageKey: null,
   postAction: null,
 });

@@ -1,21 +1,23 @@
 import { Router } from 'express';
+import { prepareSongUpload } from './uploadMetadata.js';
 import express from 'express';
 import { parseBuffer } from 'music-metadata';
 import { requireAdmin, requirePrivilege, getErrorPayload } from '../../../../middleware/auth.js';
 import { PRIVILEGES } from '../../../../config/privileges.js';
 import { t } from '../../../../i18n/index.js';
 import { auditLogger, AUDIT_TYPES } from '../../../../audit/auditLogger.js';
+import { auditDetails, lyricsSnapshot, metadataSnapshot } from '../../../../audit/auditDetails.js';
 import { TIME_ZONE, LOG_PURGE_HOUR, SUPER_ADMIN_LOGIN } from '../../../../config/env.js';
 import { sanitizeArtistKey } from '../../shared/artistKey.js';
 import { lyricsStatus } from '../../shared/lyricsStatus.js';
 import { artistArtsIndexCache, artistArtBinaryCache, cacheArtistArtItem } from '../../shared/artistArtsCache.js';
 import { requireCapability } from '../../shared/capabilities.js';
+import { requireAnyPrivilege } from '../../shared/requireAnyPrivilege.js';
 import {
   sanitizeUploadedFilename,
   ensureMp3Filename,
   buildTrackId,
   getLyricsFetchSummary,
-  extractArtistKeyFromFilename,
   areMetadataEqual,
 } from './songUploadHelpers.js';
 
@@ -142,14 +144,11 @@ export function createSongsRouter({ io, radioEngine, mediaProvider, dataProvider
           return res.status(409).json(getErrorPayload(null, 'upload.trackFilenameExists'));
         }
 
-        await mediaProvider.uploadAudio(trackId, fileBuffer, contentType);
+        const prepared = await prepareSongUpload(fileBuffer, parsed, safeFilename, req.headers['x-song-metadata']);
+        await mediaProvider.uploadAudio(trackId, prepared.audio, contentType);
 
         const metadata = {
-          artist:     parsed.common.artist   || 'Unknown Artist',
-          title:      parsed.common.title    || safeFilename.replace(/\.mp3$/i, ''),
-          album:      parsed.common.album    || '',
-          year:       Number.isFinite(Number(parsed.common.year))     ? Number(parsed.common.year)     : null,
-          duration:   Number.isFinite(Number(parsed.format.duration)) ? Number(parsed.format.duration) : null,
+          ...prepared.metadata,
           mode,
           filename:   safeFilename,
           storageKey: trackId,
@@ -164,10 +163,11 @@ export function createSongsRouter({ io, radioEngine, mediaProvider, dataProvider
   );
 
   // ── Fetch lyrics for the uploaded track ───────────────────────────
+  // @privileges UPLOAD_SONGS, EDITOR_LYRICS
   router.post(
     '/upload-song-lyrics',
     requireAdmin,
-    requirePrivilege(PRIVILEGES.UPLOAD_SONGS),
+    requireAnyPrivilege(PRIVILEGES.UPLOAD_SONGS, PRIVILEGES.EDITOR_LYRICS),
     async (req, res) => {
       const { title, artist, album, duration } = req.body || {};
 
@@ -228,7 +228,7 @@ export function createSongsRouter({ io, radioEngine, mediaProvider, dataProvider
         }
 
         if (typeof radioEngine.dataProvider?.ensureArtistArtEntry === 'function') {
-          const artistKey = extractArtistKeyFromFilename(metadata.filename);
+          const artistKey = sanitizeArtistKey(metadata.artist || '');
           if (artistKey) {
             const artistEntry = await radioEngine.dataProvider.ensureArtistArtEntry(artistKey);
             cacheArtistArtItem(artistEntry);
@@ -298,6 +298,8 @@ export function createSongsRouter({ io, radioEngine, mediaProvider, dataProvider
       };
 
       const actualMetadataChanged = metadataChanged && !areMetadataEqual(currentMeta, nextMeta);
+      const oldMetadata = metadataSnapshot(currentMeta);
+      const oldLyrics = lyricsSnapshot(radioEngine.getLyrics(currentMeta.title, currentMeta.artist), radioEngine.getLyricsOffset(currentMeta.title, currentMeta.artist));
       let updatedTrack = { id: String(songId), ...currentMeta };
 
       if (actualMetadataChanged) {
@@ -345,14 +347,17 @@ export function createSongsRouter({ io, radioEngine, mediaProvider, dataProvider
           adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
           operationType: AUDIT_TYPES.EDIT_SONG_META,
-          data:          { title: nextMeta.title, artist: nextMeta.artist },
+          data:          { title: nextMeta.title, artist: nextMeta.artist, details: auditDetails(oldMetadata, metadataSnapshot(updatedTrack)) },
         }).catch(() => {});
-      } else if (lyricsChanged || offsetChanged) {
-        auditLogger.log({
+      }
+      if (lyricsChanged || offsetChanged) {
+        const nextLyrics = lyricsSnapshot(savedLyrics, savedOffset);
+        const details = auditDetails(oldLyrics, nextLyrics, req.body?.auditContext?.source === 'bulk' ? { source: 'bulk', force: req.body.auditContext.force === true } : {});
+        if (details.changes.length) auditLogger.log({
           adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
           operationType: AUDIT_TYPES.EDIT_SONG_LYRICS,
-          data:          { title: effectiveTitle, artist: effectiveArtist },
+          data:          { title: effectiveTitle, artist: effectiveArtist, action: oldLyrics.lyrics !== nextLyrics.lyrics || oldLyrics.lyricsStatus !== nextLyrics.lyricsStatus ? (nextLyrics.lyrics ? 'update' : 'clear') : 'offset', details },
         }).catch(() => {});
       }
 
@@ -437,7 +442,7 @@ export function createSongsRouter({ io, radioEngine, mediaProvider, dataProvider
         adminId:       req.admin.adminId || 'super',
         adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
         operationType: AUDIT_TYPES.EDIT_SONG_META,
-        data:          { title: movedTrack.title, artist: movedTrack.artist, movedTo: targetMode },
+        data:          { title: movedTrack.title, artist: movedTrack.artist, movedFrom: String(songId).split('/')[0], movedTo: targetMode },
       }).catch(() => {});
 
       res.json({
@@ -740,7 +745,7 @@ export function createSongsRouter({ io, radioEngine, mediaProvider, dataProvider
             adminId:       req.admin.adminId || 'super',
             adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
             operationType: AUDIT_TYPES.EDIT_SONG_META,
-            data:          { title: moved.title, artist: moved.artist, movedTo: targetMode },
+            data:          { title: moved.title, artist: moved.artist, movedFrom: String(songId).split('/')[0], movedTo: targetMode },
           }).catch(() => {});
 
           const orphaned = checkOrphanedArtist(preArtist);

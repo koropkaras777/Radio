@@ -611,9 +611,9 @@ export const ENDPOINT_DOCS = {
   },
 
   'POST /api/admin/upload-song-file': {
-    summary: 'Крок 1 завантаження: кладе MP3 у сховище й читає теги.',
+    summary: 'Крок 1 завантаження: читає й очищує теги, застосовує правки метаданих і зберігає MP3.',
     query: '`mode` — `day` або `night` (типово `day`)',
-    headers: '`X-File-Name` — ім’я файлу у відсотковому кодуванні; `Content-Type: audio/mpeg`',
+    headers: '`X-File-Name` — ім’я файлу у відсотковому кодуванні; `Content-Type: audio/mpeg`; необов’язковий `X-Song-Metadata` — JSON `{ artist?, title?, album?, year? }`, закодований через `encodeURIComponent`',
     body: 'сирі байти MP3, не multipart. Обмеження — 80 МБ',
     response: `{
   ok: true,
@@ -631,7 +631,7 @@ export const ENDPOINT_DOCS = {
   },
 
   'POST /api/admin/upload-song-lyrics': {
-    summary: 'Крок 2 завантаження: шукає текст пісні через LRCLIB.',
+    summary: 'Шукає текст пісні через LRCLIB для завантаження або оновлення в редакторі.',
     body: `{ title, artist, album?, duration? }`,
     response: `{
   ok: true,
@@ -642,7 +642,8 @@ export const ENDPOINT_DOCS = {
 }`,
     errors: '`400` — немає `title` чи `artist`; `500` — не вдалося звернутися до LRCLIB',
     notes:
-      'Крок необов’язковий і не потребує жодних облікових даних: LRCLIB відкритий. ' +
+      'Потрібні адмінська авторизація та upload_songs або editor_lyrics; editor_meta окремо не дає доступу. ' +
+      'Сам пошук не зберігає текст: для оновлення використовуйте song-editor/save. LRCLIB відкритий. ' +
       'Навіть при `500` у відповіді є придатний `lyricsEntry` з `notFound: true`, ' +
       'тож завантаження можна продовжити.',
   },
@@ -669,6 +670,7 @@ export const ENDPOINT_DOCS = {
   metadataChanged: false,   // прапорці визначають, які привілеї потрібні
   lyricsEntry: { … },  lyricsChanged: false,
   offset: 0,           offsetChanged: false,
+  auditContext: { source: 'bulk', force: false }, // необов'язкова позначка аудиту
 }`,
     errors:
       '`400` — немає `songId` чи `metadata`; `403` — бракує привілею для того, ' +
@@ -836,6 +838,7 @@ export const ENDPOINT_DOCS = {
 
   'POST /api/admin/song-groups/:groupId/insert': {
     summary: 'Ставить усю групу в чергу.',
+    response: `{ ok: true, insertedCount: 3, insertedSongIds: ['day/song.mp3', '…'], message: { uk: '…', en: '…' } }`,
     errors: '`400` — група порожня, не вміщується до зміни режиму або діє кулдаун',
     notes:
       'Потребує **обох** привілеїв — `queue_manage` і `settings_groups`, — бо ' +
@@ -915,21 +918,28 @@ export const ENDPOINT_DOCS = {
   'POST /api/admin/youtube-track-info': {
     summary: 'Читає перелік треків за посиланням на відео або плейлист.',
     body: `{ url: 'https://www.youtube.com/…', lang: 'uk' }`,
+    response: `{ ok: true, tracks: [{ url, title, metadata: { artist, title, album, year } }], total, truncated }`,
     errors:
-      '`400` — посилання немає або воно не з YouTube; `503` — інструмент ' +
+      '`403` з `code: YTBDOWN_AUTH_REQUIRED` і `cookiesProvided` — YouTube відхилив сесію; `400` — посилання немає або воно не з YouTube; `503` — інструмент ' +
       'недоступний; `504` — плейлист читався надто довго',
     notes:
       'Нічого не завантажує — лише повертає, що знайдено за посиланням, щоб ' +
-      'користувач обрав потрібне.',
+      'користувач обрав потрібне. `metadata` містить очищені поля для редагованого прев’ю; `year` — рік релізу або порожній рядок, якщо невідомий. ' +
+      'Для плейлистів CLI додатково отримує метадані кожного відео (до трьох запитів паралельно), оскільки скорочені записи не містять альбому та року. ' +
+      'Порядок пісень зберігається. Якщо окреме відео недоступне, повертаються його скорочені дані; невідомі альбом і рік лишаються порожніми. ' +
+      'Рік завантаження відео не використовується замість року релізу. Додаткові запити збільшують час відповіді; тайм-аут CLI — 120 секунд (`504`). ' +
+      'Для повних метаданих потрібна актуальна CLI з `list --json`; резервний TSV старих версій дає лише назву та виконавця з назви. ' +
+      'Подробиці: [імпорт і метадані](/guide/admin-song-editor#метадані-перед-завантаженням).',
   },
 
   'POST /api/admin/upload-song-url': {
     summary: 'Завантажує аудіо з YouTube у сховище.',
-    body: `{ url: 'https://www.youtube.com/watch?v=…' }`,
+    errors: '`403` з `code: YTBDOWN_AUTH_REQUIRED`, `cookiesProvided` і локалізованим повідомленням — YouTube відхилив сесію або вимагає перевірку «не бот»',
+    body: `{ url: 'https://www.youtube.com/watch?v=…', mode: 'day', lang: 'uk', metadata: { artist: 'Artist', title: 'Song', album: 'Album', year: '1986' } }`,
     notes:
       'Найдовша операція в усьому API: включає завантаження й перекодування ' +
       'через FFmpeg. Далі трек проходить ті самі кроки тексту й коміту, що й ' +
-      'звичайне завантаження файлу.',
+      'звичайне завантаження файлу. Необов’язковий `metadata` замінює лише передані поля. Альбом і рік можна очистити порожнім рядком. Правки записуються в ID3 до збереження аудіо. Ліміти: виконавець 150, назва/альбом 200 символів, рік — 4 цифри (1000–9999).',
   },
 
   'POST /api/admin/youtube-cookies': {
@@ -1224,20 +1234,23 @@ export const ENDPOINT_DOCS = {
 
   'GET /api/admin/audit': {
     summary: 'Журнал дій адміністраторів.',
-    query: '`window` — `24h` та інші проміжки; `limit` (типово 30); `offset`',
-    response: `{ ok: true, entries: [ … ], total, offset, limit }`,
+    query: '`window` — `1h`, `6h`, `24h` (типово), `7d`; також `31d` за retention ≥31, `186d` за ≥186, `365d` за ≥365 днів; `limit` (типово 30); `offset`',
+    response: `{ ok: true, entries: [{ id, adminId, adminLogin, operationType, createdAt, data: { …, details: { version: 1, changes: [{ field, before, after }], info: { … } } } }], total, offset, limit, retentionDays }`,
     notes:
+      '`data.details` необов’язковий, старі записи його не мають. Формат полів і нові типи операцій: [детальний аудит](/guide/audit-log). ' +
       'Читається з кешу в пам’яті, тож запит дешевий. Записи автоматично ' +
       'видаляються через `LOG_RETENTION_DAYS` днів. Окремого привілею не ' +
-      'потребує — доступно кожному адміну.',
+      'потребує — доступно кожному адміну. `retentionDays` повертає актуальний `LOG_RETENTION_DAYS`; недоступний або невідомий `window` означає `24h`. ' +
+      'Клієнт додає проміжки «Місяць», «Півроку», «Рік» за відповідними порогами. Пошук виконується клієнтом по назві, виконавцю, локалізованій категорії та адміну в межах вибраних категорій і часу; для цього дочитується весь доступний результат із кешу.',
   },
 
   'GET /api/admin/history': {
     summary: 'Повна історія програвань.',
-    response: `{ ok: true, entries: [ … ], total }`,
+    response: `{ ok: true, entries: [ … ], total, retentionDays }`,
     notes:
       'Потребує привілею `stats`. Записи автоматично видаляються через ' +
-      '`LOG_RETENTION_DAYS` днів — тим самим розкладом, що й журнал адмін-дій.',
+      '`LOG_RETENTION_DAYS` днів — тим самим розкладом, що й журнал адмін-дій. `retentionDays` дозволяє клієнту визначити доступні часові проміжки. ' +
+      'API повертає повний список; клієнт фільтрує його за часом, назвою та виконавцем і відмальовує по 30 пісень кнопкою підвантаження.',
   },
 
   'GET /api/admin/verify': {

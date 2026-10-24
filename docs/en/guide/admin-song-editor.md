@@ -6,6 +6,56 @@ page covers something else: how the editor itself is built in
 `admin/songEditor/` — so you can match its functionality, not just hit the
 same routes.
 
+## Metadata before upload
+
+File and YouTube cards share a layout: artist and title on the upper row,
+album and year below. Underlined fields are editable before starting. Limits:
+artist 150 characters, title/album 200, year four digits (1000–9999) or empty.
+An incomplete year blocks starting and has a red underline. Starting locks
+metadata for the current queue; submitted cards display ordinary text.
+
+MP3 previews read ID3v2.2/2.3/2.4 (including Unicode) and ID3v1 locally in the
+browser, with filename fallback. No audio is sent to the server for preview.
+Malformed or oversized tags fall back to editable values. Starting waits for
+local tag reading to finish.
+
+`POST /api/admin/youtube-track-info` adds
+`tracks[].metadata: { artist, title, album, year }`. The CLI `ytbdown list --json`
+returns this structured data for videos and playlists. It fetches
+metadata from individual videos for playlists (up to three parallel lookups),
+because the abbreviated playlist entries omit album/year. Unavailable videos
+retain their abbreviated metadata. This extra lookup can take longer. It uses the release
+year, never the video's upload year; unknown album/year remain empty.
+Older separately installed CLI binaries fall back to TSV, but require an
+update/rebuild from `server/src/tools/ytbdown/ytbdown.py` (or a `YTBDOWN_PATH`
+update) to provide the full metadata preview.
+
+Cookies saved in the panel are explicitly passed through `--cookies` for
+metadata lookup and downloads, including the TSV fallback. Every request uses
+its own temporary copy so yt-dlp cannot overwrite newly pasted cookies.
+Without a panel cookie file, `YTB_COOKIES_FILE` is used when configured;
+otherwise requests are anonymous. Cookie saves are atomic.
+
+Session rejection/bot checks return `403` with
+`code: 'YTBDOWN_AUTH_REQUIRED'`, `cookiesProvided: boolean`, and localized
+`error`/`message`. This is a YouTube rejection, not missing admin privileges.
+`cookiesProvided` confirms that a file was supplied, not that YouTube accepted
+it. The client opens cookie settings instead of adding an empty preview after
+this error. Saving a fresh file cannot guarantee session acceptance.
+
+Remastered, Deluxe/Expanded/Anniversary Edition, Official Audio/Video and
+similar qualifiers are removed in previews and before server persistence.
+Meaningful parentheses such as `(Live)` are retained.
+
+The file API accepts optional `X-Song-Metadata`:
+`encodeURIComponent(JSON.stringify({ artist, title, album, year }))`.
+`POST /api/admin/upload-song-url` accepts the same object in its JSON `metadata`
+property. Omitted fields come from the resulting MP3; empty album/year clears
+them. Explicit empty artist/title overrides are rejected. The server validates
+limits, writes final fields to ID3, stores audio and returns consistent metadata
+for lyrics search and DB commit. Editing these fields does not rename the
+stored file. Artwork registration uses the final artist.
+
 ## The library
 
 The modal opens with no track selected — the list comes first. Two things load
@@ -40,6 +90,33 @@ there, both going through `BulkConfirmModal`:
 In both cases the server can skip some tracks (busy on air — see below), so
 the client checks `results[].ok` and shows a separate toast for a partial
 failure rather than one blanket "done".
+
+### Batch lyrics updates
+
+After selecting tracks, **Update lyrics** opens `BulkLyricsUpdateModal`.
+The button requires `editor_lyrics` and provider support for song editor saves.
+The list displays 10 tracks at a time; “show more” reveals the next 10.
+Before starting, `ConfirmDialog` warns that existing lyrics will be lost.
+
+Without **Force update**, only better statuses are saved: `none → plain`,
+`none → synced`, or `plain → synced`. Equal or worse statuses show
+**Lyrics unchanged** in yellow. Forced updates replace existing lyrics with
+any lyrics found, including replacing synced lyrics with plain text.
+If no lyrics are found, existing lyrics are preserved even in forced mode.
+
+Every selected track is processed sequentially, including tracks not yet visible
+in the list. Status appears beside the title: searching, then plain lyrics
+(purple), synced lyrics (green), not found (red), or unchanged (yellow).
+Search and save failures are shown separately; processing continues with the
+remaining tracks. The modal closes through the top-right cross, not a backdrop
+click. The cross is disabled during processing.
+
+Each track reads the current `GET /api/admin/lyrics/cache-entry`, searches via
+`POST /api/admin/upload-song-lyrics`, and saves eligible results through
+`POST /api/admin/song-editor/save` with `lyricsChanged: true`. Metadata and
+offsets stay unchanged. Current/next track locks use the same server checks
+as manual saves. Lyrics search accepts `upload_songs` **or** `editor_lyrics`;
+`editor_meta` alone does not grant search access.
 
 ## The song card
 

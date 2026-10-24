@@ -3,6 +3,7 @@ import express     from 'express';
 import { parseBuffer } from 'music-metadata';
 import { requireAdmin, getErrorPayload } from '../../../middleware/auth.js';
 import { auditLogger, AUDIT_TYPES } from '../../../audit/auditLogger.js';
+import { auditDetails } from '../../../audit/auditDetails.js';
 import { SUPER_ADMIN_LOGIN } from '../../../config/env.js';
 import { requireCapability } from '../shared/capabilities.js';
 import { sanitizeUploadedFilename, ensureMp3Filename } from './songs/songUploadHelpers.js';
@@ -121,8 +122,10 @@ export function createJinglesRouter({ io, radioEngine, mediaProvider }) {
     const { id } = req.params;
     const used = Boolean(req.body?.used);
     try {
+      const previous = await radioEngine.dataProvider.getJingleById(id);
       const updated = await radioEngine.dataProvider.updateJingleUsed(id, used);
       if (!updated) return res.status(404).json(getErrorPayload(null, 'upload.jingleNotFound'));
+      if (Boolean(previous?.used) !== Boolean(updated.used)) auditLogger.log({ adminId: req.admin.adminId || 'super', adminLogin: req.admin.login || SUPER_ADMIN_LOGIN, operationType: AUDIT_TYPES.JINGLE_EDIT, data: { filename: updated.filename, details: auditDetails({ used: Boolean(previous?.used) }, { used: Boolean(updated.used) }) } }).catch(() => {});
       io.emit('jingles_updated');
       res.json({ ok: true, jingle: updated });
     } catch (err) {
@@ -222,6 +225,7 @@ export function createJinglesRouter({ io, radioEngine, mediaProvider }) {
         await mediaProvider.deleteJingle(jingle.mode, jingle.filename);
 
         await radioEngine.dataProvider.moveJingleMode(jingle.id, targetMode);
+        auditLogger.log({ adminId: req.admin.adminId || 'super', adminLogin: req.admin.login || SUPER_ADMIN_LOGIN, operationType: AUDIT_TYPES.JINGLE_EDIT, data: { filename: jingle.filename, details: auditDetails({ mode: jingle.mode }, { mode: targetMode }) } }).catch(() => {});
         results.push({ id, ok: true });
       } catch (err) {
         results.push({ id, ok: false, error: err.message });

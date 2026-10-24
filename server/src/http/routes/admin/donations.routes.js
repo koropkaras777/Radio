@@ -6,6 +6,7 @@ import { getActiveDonationProvider } from '../../../donations/donationRegistry.j
 import { sanitizeDonationSettings } from '../../../donations/donationSettingsSchema.js';
 import { computeBasePrice } from '../../../donations/pricing.js';
 import { auditLogger, AUDIT_TYPES } from '../../../audit/auditLogger.js';
+import { auditDetails, donationSettingsSnapshot } from '../../../audit/auditDetails.js';
 
 const WINDOWS_MS = {
   '24h': 24 * 60 * 60 * 1000,
@@ -79,11 +80,12 @@ export function createDonationsAdminRouter({ radioEngine, dataProvider }) {
 
       const saved = await dataProvider.saveDonationSettings(sanitized);
 
-      auditLogger.log({
+      const details = auditDetails(donationSettingsSnapshot(current), donationSettingsSnapshot(saved), { clamped });
+      if (details.changes.length) auditLogger.log({
         adminId:    req.admin.adminId || 'super',
         adminLogin: req.admin.login || SUPER_ADMIN_LOGIN,
         operationType: AUDIT_TYPES.SETTINGS_SAVE,
-        data: { sections: ['donations'] },
+        data: { sections: ['donations'], details },
       }).catch(() => {});
 
       res.json({ settings: saved, clamped });

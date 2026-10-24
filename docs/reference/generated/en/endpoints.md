@@ -83,8 +83,8 @@ Endpoints: **101**. Documented in detail: **101**.
 | `POST` | [`/api/admin/upload-batch-move`](#post-api-admin-upload-batch-move) | admin (JWT) | `UPLOAD_SONGS` | Moves just-uploaded tracks between modes. |
 | `POST` | [`/api/admin/upload-check-duplicate`](#post-api-admin-upload-check-duplicate) | admin (JWT) | `UPLOAD_SONGS` | Checks whether a track already exists, before uploading the file. |
 | `POST` | [`/api/admin/upload-song-commit`](#post-api-admin-upload-song-commit) | admin (JWT) | `UPLOAD_SONGS` | Upload step 3: puts the track into the library. |
-| `POST` | [`/api/admin/upload-song-file`](#post-api-admin-upload-song-file) | admin (JWT) | `UPLOAD_SONGS` | Upload step 1: stores the MP3 and reads its tags. |
-| `POST` | [`/api/admin/upload-song-lyrics`](#post-api-admin-upload-song-lyrics) | admin (JWT) | `UPLOAD_SONGS` | Upload step 2: looks the lyrics up through LRCLIB. |
+| `POST` | [`/api/admin/upload-song-file`](#post-api-admin-upload-song-file) | admin (JWT) | `UPLOAD_SONGS` | Upload step 1: reads and cleans tags, applies metadata edits, and stores the MP3. |
+| `POST` | [`/api/admin/upload-song-lyrics`](#post-api-admin-upload-song-lyrics) | admin (JWT) | `UPLOAD_SONGS or EDITOR_LYRICS` *(per section)* | Looks lyrics up through LRCLIB for uploads or song editor updates. |
 | `POST` | [`/api/admin/upload-song-url`](#post-api-admin-upload-song-url) | admin (JWT) | `UPLOAD_SONGS` | Downloads audio from YouTube into storage. |
 | `GET` | [`/api/admin/verify`](#get-api-admin-verify) | admin (JWT) | — | Validates the session and returns current privileges. |
 | `POST` | [`/api/admin/youtube-cookies`](#post-api-admin-youtube-cookies) | admin (JWT) | `UPLOAD_SONGS` | Stores YouTube cookies for age-restricted videos. |
@@ -261,15 +261,15 @@ raw JPEG bytes, up to 10 MB
 
 The admin action log.
 
-**Query:** `window` — `24h` and other spans; `limit` (default 30); `offset`
+**Query:** `window` — `1h`, `6h`, `24h` (default), `7d`; also `31d` with retention ≥31, `186d` with ≥186, `365d` with ≥365 days; `limit` (default 30); `offset`
 
 **Response:**
 
 ```js
-{ ok: true, entries: [ … ], total, offset, limit }
+{ ok: true, entries: [{ id, adminId, adminLogin, operationType, createdAt, data: { …, details: { version: 1, changes: [{ field, before, after }], info: { … } } } }], total, offset, limit, retentionDays }
 ```
 
-Served from an in-memory cache, so the query is cheap. Entries are purged automatically after `LOG_RETENTION_DAYS` days. No special privilege — every admin may read it.
+`data.details` is optional; old entries omit it. Field format and new operation types: [detailed audit](/en/guide/audit-log). Served from an in-memory cache, so the query is cheap. Entries are purged automatically after `LOG_RETENTION_DAYS` days. No special privilege — every admin may read it. `retentionDays` reports the active `LOG_RETENTION_DAYS`; unsupported or unknown windows fall back to `24h`. The client shows Month, Half a year and Year at the corresponding thresholds. Client search matches title, artist, localized category and admin within the selected categories and time range; it loads the entire available cache result to search it.
 
 ### `GET /api/admin/background-music`
 
@@ -423,10 +423,10 @@ The full playback history.
 **Response:**
 
 ```js
-{ ok: true, entries: [ … ], total }
+{ ok: true, entries: [ … ], total, retentionDays }
 ```
 
-Requires the `stats` privilege. Entries are purged automatically after `LOG_RETENTION_DAYS` days — the same schedule as the admin action log.
+Requires the `stats` privilege. Entries are purged automatically after `LOG_RETENTION_DAYS` days — the same schedule as the admin action log. `retentionDays` tells the client which time spans are available. The API returns the full list; the client filters by time, title and artist and renders 30 songs at a time using a load-more button.
 
 ### `GET /api/admin/jingles`
 
@@ -813,6 +813,7 @@ Saves metadata, lyrics and lyrics offset for a track.
   metadataChanged: false,   // the flags decide which privileges are required
   lyricsEntry: { … },  lyricsChanged: false,
   offset: 0,           offsetChanged: false,
+  auditContext: { source: 'bulk', force: false }, // optional audit origin hint
 }
 ```
 
@@ -865,6 +866,12 @@ Requires `settings_groups`.
 ### `POST /api/admin/song-groups/:groupId/insert`
 
 Queues an entire group.
+
+**Response:**
+
+```js
+{ ok: true, insertedCount: 3, insertedSongIds: ['day/song.mp3', '…'], message: { uk: '…', en: '…' } }
+```
 
 **Errors:** `400` — the group is empty, does not fit before the mode switch, or a cooldown applies
 
@@ -985,11 +992,11 @@ Until this step the track takes no part in the broadcast. On success the server 
 
 ### `POST /api/admin/upload-song-file`
 
-Upload step 1: stores the MP3 and reads its tags.
+Upload step 1: reads and cleans tags, applies metadata edits, and stores the MP3.
 
 **Query:** `mode` — `day` or `night` (default `day`)
 
-**Headers:** `X-File-Name` — percent-encoded filename; `Content-Type: audio/mpeg`
+**Headers:** `X-File-Name` — percent-encoded filename; `Content-Type: audio/mpeg`; optional `X-Song-Metadata` — JSON `{ artist?, title?, album?, year? }` encoded with `encodeURIComponent`
 
 **Request body:**
 
@@ -1013,7 +1020,7 @@ The body is sent as raw bytes (`express.raw`), **not** as `multipart/form-data` 
 
 ### `POST /api/admin/upload-song-lyrics`
 
-Upload step 2: looks the lyrics up through LRCLIB.
+Looks lyrics up through LRCLIB for uploads or song editor updates.
 
 **Request body:**
 
@@ -1035,7 +1042,7 @@ Upload step 2: looks the lyrics up through LRCLIB.
 
 **Errors:** `400` — `title` or `artist` missing; `500` — LRCLIB could not be reached
 
-This step is optional and needs no credentials at all: LRCLIB is open. Even on `500` the response contains a usable `lyricsEntry` with `notFound: true`, so the upload can continue.
+Requires admin authentication and upload_songs or editor_lyrics; editor_meta alone does not grant access. Search does not persist lyrics: use song-editor/save for updates. LRCLIB is open. Even on `500` the response contains a usable `lyricsEntry` with `notFound: true`, so the upload can continue.
 
 ### `POST /api/admin/upload-song-url`
 
@@ -1044,10 +1051,12 @@ Downloads audio from YouTube into storage.
 **Request body:**
 
 ```js
-{ url: 'https://www.youtube.com/watch?v=…' }
+{ url: 'https://www.youtube.com/watch?v=…', mode: 'day', lang: 'uk', metadata: { artist: 'Artist', title: 'Song', album: 'Album', year: '1986' } }
 ```
 
-The longest operation in the whole API: it includes downloading and re-encoding through FFmpeg. The track then goes through the same lyrics and commit steps as a normal file upload.
+**Errors:** `403` with `code: YTBDOWN_AUTH_REQUIRED`, `cookiesProvided`, and a localized message — YouTube rejected the session or requires a bot check
+
+The longest operation in the whole API: it includes downloading and re-encoding through FFmpeg. The track then goes through the same lyrics and commit steps as a normal file upload. Optional `metadata` overrides supplied fields only; empty album/year clears them. Edits are written to ID3 before storage. Limits: artist 150, title/album 200 characters, year 4 digits (1000–9999).
 
 ### `GET /api/admin/verify`
 
@@ -1093,9 +1102,15 @@ Reads the track list behind a video or playlist URL.
 { url: 'https://www.youtube.com/…', lang: 'uk' }
 ```
 
-**Errors:** `400` — URL missing or not a YouTube link; `503` — the tool is unavailable; `504` — reading the playlist took too long
+**Response:**
 
-Downloads nothing — it only reports what the URL contains so the user can choose.
+```js
+{ ok: true, tracks: [{ url, title, metadata: { artist, title, album, year } }], total, truncated }
+```
+
+**Errors:** `403` with `code: YTBDOWN_AUTH_REQUIRED` and `cookiesProvided` — YouTube rejected the session; `400` — URL missing or not a YouTube link; `503` — the tool is unavailable; `504` — reading the playlist took too long
+
+Downloads nothing — it only reports what the URL contains so the user can choose. `metadata` contains cleaned editable preview fields; `year` is the release year or an empty string when unknown. For playlists, the CLI fetches each video’s metadata separately (up to three concurrent lookups), because abbreviated entries omit album/year. Track order is preserved. If an individual video is unavailable, its abbreviated data is retained; unknown album/year remain empty. The video upload year never replaces the release year. Extra lookups increase response time; the CLI timeout is 120 seconds (`504`). Full metadata requires the current CLI with `list --json`; older TSV fallback only derives artist/title from the display title. See [upload metadata](/en/guide/admin-song-editor#metadata-before-upload).
 
 ### `GET /api/admin/ytbdown-status`
 

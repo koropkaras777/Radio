@@ -6,6 +6,8 @@ import { useNamespace } from '../../../i18n/index.js';
 import { ConfirmDialog } from '../shared/ConfirmDialog.jsx';
 import { uploadFileWithProgress } from '../shared/uploadWithProgress.js';
 import { ProgressRing } from './ProgressRing.jsx';
+import { UploadMetadataFields } from './UploadMetadataFields.jsx';
+import { readFileMetadata } from './fileMetadata.js';
 import { createUploadItem, createYoutubeUploadItem } from './uploadItems.js';
 import { isYoutubeTrackUrl, isYoutubePlaylistUrl, extractYoutubeVideoId, normalizeTrackKey, getItemTrackKey } from './youtubeHelpers.js';
 import { downloadYoutubeSong, fetchYoutubeTrackInfo, handleRemovedArtists } from './songUploadApi.js';
@@ -42,6 +44,19 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
 
   const inputRef    = useRef(null);
   const abortRef    = useRef(null); 
+  const readingMetadata = useRef(new Set());
+
+  useEffect(() => {
+    for (const item of items) {
+      if (!item.metadataLoading || readingMetadata.current.has(item.id)) continue;
+      readingMetadata.current.add(item.id);
+      readFileMetadata(item.file).catch(() => item.draftMetadata).then((metadata) => {
+        setItems((prev) => prev.map((current) => current.id === item.id && !current.metadataLocked
+          ? { ...current, draftMetadata: metadata, metadataLoading: false } : current));
+        readingMetadata.current.delete(item.id);
+      });
+    }
+  }, [items]);
 
   useEffect(() => {
     if (open) {
@@ -85,7 +100,11 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
 
   const canEditSong    = privileges.includes('editor_lyrics') || privileges.includes('editor_meta');
   const pendingCount   = useMemo(() => items.filter((i) => i.status === 'pending').length, [items]);
-  const canStart       = useMemo(() => pendingCount > 0 && !isUploading, [pendingCount, isUploading]);
+  const canStart       = useMemo(() => pendingCount > 0 && !isUploading && !isFetchingInfo && !items.some((item) =>
+    item.metadataLoading || (item.status === 'pending' && (
+      (item.draftMetadata?.year && !/^[1-9][0-9]{3}$/.test(item.draftMetadata.year)) ||
+      ['artist', 'title'].some((field) => item.metadataEdits?.[field] && !item.draftMetadata[field]?.trim())
+    ))), [pendingCount, isUploading, isFetchingInfo, items]);
   const completedCount = useMemo(() => items.filter((i) => i.status === 'success').length, [items]);
   const successItems   = useMemo(() => items.filter((i) => i.status === 'success' && !i.postAction), [items]);
   const canMove        = canMoveMode && nightMode;
@@ -207,7 +226,7 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
           const accepted = deduped.slice(0, freeSlots);
           hitQueueLimit = accepted.length < deduped.length;
           addedCount = accepted.length;
-          const newItems = accepted.map((tr, i) => createYoutubeUploadItem(tr.url, prev.length + i, tr.title || ''));
+          const newItems = accepted.map((tr, i) => createYoutubeUploadItem(tr.url, prev.length + i, tr.title || '', tr.metadata));
           return [...prev, ...newItems];
         });
 
@@ -229,6 +248,7 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
         }
       } catch (err) {
         setUrlInputError(err?.message || t('playlistFetchError'));
+        if (err.code === 'YTBDOWN_AUTH_REQUIRED') setShowCookiesBox(true);
       } finally {
         setIsFetchingInfo(false);
       }
@@ -244,10 +264,17 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
     setIsFetchingInfo(true);
     setUrlInputError('');
     let hintTitle = '';
+    let hintMetadata = null;
     try {
       const { tracks } = await fetchYoutubeTrackInfo({ url: value, lang, signal: undefined });
       hintTitle = tracks?.[0]?.title || '';
-    } catch {
+      hintMetadata = tracks?.[0]?.metadata || null;
+    } catch (err) {
+      if (err.code === 'YTBDOWN_AUTH_REQUIRED') {
+        setShowCookiesBox(true);
+        setUrlInputError(err.message);
+        return;
+      }
     } finally {
       setIsFetchingInfo(false);
     }
@@ -259,7 +286,7 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
         wasDuplicate = true;
         return prev;
       }
-      return [...prev, createYoutubeUploadItem(value, prev.length, hintTitle)];
+      return [...prev, createYoutubeUploadItem(value, prev.length, hintTitle, hintMetadata)];
     });
 
     if (wasDuplicate) {
@@ -305,6 +332,7 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
 
   // ── Main upload loop ─────────────────────────────────────────────────────────
   const handleStart = useCallback(async () => {
+    if (!canStart) return;
     if (!items.some((i) => i.status === 'pending')) { showToast?.(t('emptyError'), 'error'); return; }
 
     const controller = new AbortController();
@@ -312,6 +340,7 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
     const { signal } = controller;
 
     setIsUploading(true);
+    setItems((prev) => prev.map((item) => item.status === 'pending' ? { ...item, metadataLocked: true } : item));
     setIsDone(false);
     let successCount = 0;
     let abortedStorageKey = null;
@@ -326,6 +355,7 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
         }
 
         const isYoutubeItem = item.sourceType === 'youtube';
+        const metadata = Object.fromEntries(Object.entries(item.draftMetadata || {}).filter(([key, value]) => value !== '' || item.metadataEdits?.[key]));
 
         if (!isYoutubeItem) {
           const safeFilename = item.file.name;
@@ -363,10 +393,10 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
           let uploadData;
           try {
             uploadData = isYoutubeItem
-              ? await downloadYoutubeSong({ url: item.sourceUrl, mode, lang, signal })
+              ? await downloadYoutubeSong({ url: item.sourceUrl, mode, lang, signal, metadata })
               : await uploadFileWithProgress({
                   url: `${SERVER_URL}/api/admin/upload-song-file?mode=${encodeURIComponent(mode)}`,
-                  file: item.file, lang,
+                  file: item.file, lang, metadata,
                   onProgress: (p) => updateItem(item.id, { progress: p, stageLabel: t('uploading') }),
                   signal,
                 });
@@ -472,7 +502,7 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
         showToast?.(t('done'), 'success');
       }
     }
-  }, [items, lang, mode, onUploaded, showToast, t, updateItem]);
+  }, [canStart, items, lang, mode, onUploaded, showToast, t, updateItem]);
 
   // ── Post-upload selection ────────────────────────────────────────────────────
   const toggleSelect = useCallback((id) => {
@@ -606,7 +636,6 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
 
       <div
         className="fixed inset-0 z-[430] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
-        onClick={handleClose}
       >
         <div
           className={`flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border shadow-2xl ${
@@ -768,9 +797,6 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
                   <div className="pb-1 text-center text-xs font-black uppercase text-white/70">{t('dragActive')}</div>
                 )}
                 {items.map((item) => {
-                  const isYoutubeItem = item.sourceType === 'youtube';
-                  const title      = item.metadata?.title || (isYoutubeItem ? (item.hintTitle || item.sourceUrl) : item.name);
-                  const artist     = item.metadata?.artist || (isYoutubeItem && !item.metadata ? t('youtubeSourceLabel') : '');
                   const lyricsLabel = item.status === 'success'
                     ? ({ synced: t('synced'), plain: t('plain'), none: t('none') }[item.lyricsStatus] ?? t('none'))
                     : null;
@@ -785,7 +811,7 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
                     : item.postAction === 'moved'   ? <span className="text-white/30">{t('moved')}</span>
                     : item.status === 'success'     ? <div className="text-emerald-300">{item.lyricsMessage || lyricsLabel || t('success')}</div>
                     : item.status === 'skipped'     ? <span className="text-white/30">{t('skipped')}</span>
-                    : <div className="text-white/70">{item.stageLabel || t('queued')}</div>;
+                    : <div className="text-white/70">{item.metadataLoading ? t('fetchingInfo') : item.stageLabel || t('queued')}</div>;
 
                   return (
                     <div
@@ -818,8 +844,16 @@ export function UploadSongsModal({ open, onClose, isNight, lang = 'uk', showToas
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-3">
                           <div className="min-w-0 flex-1">
-                            <div className="truncate text-sm font-black uppercase text-white">{title}</div>
-                            <div className="truncate text-[11px] font-bold uppercase text-white/45">{artist || item.name}</div>
+                            <UploadMetadataFields
+                              metadata={item.metadata || item.draftMetadata || { title: item.name }}
+                              readOnly={isUploading || item.metadataLocked || item.status !== 'pending'}
+                              loading={item.metadataLoading}
+                              lang={lang}
+                              onChange={(field, value) => updateItem(item.id, {
+                                draftMetadata: { ...item.draftMetadata, [field]: value },
+                                metadataEdits: { ...item.metadataEdits, [field]: true },
+                              })}
+                            />
                           </div>
 
                           <div className="flex shrink-0 items-center gap-3">

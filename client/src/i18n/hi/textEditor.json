@@ -85,5 +85,22 @@
   "bulkDeleteBody_one": "{count} ट्रैक हटा दिया जाएगा. इस एक्शन को वापस नहीं किया जा सकता।",
   "bulkDeleteBody_other": "{count} ट्रैक हटा दिए जाएंगे. इस एक्शन को वापस नहीं किया जा सकता।",
   "bulkMoveBody_one": "{count} ट्रैक को {modeWord} प्रसारण में ले जाया जाएगा।",
-  "bulkMoveBody_other": "{count} ट्रैक्स को {modeWord} प्रसारण में ले जाया जाएगा।"
+  "bulkMoveBody_other": "{count} ट्रैक्स को {modeWord} प्रसारण में ले जाया जाएगा।",
+  "findTextBtn": "गीत खोजें",
+  "refetchTextBtn": "गीत अपडेट करें",
+  "refetchTextTitle": "गीत पुनः बनाएँ?",
+  "refetchTextBody": "वर्तमान गीत खो जायेंगे.",
+  "refetchTextYes": "को फिर से लाएं",
+  "refetchTextNo": "रद्द करना",
+  "lyricsSearching": "गीत के बोल खोज रहे हैं...",
+  "lyricsFoundSynced": "समन्वयित गीत मिले",
+  "lyricsFoundPlain": "सादे गीत मिले",
+  "lyricsNotFound": "गीत नहीं मिले",
+  "filterNoText": "बिना गीत के",
+  "forceLyricsUpdate": "बलपूर्वक जानकारी",
+  "forceLyricsUpdateDescription": "गीत के बोल मिलने पर प्रत्येक चयनित गीत के बोल बदलें, भले ही गीत में पहले से ही बोल हों।",
+  "lyricsUnchanged": "गीत अपरिवर्तित",
+  "bulkLyricsUpdateWarning": "अपडेट किए जा रहे गानों के वर्तमान बोल खो जाएंगे। फ़ोर्स अपडेट के बिना, केवल बेहतर स्थिति वाले गीत ही बदले जाएंगे।",
+  "bulkUpdateLyrics_one": "गीत अपडेट करें",
+  "bulkUpdateLyrics_other": "गीत अपडेट करें"
 }

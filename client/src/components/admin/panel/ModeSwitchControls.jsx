@@ -37,13 +37,23 @@ export function ModeSwitchControls({
       {modeConfirmOpen && nightMode && (
         <div
           className="fixed inset-0 z-[400] flex items-center justify-center bg-black/60 backdrop-blur-sm"
-          onClick={() => setModeConfirmOpen(false)}
         >
           <div
             className={`w-80 rounded-2xl p-6 shadow-2xl flex flex-col gap-4 ${isNight ? 'bg-[#1a0505] border border-red-900/40' : 'bg-gray-800 border border-white/10'}`}
             onClick={e => e.stopPropagation()}
           >
-            <p className="text-white font-semibold text-center">{t('switchModeConfirm')}</p>
+            <div className="flex items-start justify-between gap-3">
+              <p className="text-white font-semibold">{t('switchModeConfirm')}</p>
+              <button
+                onClick={() => setModeConfirmOpen(false)}
+                aria-label={t('switchModeNo')}
+                className="w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+              >
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
 
             <label className="flex items-center gap-2 cursor-pointer select-none group">
               <div
@@ -106,12 +116,6 @@ export function ModeSwitchControls({
                   }`}
               >
                 {t('switchModeYes')}
-              </button>
-              <button
-                onClick={() => setModeConfirmOpen(false)}
-                className="px-5 py-2 rounded-xl text-xs font-black text-white/70 bg-white/10 hover:bg-white/20 transition-all active:scale-95"
-              >
-                {t('switchModeNo')}
               </button>
             </div>
           </div>

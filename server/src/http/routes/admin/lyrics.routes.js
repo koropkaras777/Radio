@@ -3,6 +3,8 @@ import { requireAdmin } from '../../../middleware/auth.js';
 import { PRIVILEGES } from '../../../config/privileges.js';
 import { t } from '../../../i18n/index.js';
 import { requireAnyPrivilege } from '../shared/requireAnyPrivilege.js';
+import { auditLogger, AUDIT_TYPES } from '../../../audit/auditLogger.js';
+import { auditDetails, lyricsSnapshot } from '../../../audit/auditDetails.js';
 
 const canEditLyrics = requireAnyPrivilege(PRIVILEGES.EDITOR_LYRICS, PRIVILEGES.EDITOR_META);
 
@@ -75,7 +77,12 @@ export function createLyricsRouter({ radioEngine, mediaProvider }) {
       return res.status(400).json({ error: t('lyrics.titleArtistEntryRequired') });
     }
     try {
-      await radioEngine.persistLyricsEntry(title, artist, { ...entry, fetchedAt: Date.now() });
+      const offset = radioEngine.getLyricsOffset(title, artist);
+      const before = lyricsSnapshot(radioEngine.getLyrics(title, artist), offset);
+      const saved = await radioEngine.persistLyricsEntry(title, artist, { ...entry, fetchedAt: Date.now() });
+      const after = lyricsSnapshot(saved, offset);
+      const details = auditDetails(before, after);
+      if (details.changes.length) auditLogger.log({ adminId: req.admin.adminId || 'super', adminLogin: req.admin.login, operationType: AUDIT_TYPES.EDIT_SONG_LYRICS, data: { title, artist, action: after.lyrics ? 'update' : 'clear', details } }).catch(() => {});
       console.log(`[Lyrics] Cache updated for "${title}" by ${artist}`);
       res.json({ ok: true });
     } catch (err) {
@@ -145,8 +152,11 @@ export function createLyricsRouter({ radioEngine, mediaProvider }) {
     if (!title || !artist) return res.status(400).json({ error: t('lyrics.titleArtistRequired') });
 
     try {
+      const offset = radioEngine.getLyricsOffset(title, artist);
+      const before = lyricsSnapshot(radioEngine.getLyrics(title, artist), offset);
       const existed = Boolean(radioEngine.getLyrics(title, artist));
       if (existed) await radioEngine.removeLyricsEntry(title, artist);
+      if (existed) auditLogger.log({ adminId: req.admin.adminId || 'super', adminLogin: req.admin.login, operationType: AUDIT_TYPES.EDIT_SONG_LYRICS, data: { title, artist, action: 'clear', details: auditDetails(before, lyricsSnapshot(null, offset)) } }).catch(() => {});
       console.log(`[Lyrics] Cache cleared for: "${title}" by ${artist}`);
       res.json({ ok: true, existed });
     } catch (err) {

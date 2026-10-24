@@ -1,4 +1,5 @@
 {
+  "youtubeAuthRequired": "YouTube rejected this session or requires a bot check. Saved cookies may be expired or rejected. Check the YouTube session used to export cookies and save a fresh cookies.txt.",
   "cookiesRequired": "Paste the cookies.txt (Netscape format) content for youtube.com.",
   "cookiesSaveFailed": "Failed to save cookies.",
   "youtubeLinkRequired": "A YouTube link is required.",

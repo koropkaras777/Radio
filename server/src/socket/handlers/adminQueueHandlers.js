@@ -5,6 +5,7 @@ import { t, tError, withCode } from '../../i18n/index.js';
 import { session, isAdminSocket, socketHasPrivilege } from '../../session/session.js';
 import { ALL_PRIVILEGES, PRIVILEGES } from '../../config/privileges.js';
 import { auditLogger, AUDIT_TYPES } from '../../audit/auditLogger.js';
+import { auditDetails, songAuditLabel } from '../../audit/auditDetails.js';
 import { emitSuggestionsToAdmins } from '../../engine/suggestions.js';
 import { broadcastAdminOnline, emitUsersUpdate, broadcastSync, pickHelperOligarch } from '../shared/ioHelpers.js';
 
@@ -104,6 +105,9 @@ export function registerAdminQueueHandlers(socket, ctx) {
     }
     try {
       radioEngine.injectTrack(songData);
+      const insertedIndex = radioEngine.playlist.findIndex((item) => item?.uid === `${songData.id}-${radioEngine.lastInjectTime}`);
+      const position = insertedIndex >= 0 ? insertedIndex - radioEngine.currentIndex : null;
+      const meta = radioEngine.fullLibraryMetadata.get(songData.id);
       socket.emit('admin_success', JSON.stringify(withCode('QUEUE_SONG_ADDED', 'queue.songAdded')));
       broadcastSync(io, radioEngine, radioStream);
       const adminEntry = session.activeAdminSockets.get(socket.id);
@@ -111,7 +115,7 @@ export function registerAdminQueueHandlers(socket, ctx) {
         adminId:       adminEntry?.adminId || 'super',
           adminLogin:    adminEntry?.login || SUPER_ADMIN_LOGIN,
         operationType: AUDIT_TYPES.QUEUE_ADD,
-        data:          { title: songData.title, artist: songData.artist, orderType: songData.orderType },
+        data:          { title: meta?.title || songData.title, artist: meta?.artist || songData.artist, orderType: songData.orderType, position },
       }).catch(() => {});
     } catch (err) {
       console.error('[Queue] admin_add_song failed:', err.message);
@@ -126,6 +130,7 @@ export function registerAdminQueueHandlers(socket, ctx) {
       return;
     }
     try {
+      const removed = radioEngine.getUpcoming(Number(position) - 1, 1).items[0];
       radioEngine.removeTrack(position);
       socket.emit('admin_success', JSON.stringify(withCode('QUEUE_SONG_REMOVED', 'queue.songRemoved')));
       broadcastSync(io, radioEngine, radioStream);
@@ -134,7 +139,7 @@ export function registerAdminQueueHandlers(socket, ctx) {
         adminId:       adminEntry?.adminId || 'super',
           adminLogin:    adminEntry?.login || SUPER_ADMIN_LOGIN,
         operationType: AUDIT_TYPES.QUEUE_REMOVE,
-        data:          { position },
+        data:          { position, title: removed?.title, artist: removed?.artist },
       }).catch(() => {});
     } catch (err) {
       console.error('[Queue] admin_remove_song failed:', err.message);
@@ -186,6 +191,12 @@ export function registerAdminQueueHandlers(socket, ctx) {
     }
     try {
       const result = radioEngine.injectSongGroup(groupId);
+      const adminEntry = session.activeAdminSockets.get(socket.id);
+      auditLogger.log({
+        adminId: adminEntry?.adminId || 'super', adminLogin: adminEntry?.login || SUPER_ADMIN_LOGIN,
+        operationType: AUDIT_TYPES.GROUP_INSERT,
+        data: { groupId, name: radioEngine.getSongGroupById(groupId)?.name, count: result.insertedCount, details: auditDetails({}, {}, { songs: result.insertedSongIds.map((id) => songAuditLabel(id, radioEngine)) }) },
+      }).catch(() => {});
       socket.emit('admin_success', JSON.stringify(result.message));
       broadcastSync(io, radioEngine, radioStream);
     } catch (err) {

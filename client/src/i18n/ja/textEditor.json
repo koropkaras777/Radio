@@ -77,5 +77,21 @@
   "bulkShowMore_other": "もっと見る ({count})",
   "bulkWaitSeconds_other": "{count}秒待ってください",
   "bulkDeleteBody_other": "{count} トラックが削除されます。この操作は元に戻すことができません。",
-  "bulkMoveBody_other": "{count} トラックは {modeWord} ブロードキャストに移動されます。"
+  "bulkMoveBody_other": "{count} トラックは {modeWord} ブロードキャストに移動されます。",
+  "findTextBtn": "歌詞を検索する",
+  "refetchTextBtn": "歌詞を更新",
+  "refetchTextTitle": "歌詞を再取得しますか?",
+  "refetchTextBody": "現在の歌詞は失われます。",
+  "refetchTextYes": "再フェッチ",
+  "refetchTextNo": "キャンセル",
+  "lyricsSearching": "歌詞を検索中...",
+  "lyricsFoundSynced": "同期された歌詞が見つかりました",
+  "lyricsFoundPlain": "分かりやすい歌詞が見つかりました",
+  "lyricsNotFound": "歌詞が見つかりません",
+  "filterNoText": "歌詞なし",
+  "forceLyricsUpdate": "強制更新",
+  "forceLyricsUpdateDescription": "曲にすでに歌詞がある場合でも、歌詞が見つかった場合は、選択したすべての曲の歌詞を置き換えます。",
+  "lyricsUnchanged": "歌詞は変更されていません",
+  "bulkLyricsUpdateWarning": "更新中の曲の現在の歌詞は失われます。強制更新を行わないと、よりステータスの高い歌詞のみが置き換えられます。",
+  "bulkUpdateLyrics_other": "歌詞を更新"
 }

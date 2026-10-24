@@ -57,7 +57,9 @@ export async function apiRequest(url, options = {}, lang = DEFAULT_LOCALE) {
   const data = await res.json();
   if (!res.ok) {
     const msg = pickLocalized(data.localized || data.message || data.error || data, lang) || '';
-    throw new Error(msg);
+    const error = new Error(msg);
+    if (typeof data.code === 'string') error.code = data.code;
+    throw error;
   }
   return data;
 }

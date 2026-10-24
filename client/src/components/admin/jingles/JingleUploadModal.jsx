@@ -206,7 +206,7 @@ export function JingleUploadModal({ open, onClose, isNight, lang = 'uk', showToa
         />
       )}
 
-      <div className="fixed inset-0 z-[540] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm" onClick={handleClose}>
+      <div className="fixed inset-0 z-[540] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
         <div
           className={`flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border shadow-2xl ${
             isNight ? 'border-red-900/40 bg-[#1a0505]' : 'border-white/10 bg-gray-800'

@@ -54,5 +54,6 @@
   "phraseUpdateFailed": "Kan zin niet updaten.",
   "phraseUrlFailed": "Kan zinsdeel-URL niet ophalen.",
   "phraseCountFailed": "Kan zinnen niet tellen.",
-  "phrasesUnavailable": "Zinnen zijn niet beschikbaar in deze configuratie: ze hebben streaming en opslag nodig die een herstart overleeft."
+  "phrasesUnavailable": "Zinnen zijn niet beschikbaar in deze configuratie: ze hebben streaming en opslag nodig die een herstart overleeft.",
+  "youtubeAuthRequired": "YouTube heeft deze sessie afgewezen of vereist een botcontrole. Opgeslagen cookies kunnen verlopen of geweigerd zijn. Controleer de YouTube-sessie die is gebruikt om cookies te exporteren en sla een nieuwe cookies.txt op."
 }

@@ -1,9 +1,10 @@
 import { spawn } from 'child_process';
-import { access, constants as fsConstants, mkdtemp, readdir, readFile, rm } from 'fs/promises';
+import { access, constants as fsConstants, mkdtemp, readdir, readFile, rm, copyFile, stat } from 'fs/promises';
 import { tmpdir } from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { FFMPEG_PATH, YTBDOWN_PATH } from '../../config/env.js';
+import { normalizeSongMetadata, metadataFromFilename } from '../../../../shared/songMetadata.mjs';
 
 const IS_WINDOWS = process.platform === 'win32';
 
@@ -126,6 +127,24 @@ export function isPlaylistUrl(rawUrl) {
 }
 
 const CHILD_ENV = { ...process.env, PYTHONIOENCODING: 'utf-8', PYTHONUTF8: '1' };
+export const YOUTUBE_COOKIES_PATH = path.join(tmpdir(), 'ytb-cookies.txt');
+
+export async function youtubeCookieArgs(tempDir) {
+  // Snapshot on every request: an older CLI may use a different temporary
+  // directory, and yt-dlp must not overwrite newly pasted cookies on exit.
+  for (const source of [...new Set([YOUTUBE_COOKIES_PATH, process.env.YTB_COOKIES_FILE].filter(Boolean))]) {
+    try {
+      const info = await stat(source);
+      if (!info.isFile() || !info.size) continue;
+      const target = path.join(tempDir, 'cookies.txt');
+      await copyFile(source, target);
+      return ['--cookies', target];
+    } catch (err) {
+      if (err.code !== 'ENOENT') throw err;
+    }
+  }
+  return [];
+}
 
 function runChildProcess(exePath, args, { signal, timeoutMs, failureLabel }) {
   return new Promise((resolve, reject) => {
@@ -157,7 +176,10 @@ function runChildProcess(exePath, args, { signal, timeoutMs, failureLabel }) {
       clearTimeout(timer);
       signal?.removeEventListener('abort', onAbort);
       if (code === 0) resolve();
-      else reject(Object.assign(new Error(`${failureLabel} exited with code ${code}: ${stderrTail}`), { code: 'YTBDOWN_FAILED' }));
+      else reject(Object.assign(new Error(`${failureLabel} exited with code ${code}: ${stderrTail}`), {
+        code: /sign in to confirm|cookies are no longer valid|cookies.*expired|login required/i.test(stderrTail) ? 'YTBDOWN_AUTH_REQUIRED' : 'YTBDOWN_FAILED',
+        cookiesProvided: args.includes('--cookies'),
+      }));
     });
   });
 }
@@ -183,11 +205,14 @@ export async function listYoutubeTracks(url, { lang = 'uk', signal, timeoutMs = 
   const linksFile = path.join(tempDir, 'links.txt');
 
   try {
-    await runChildProcess(
-      exePath,
-      ['list', url, '--titles', '-o', linksFile, '--lang', lang],
-      { signal, timeoutMs, failureLabel: 'ytbdown list' },
-    );
+    const cookieArgs = await youtubeCookieArgs(tempDir);
+    try {
+      await runChildProcess(exePath, ['list', url, '--json', '-o', linksFile, '--lang', lang, ...cookieArgs], { signal, timeoutMs, failureLabel: 'ytbdown list' });
+    } catch (err) {
+      // Older separately installed binaries still support the tab-separated list.
+      if (!/unrecognized arguments:.*--json/i.test(err.message)) throw err;
+      await runChildProcess(exePath, ['list', url, '--titles', '-o', linksFile, '--lang', lang, ...cookieArgs], { signal, timeoutMs, failureLabel: 'ytbdown list' });
+    }
 
     let raw = '';
     try {
@@ -196,15 +221,21 @@ export async function listYoutubeTracks(url, { lang = 'uk', signal, timeoutMs = 
       throw Object.assign(new Error('ytbdown list produced no output file'), { code: 'YTBDOWN_NO_OUTPUT' });
     }
 
+    if (raw.trim().startsWith('[')) {
+      const tracks = JSON.parse(raw);
+      if (!Array.isArray(tracks)) throw new Error('Invalid ytbdown metadata');
+      return tracks.map((track) => ({ url: track.url, title: track.title, metadata: normalizeSongMetadata(track.metadata) }));
+    }
     return raw
       .split(/\r?\n/)
       .map((line) => line.trim())
       .filter(Boolean)
       .map((line) => {
         const tabIndex = line.indexOf('\t');
-        return tabIndex === -1
+        const track = tabIndex === -1
           ? { url: line, title: '' }
           : { url: line.slice(0, tabIndex), title: line.slice(tabIndex + 1) };
+        return { ...track, metadata: metadataFromFilename(track.title) };
       });
   } finally {
     await rm(tempDir, { recursive: true, force: true }).catch(() => {});
@@ -217,9 +248,10 @@ export async function downloadYoutubeTrack(url, { quality = '128K', lang = 'uk',
   const tempDir = await mkdtemp(path.join(tmpdir(), 'ytbdown-'));
 
   try {
+    const cookieArgs = await youtubeCookieArgs(tempDir);
     await runChildProcess(
       exePath,
-      [url, '--strip', '-q', quality, '-o', tempDir, '--lang', lang],
+      [url, '--strip', '-q', quality, '-o', tempDir, '--lang', lang, ...cookieArgs],
       { signal, timeoutMs, failureLabel: 'ytbdown' },
     );
 

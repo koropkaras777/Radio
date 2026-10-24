@@ -77,5 +77,21 @@
   "bulkShowMore_other": "查看更多 ({count})",
   "bulkWaitSeconds_other": "请等待 {count} 秒",
   "bulkDeleteBody_other": "{count} 曲目被删除。此操作无法撤消。",
-  "bulkMoveBody_other": "{count} 曲目被移至 {modeWord} 广播。"
+  "bulkMoveBody_other": "{count} 曲目被移至 {modeWord} 广播。",
+  "findTextBtn": "搜索歌词",
+  "refetchTextBtn": "更新歌词",
+  "refetchTextTitle": "重新获取歌词？",
+  "refetchTextBody": "当前歌词将丢失。",
+  "refetchTextYes": "重新获取",
+  "refetchTextNo": "取消",
+  "lyricsSearching": "正在搜索歌词...",
+  "lyricsFoundSynced": "找到同步歌词",
+  "lyricsFoundPlain": "找到简单的歌词",
+  "lyricsNotFound": "找不到歌词",
+  "filterNoText": "无歌词",
+  "forceLyricsUpdate": "强制更新",
+  "forceLyricsUpdateDescription": "找到歌词后，替换每首选定歌曲的歌词，即使该歌曲已经有歌词。",
+  "lyricsUnchanged": "歌词不变",
+  "bulkLyricsUpdateWarning": "正在更新的歌曲的当前歌词将会丢失。如果不强制更新，则只会替换状态较好的歌词。",
+  "bulkUpdateLyrics_other": "更新歌词"
 }

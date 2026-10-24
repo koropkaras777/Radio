@@ -1,7 +1,7 @@
 import { pickLocalized, getAuthHeaders } from '../../../i18n/serverMessage.js';
 
 // ─── uploadFileWithProgress ─────────────────────────────────────────────────
-export const uploadFileWithProgress = ({ url, file, lang, onProgress, signal }) =>
+export const uploadFileWithProgress = ({ url, file, lang, onProgress, signal, metadata }) =>
   new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url);
@@ -11,6 +11,7 @@ export const uploadFileWithProgress = ({ url, file, lang, onProgress, signal }) 
     Object.entries(headers).forEach(([k, v]) => xhr.setRequestHeader(k, v));
     xhr.setRequestHeader('Content-Type', file.type || 'audio/mpeg');
     xhr.setRequestHeader('X-File-Name', encodeURIComponent(file.name));
+    if (metadata) xhr.setRequestHeader('X-Song-Metadata', encodeURIComponent(JSON.stringify(metadata)));
 
     xhr.upload.onprogress = (event) => {
       if (!event.lengthComputable) return;

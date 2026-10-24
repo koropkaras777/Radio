@@ -2,6 +2,7 @@ import { SUPER_ADMIN_LOGIN } from '../../../config/env.js';
 import { Router } from 'express';
 import { requireAdmin, requirePrivilege, getErrorPayload } from '../../../middleware/auth.js';
 import { auditLogger, AUDIT_TYPES } from '../../../audit/auditLogger.js';
+import { auditDetails, groupSnapshot, songAuditLabel } from '../../../audit/auditDetails.js';
 import { PRIVILEGES } from '../../../config/privileges.js';
 
 export function createSongGroupsRouter({ radioEngine }) {
@@ -42,7 +43,7 @@ export function createSongGroupsRouter({ radioEngine }) {
           adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
           operationType: AUDIT_TYPES.GROUP_CREATE,
-          data:          { name: req.body?.name || '' },
+          data:          { name: result.group.name, details: auditDetails({}, {}, groupSnapshot(result.group, radioEngine)) },
         }).catch(() => {});
         res.json(result);
       } catch (err) {
@@ -58,12 +59,14 @@ export function createSongGroupsRouter({ radioEngine }) {
     requirePrivilege(PRIVILEGES.SETTINGS_GROUPS),
     async (req, res) => {
       try {
+        const before = groupSnapshot(radioEngine.getSongGroupById(req.params.groupId), radioEngine);
         const result = await radioEngine.updateSongGroup(req.params.groupId, req.body);
-        auditLogger.log({
+        const details = auditDetails(before, groupSnapshot(result.group, radioEngine));
+        if (details.changes.length) auditLogger.log({
           adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
           operationType: AUDIT_TYPES.GROUP_EDIT,
-          data:          { name: req.body?.name || req.params.groupId },
+          data:          { name: result.group.name, details },
         }).catch(() => {});
         res.json(result);
       } catch (err) {
@@ -79,12 +82,13 @@ export function createSongGroupsRouter({ radioEngine }) {
     requirePrivilege(PRIVILEGES.SETTINGS_GROUPS),
     async (req, res) => {
       try {
+        const group = radioEngine.getSongGroupById(req.params.groupId);
         const result = await radioEngine.deleteSongGroup(req.params.groupId);
         auditLogger.log({
           adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
           operationType: AUDIT_TYPES.GROUP_DELETE,
-          data:          { groupId: req.params.groupId },
+          data:          { groupId: req.params.groupId, name: group?.name },
         }).catch(() => {});
         res.json(result);
       } catch (err) {
@@ -106,7 +110,7 @@ export function createSongGroupsRouter({ radioEngine }) {
           adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
           operationType: AUDIT_TYPES.GROUP_INSERT,
-          data:          { groupId: req.params.groupId },
+          data:          { groupId: req.params.groupId, name: radioEngine.getSongGroupById(req.params.groupId)?.name, count: result.insertedCount, details: auditDetails({}, {}, { songs: result.insertedSongIds.map((id) => songAuditLabel(id, radioEngine)) }) },
         }).catch(() => {});
         res.json(result);
       } catch (err) {

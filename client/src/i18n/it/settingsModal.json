@@ -115,5 +115,8 @@
   "readOnlyNotice": "Sola lettura: questo host elimina il proprio file system, quindi le impostazioni salvate non sopravvivranno al riavvio. Utilizzare un database remoto per abilitare la modifica.",
   "artistArtsSection": "L'arte degli artisti",
   "artistArtsDayEnabled": "Attiva le arti per la trasmissione diurna",
-  "artistArtsNightEnabled": "Attiva le arti per la trasmissione notturna"
+  "artistArtsNightEnabled": "Attiva le arti per la trasmissione notturna",
+  "copyUnassigned": "Copia tutti gli artisti non assegnati",
+  "copied": "Copiato",
+  "copyFailed": "Impossibile copiare l'elenco"
 }

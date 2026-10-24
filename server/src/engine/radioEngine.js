@@ -1298,6 +1298,7 @@ export class RadioEngine {
     return {
       ok: true,
       insertedCount: orderedSongIds.length,
+      insertedSongIds: orderedSongIds,
       message: t('songGroups.inserted'),
     };
   }

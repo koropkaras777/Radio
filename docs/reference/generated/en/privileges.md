@@ -8,7 +8,7 @@ Privileges: **14**
 | `QUEUE_MANAGE` | `queue_manage` | 1 |
 | `ARTIST_ARTS` | `artist_arts` | 4 |
 | `UPLOAD_SONGS` | `upload_songs` | 10 |
-| `EDITOR_LYRICS` | `editor_lyrics` | 8 |
+| `EDITOR_LYRICS` | `editor_lyrics` | 9 |
 | `EDITOR_META` | `editor_meta` | 14 |
 | `SETTINGS_BRANDING` | `settings_branding` | 0 |
 | `SETTINGS_GROUPS` | `settings_groups` | 4 |

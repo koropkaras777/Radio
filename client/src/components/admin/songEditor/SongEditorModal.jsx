@@ -7,6 +7,7 @@ import { SelectionContextMenu } from '../shared/SelectionContextMenu.jsx';
 import { handleRemovedArtists } from '../uploadSongs/songUploadApi.js';
 import { SongCard } from './SongCard.jsx';
 import { BulkConfirmModal } from './BulkConfirmModal.jsx';
+import { BulkLyricsUpdateModal } from './BulkLyricsUpdateModal.jsx';
 
 const SEARCH_PAGE = 5;
 const COMPACT_INPUT = 'w-full rounded-lg border bg-black/20 px-3 py-2 text-sm text-white outline-none transition-colors';
@@ -26,6 +27,7 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
   const [loadingEntry,  setLoadingEntry]  = useState(false);
   const [search,           setSearch]           = useState('');
   const [filterUnsynced,   setFilterUnsynced]   = useState(false);
+  const [filterNoText,     setFilterNoText]     = useState(false);
   const [filterDay,        setFilterDay]        = useState(true);
   const [filterNight,      setFilterNight]      = useState(true);
   const [searchPage,       setSearchPage]       = useState(SEARCH_PAGE);
@@ -35,6 +37,7 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
   const [contextMenu, setContextMenu] = useState(null);
   const [bulkAction,  setBulkAction]  = useState(null);
   const [bulkWorking, setBulkWorking] = useState(false);
+  const [lyricsUpdateSongs, setLyricsUpdateSongs] = useState(null);
   const [moveHint,    setMoveHint]    = useState(false);
 
   const searchInputRef = useRef(null);
@@ -117,6 +120,7 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
 
     setSearch('');
     setFilterUnsynced(false);
+    setFilterNoText(false);
     setFilterDay(true);
     setFilterNight(true);
     setSelectedEntry(null);
@@ -126,6 +130,7 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
     setSelectedIds(new Set());
     setContextMenu(null);
     setBulkAction(null);
+    setLyricsUpdateSongs(null);
 
     let cancelled = false;
     (async () => {
@@ -159,7 +164,9 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
         if (filterNight && item.mode !== 'night') return false;
       }
 
-      if (filterUnsynced && item.status === 'synced') return false;
+      if (filterNoText && item.status !== 'none') return false;
+
+      if (!filterNoText && filterUnsynced && item.status === 'synced') return false;
 
       if (tokens.length > 0) {
         const haystack = `${item.artist} ${item.title}`.toLowerCase();
@@ -174,7 +181,7 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
       remaining:    filtered.length - Math.min(filtered.length, searchPage),
       filteredAll:  filtered,
     };
-  }, [songsIndex, search, filterUnsynced, filterDay, filterNight, searchPage, nightMode]);
+  }, [songsIndex, search, filterUnsynced, filterNoText, filterDay, filterNight, searchPage, nightMode]);
 
   // ── Bulk selection derived state & handlers ───────────────────────────────
   const isSelectionMode = selectedIds.size > 0;
@@ -297,7 +304,6 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
   return createPortal(
     <div
       className="fixed inset-0 z-[400] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
-      onClick={onClose}
     >
       <div
         className={`relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-2xl border shadow-2xl overflow-hidden ${accent}`}
@@ -326,59 +332,76 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
                 value={search}
                 onChange={(e) => { setSearch(e.target.value); setSearchPage(SEARCH_PAGE); }}
               />
-              <label className="flex items-center gap-1.5 flex-shrink-0 cursor-pointer select-none">
-                <div
-                  onClick={() => { setFilterUnsynced((v) => !v); setSearchPage(SEARCH_PAGE); }}
-                  className={`relative w-8 h-[18px] rounded-full transition-colors cursor-pointer ${
-                    filterUnsynced
-                      ? (isNight ? 'bg-red-700' : 'bg-blue-600')
-                      : 'bg-white/20'
-                  }`}
-                >
-                  <div className={`absolute top-0.5 start-0.5 w-3.5 h-3.5 rounded-full bg-white transition-transform ${filterUnsynced ? 'translate-x-[14px] rtl:-translate-x-[14px]' : ''}`} />
-                </div>
-                <span className="text-[10px] font-black text-gray-400 whitespace-nowrap">{t('filterUnsynced')}</span>
-              </label>
             </div>
-            {nightMode && (
-              <div className="flex items-center gap-4">
-                {[
-                  { key: 'day',   label: t('filterDay'),   active: filterDay,   set: setFilterDay,   other: filterNight },
-                  { key: 'night', label: t('filterNight'), active: filterNight, set: setFilterNight, other: filterDay   },
-                ].map(({ key, label, active, set, other }) => (
-                  <label key={key} className="flex items-center gap-2 cursor-pointer group select-none">
-                    <div
-                      onClick={() => {
-                        if (active && !other) return;
-                        set((v) => !v);
-                        setSearchPage(SEARCH_PAGE);
-                      }}
-                      className={`w-5 h-5 rounded flex items-center justify-center border-2 transition-all flex-shrink-0 ${
-                        active
-                          ? (isNight ? 'bg-red-700 border-red-600' : 'bg-blue-600 border-blue-500')
-                          : 'border-gray-500 bg-transparent'
-                      } ${active && !other ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    >
-                      {active && (
-                        <svg viewBox="0 0 12 12" fill="none" className="w-3 h-3">
-                          <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      )}
-                    </div>
-                    <span
-                      className={`text-[10px] font-black transition-colors ${active ? 'text-gray-200' : 'text-gray-500'}`}
-                      onClick={() => {
-                        if (active && !other) return;
-                        set((v) => !v);
-                        setSearchPage(SEARCH_PAGE);
-                      }}
-                    >
-                      {label}
-                    </span>
-                  </label>
-                ))}
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              {nightMode && (
+                <div className="flex items-center gap-4">
+                  {[
+                    { key: 'day',   label: t('filterDay'),   active: filterDay,   set: setFilterDay,   other: filterNight },
+                    { key: 'night', label: t('filterNight'), active: filterNight, set: setFilterNight, other: filterDay   },
+                  ].map(({ key, label, active, set, other }) => (
+                    <label key={key} className="flex items-center gap-2 cursor-pointer group select-none">
+                      <div
+                        onClick={() => {
+                          if (active && !other) return;
+                          set((v) => !v);
+                          setSearchPage(SEARCH_PAGE);
+                        }}
+                        className={`w-5 h-5 rounded flex items-center justify-center border-2 transition-all flex-shrink-0 ${
+                          active
+                            ? (isNight ? 'bg-red-700 border-red-600' : 'bg-blue-600 border-blue-500')
+                            : 'border-gray-500 bg-transparent'
+                        } ${active && !other ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      >
+                        {active && (
+                          <svg viewBox="0 0 12 12" fill="none" className="w-3 h-3">
+                            <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        )}
+                      </div>
+                      <span
+                        className={`text-[10px] font-black transition-colors ${active ? 'text-gray-200' : 'text-gray-500'}`}
+                        onClick={() => {
+                          if (active && !other) return;
+                          set((v) => !v);
+                          setSearchPage(SEARCH_PAGE);
+                        }}
+                      >
+                        {label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+              <div className="flex items-center gap-3">
+                <label className={`flex items-center gap-1.5 flex-shrink-0 select-none ${filterNoText ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
+                  <div
+                    onClick={() => { if (filterNoText) return; setFilterUnsynced((v) => !v); setSearchPage(SEARCH_PAGE); }}
+                    className={`relative w-8 h-[18px] rounded-full transition-colors ${filterNoText ? 'cursor-not-allowed' : 'cursor-pointer'} ${
+                      filterUnsynced
+                        ? (isNight ? 'bg-red-700' : 'bg-blue-600')
+                        : 'bg-white/20'
+                    }`}
+                  >
+                    <div className={`absolute top-0.5 start-0.5 w-3.5 h-3.5 rounded-full bg-white transition-transform ${filterUnsynced ? 'translate-x-[14px] rtl:-translate-x-[14px]' : ''}`} />
+                  </div>
+                  <span className="text-[10px] font-black text-gray-400 whitespace-nowrap">{t('filterUnsynced')}</span>
+                </label>
+                <label className="flex items-center gap-1.5 flex-shrink-0 cursor-pointer select-none">
+                  <div
+                    onClick={() => { setFilterNoText((v) => !v); setSearchPage(SEARCH_PAGE); }}
+                    className={`relative w-8 h-[18px] rounded-full transition-colors cursor-pointer ${
+                      filterNoText
+                        ? (isNight ? 'bg-red-700' : 'bg-blue-600')
+                        : 'bg-white/20'
+                    }`}
+                  >
+                    <div className={`absolute top-0.5 start-0.5 w-3.5 h-3.5 rounded-full bg-white transition-transform ${filterNoText ? 'translate-x-[14px] rtl:-translate-x-[14px]' : ''}`} />
+                  </div>
+                  <span className="text-[10px] font-black text-gray-400 whitespace-nowrap">{t('filterNoText')}</span>
+                </label>
               </div>
-            )}
+            </div>
           </div>
 
           {!selectedKey && (
@@ -469,12 +492,12 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
                   >
                     {t('bulkCancel')}
                   </button>
-                  <button
+                  {filteredAll.some((item) => !selectedIds.has(item.id)) && <button
                     onClick={selectAllFiltered}
                     className="px-3 py-1.5 rounded-lg text-[10px] font-black uppercase text-white/60 bg-white/10 hover:bg-white/15 transition-all"
                   >
                     {t('selectAllBtn')}
-                  </button>
+                  </button>}
                   {nightMode && canEditMeta && (
                     <div
                       className="relative"
@@ -497,6 +520,12 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
                       )}
                     </div>
                   )}
+                  {Boolean(capabilities.editTrackMetadata) && privileges.includes('editor_lyrics') && <button
+                    onClick={() => setLyricsUpdateSongs(selectedSongsData)}
+                    className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase text-white transition-all ${isNight ? 'bg-red-700 hover:bg-red-600' : 'bg-blue-600 hover:bg-blue-500'}`}
+                  >
+                    {t('bulkUpdateLyrics', { count: selectedIds.size })} ({selectedIds.size})
+                  </button>}
                   {canDelete && (
                     <button
                       onClick={requestBulkDelete}
@@ -684,6 +713,23 @@ export function SongEditorModal({ open, onClose, isNight, lang, showToast, locke
           t={t}
           onConfirm={confirmBulkAction}
           onCancel={() => !bulkWorking && setBulkAction(null)}
+        />
+      )}
+      {lyricsUpdateSongs && (
+        <BulkLyricsUpdateModal
+          songs={lyricsUpdateSongs}
+          isNight={isNight}
+          lang={lang}
+          t={t}
+          showToast={showToast}
+          onClose={() => setLyricsUpdateSongs(null)}
+          onSongUpdated={(song, result) => {
+            setSongsIndex((prev) => prev.map((item) =>
+              item.id === song.id || item.key === result.key
+                ? { ...item, status: result.savedStatus }
+                : item));
+            onLibraryChanged?.();
+          }}
         />
       )}
     </div>,

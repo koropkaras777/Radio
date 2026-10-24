@@ -3,6 +3,7 @@ import { Router }  from 'express';
 import express     from 'express';
 import { requireAdmin, requirePrivilege, getErrorPayload } from '../../../middleware/auth.js';
 import { auditLogger, AUDIT_TYPES } from '../../../audit/auditLogger.js';
+import { auditDetails } from '../../../audit/auditDetails.js';
 import { requireAnyPrivilege } from '../shared/requireAnyPrivilege.js';
 import { PRIVILEGES } from '../../../config/privileges.js';
 import { t } from '../../../i18n/index.js';
@@ -127,6 +128,7 @@ export function createArtistArtsRouter({ radioEngine, mediaProvider, dataProvide
 
         const safeArtist  = sanitizeArtistKey(artist);
         const artFileName = getArtistArtFilename(safeArtist);
+        const previous = artistArtsIndexCache.get(safeArtist);
 
         await mediaProvider.uploadArt(safeArtist, fileBuffer);
 
@@ -141,7 +143,7 @@ export function createArtistArtsRouter({ radioEngine, mediaProvider, dataProvide
           adminId:       req.admin.adminId || 'super',
           adminLogin:    req.admin.login || SUPER_ADMIN_LOGIN,
           operationType: AUDIT_TYPES.ARTIST_ART_UPLOAD,
-          data:          { artist: safeArtist },
+          data:          { artist: safeArtist, replaced: Boolean(previous?.hasArt), ...(previous?.hasArt ? { details: auditDetails({}, {}, { previousFile: previous.artFileName || '', file: artFileName, bytes: fileBuffer.length, width, height }) } : {}) },
         }).catch(() => {});
 
         res.json({

@@ -56,6 +56,12 @@ const canShowEditor = privileges.includes('editor_meta') && capabilities.editTra
 
 ## Тексти й таймкоди
 
+`POST /api/admin/upload-song-lyrics` шукає текст за `title`, `artist`,
+необов'язковими `album` і `duration`. Доступ: `upload_songs` або `editor_lyrics`;
+`editor_meta` окремо не дозволяє пошук. Відповідь містить `lyricsEntry` та
+`lyricsStatus` (`none`, `plain`, `synced`). Пошук сам по собі текст не зберігає.
+Групове оновлення використовує цей пошук і `POST /api/admin/song-editor/save`.
+
 Тексти живуть окремо від треків і ключуються парою **виконавець + назва**, а не
 ідентифікатором треку. Через це перейменування виконавця в метаданих
 переносить і текст.
@@ -129,6 +135,9 @@ await post('/api/admin/song-groups', {
 вимогами, тож правило не обійти через сокет.
 
 ## Журнал аудиту
+
+Формат розгорнутих змін «Було / Стало», перелік операцій і доповнення
+контрактів API описані в [детальному журналі адміністрування](/guide/audit-log).
 
 ```js
 const { entries, total } = await get('/api/admin/audit?window=24h&offset=0&limit=50');

@@ -421,7 +421,7 @@ export const SettingsModal = ({ open, onClose, isNight, lang = 'uk', showToast, 
   };
 
   return (
-    <div className="fixed inset-0 z-[410] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 z-[410] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
       <div
         className={`flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl border shadow-2xl ${accent}`}
         style={{ maxHeight: 'calc(100vh - 32px)' }}

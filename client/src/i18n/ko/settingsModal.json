@@ -112,5 +112,8 @@
   "readOnlyNotice": "읽기 전용: 이 호스트는 파일 시스템을 삭제하므로 저장된 설정은 다시 시작해도 유지되지 않습니다. 편집을 활성화하려면 원격 데이터베이스를 사용하십시오.",
   "artistArtsSection": "예술가들의 예술",
   "artistArtsDayEnabled": "주간 방송을 위해 예술을 켜세요",
-  "artistArtsNightEnabled": "야간 방송을 위해 예술을 켜세요"
+  "artistArtsNightEnabled": "야간 방송을 위해 예술을 켜세요",
+  "copyUnassigned": "할당되지 않은 모든 아티스트 복사",
+  "copied": "복사됨",
+  "copyFailed": "목록을 복사할 수 없습니다."
 }

@@ -54,5 +54,6 @@
   "phraseUpdateFailed": "İfade güncellenemedi.",
   "phraseUrlFailed": "Cümle URL'si alınamadı.",
   "phraseCountFailed": "İfadeler sayımı başarısız oldu.",
-  "phrasesUnavailable": "Bu yapılandırmada ifadeler kullanılamaz: Yeniden başlatmadan sonra hayatta kalabilecek akışa ve depolamaya ihtiyaçları vardır."
+  "phrasesUnavailable": "Bu yapılandırmada ifadeler kullanılamaz: Yeniden başlatmadan sonra hayatta kalabilecek akışa ve depolamaya ihtiyaçları vardır.",
+  "youtubeAuthRequired": "YouTube bu oturumu reddetti veya bot kontrolü gerektiriyor. Kaydedilen çerezlerin süresi dolmuş veya reddedilmiş olabilir. Çerezleri dışa aktarmak ve yeni bir cookie.txt dosyası kaydetmek için kullanılan YouTube oturumunu kontrol edin."
 }

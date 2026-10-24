@@ -57,6 +57,12 @@ documented separately: [The admin song editor](/en/guide/admin-song-editor).
 
 ## Lyrics and timings
 
+`POST /api/admin/upload-song-lyrics` searches by `title`, `artist`, and optional
+`album` and `duration`. Access requires `upload_songs` or `editor_lyrics`;
+`editor_meta` alone does not allow search. The response includes `lyricsEntry`
+and `lyricsStatus` (`none`, `plain`, `synced`). Searching does not persist lyrics.
+Batch updates combine this search with `POST /api/admin/song-editor/save`.
+
 Lyrics live separately from tracks and are keyed by the **artist + title** pair,
 not by track identifier. That is why renaming an artist in the metadata carries
 the lyrics along.
@@ -132,6 +138,9 @@ same thing under the same requirements, so the rule cannot be side-stepped over
 the socket.
 
 ## The audit log
+
+The [detailed admin audit log](/en/guide/audit-log) documents before/after
+details, operation types and the additive API contract changes.
 
 ```js
 const { entries, total } = await get('/api/admin/audit?window=24h&offset=0&limit=50');

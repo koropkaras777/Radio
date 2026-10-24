@@ -1,11 +1,16 @@
+import { auditSection, sectionLabel } from './auditDetails.js';
+
 export const WINDOWS = [
   { key: '1h',  labelKey: 'window1h'  },
   { key: '6h',  labelKey: 'window6h'  },
   { key: '24h', labelKey: 'window24h' },
   { key: '7d',  labelKey: 'window7d'  },
+  { key: '31d', labelKey: 'window31d', minRetention: 31 },
+  { key: '186d', labelKey: 'window186d', minRetention: 186 },
+  { key: '365d', labelKey: 'window365d', minRetention: 365 },
 ];
 
-export const WINDOW_MS = { '1h': 3600000, '6h': 21600000, '24h': 86400000, '7d': 604800000 };
+export const WINDOW_MS = { '1h': 3600000, '6h': 21600000, '24h': 86400000, '7d': 604800000, '31d': 31 * 86400000, '186d': 186 * 86400000, '365d': 365 * 86400000 };
 
 // ─── Session-end reason suffix (guest/specialGuest live sessions) ─────────────
 const REASON_KEYS = { self: 'reasonSelf', timeout: 'reasonTimeout', no_hosts: 'reasonNoHosts', kick: 'reasonKick', ban: 'reasonBan' };
@@ -45,6 +50,14 @@ const OP_KEYS = {
   admin_activate:              { key: 'adminActivate',           params: (d) => ({ login: d.login }) },
   admin_login_change:         { key: 'adminLoginChange',        params: (d) => ({ newLogin: d.newLogin }) },
   admin_password_change:      { key: 'adminPasswordChange',     params: () => ({}) },
+  admin_password_reset:       { key: 'adminPasswordReset',      params: (d) => ({ login: d.login }) },
+  participant_mute:           { key: 'participantMute', params: (d, t) => ({ nickname: d.nickname, state: t(d.muted ? 'muted' : 'unmuted') }) },
+  host_queue_pause:           { key: 'hostQueuePause', params: () => ({}) },
+  host_queue_resume:          { key: 'hostQueueResume', params: () => ({}) },
+  host_background_music:      { key: 'hostBackgroundMusic', params: () => ({}) },
+  jingle_edit:                { key: 'mediaEdit', params: (d, t) => ({ kind: t('catJingles'), filename: d.filename }) },
+  background_music_edit:      { key: 'mediaEdit', params: (d, t) => ({ kind: t('catBackgroundMusic'), filename: d.filename }) },
+  phrase_edit:                { key: 'mediaEdit', params: (d, t) => ({ kind: t('section_phrases'), filename: d.filename }) },
   radio_host_live_start:      { key: 'radioHostLiveStart',      params: () => ({}) },
   radio_host_live_end:        { key: 'radioHostLiveEnd',        params: (d, t) => ({ reasonSuffix: d?.reason ? reasonSuffix(d.reason, t) : '' }) },
   guest_code_generate:        { key: 'guestCodeGenerate',       params: (d) => ({ ttlHours: d.ttlHours }) },
@@ -62,10 +75,32 @@ const OP_KEYS = {
   donation_insert_failed: { key: 'donationInsertFailed', params: (d) => ({ title: d.title, artist: d.artist }) },
 };
 
-export function formatOpLabel(operationType, data, t) {
+export function formatOpLabel(operationType, data, t, lang = 'uk') {
+  const d = data || {};
+  if (operationType === 'settings_save' && d.sections?.length) {
+    const sections = d.sections.includes('donations') ? ['donations'] : d.details?.changes?.length
+      ? [...new Set(d.details.changes.map((change) => auditSection(change.field)).filter(Boolean))]
+      : d.sections;
+    return t('settingsChanged', { sections: sections.map((section) => sectionLabel(section, t)).join(', ') });
+  }
+  if (operationType === 'edit_song_lyrics' && d.action && d.action !== 'update') return t(d.action === 'clear' ? 'lyricsCleared' : 'lyricsOffset', { title: d.title, artist: d.artist });
+  if (operationType === 'edit_song_meta' && d.movedTo) return t('songMoved', { title: d.title, artist: d.artist, from: d.movedFrom ? t(d.movedFrom === 'night' ? 'modeNightM' : 'modeDayM') : '—', to: t(d.movedTo === 'night' ? 'modeNightM' : 'modeDayM') });
+  if (operationType === 'artist_art_upload' && d.replaced) return t('artistArtReplaced', { artist: d.artist });
+  if (operationType === 'queue_add' && d.position) return `${t('queueAdd', OP_KEYS.queue_add.params(d, t))} ${t('atPosition', { position: d.position })}`;
+  if (operationType === 'queue_remove' && d.title) return t('queueRemoveNamed', { title: d.title, artist: d.artist, position: d.position });
+  if (operationType === 'group_delete' && d.name) return t('groupDeleteNamed', { name: d.name });
+  if (operationType === 'group_insert' && d.name) return t('groupInsertNamed', { name: d.name, count: d.count });
+  const date = (time, zone) => new Intl.DateTimeFormat(lang, { dateStyle: 'short', timeStyle: 'short', ...(zone ? { timeZone: zone } : {}) }).format(time);
+  if (operationType === 'mode_switch' && (d.fromMode || d.scheduledTime)) {
+    const modes = { from: d.fromMode ? t(d.fromMode === 'night' ? 'modeNightM' : 'modeDayM') : '—', to: t(d.targetMode === 'night' ? 'modeNightM' : 'modeDayM') };
+    return d.scheduledAt || d.scheduledTime
+      ? t('modeScheduled', { ...modes, time: d.scheduledAt ? date(d.scheduledAt, d.timeZone) : d.scheduledTime, zone: d.timeZone || '' })
+      : t('modeChanged', modes);
+  }
   const cfg = OP_KEYS[operationType];
   if (!cfg) return operationType;
-  return t(cfg.key, cfg.params(data || {}, t));
+  const label = t(cfg.key, cfg.params(d, t));
+  return d.expiresAt ? `${label} ${t('expiresAt', { time: date(d.expiresAt) })}` : label;
 }
 
 // ─── Filter categories ─────────────────────────────────────────────────────────
@@ -80,15 +115,15 @@ export const CATEGORIES = [
   },
   {
     key: 'jingles', labelKey: 'catJingles',
-    types: ['jingle_upload', 'jingle_delete'],
+    types: ['jingle_upload', 'jingle_delete', 'jingle_edit'],
   },
   {
     key: 'backgroundMusic', labelKey: 'catBackgroundMusic',
-    types: ['background_music_upload', 'background_music_delete'],
+    types: ['background_music_upload', 'background_music_delete', 'background_music_edit'],
   },
   {
     key: 'phrases', labelKey: 'catPhrases',
-    types: ['phrase_upload', 'phrase_delete'],
+    types: ['phrase_upload', 'phrase_delete', 'phrase_edit'],
   },
   {
     key: 'queue', labelKey: 'catQueue',
@@ -107,7 +142,7 @@ export const CATEGORIES = [
   },
   {
     key: 'admins', labelKey: 'catAdmins',
-    types: ['admin_create', 'admin_delete', 'admin_privileges', 'admin_activate', 'admin_login_change', 'admin_password_change'],
+    types: ['admin_create', 'admin_delete', 'admin_privileges', 'admin_activate', 'admin_login_change', 'admin_password_change', 'admin_password_reset'],
   },
   {
     key: 'radioHosts', labelKey: 'catRadioHosts',
@@ -118,6 +153,7 @@ export const CATEGORIES = [
       'guest_live_start', 'guest_live_end',
       'special_guest_live_start', 'special_guest_live_end',
       'guest_kick', 'participant_kick',
+      'participant_mute', 'host_queue_pause', 'host_queue_resume', 'host_background_music',
     ],
   },
 ];

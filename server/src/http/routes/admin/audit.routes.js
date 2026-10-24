@@ -1,13 +1,9 @@
 import { Router } from 'express';
 import { requireAdmin, getErrorPayload } from '../../../middleware/auth.js';
 import { auditLogger } from '../../../audit/auditLogger.js';
+import { LOG_RETENTION_DAYS } from '../../../config/env.js';
+import { LOG_WINDOWS as WINDOWS } from '../../../audit/logWindows.js';
 
-const WINDOWS = {
-  '1h':  1 * 60 * 60 * 1000,
-  '6h':  6 * 60 * 60 * 1000,
-  '24h': 24 * 60 * 60 * 1000,
-  '7d':  7 * 24 * 60 * 60 * 1000,
-};
 
 export function createAuditRouter() {
   const router = Router();
@@ -23,7 +19,7 @@ export function createAuditRouter() {
 
       const { entries, total } = auditLogger.getCached({ since, limit, offset });
 
-      res.json({ ok: true, entries, total, offset, limit });
+      res.json({ ok: true, entries, total, offset, limit, retentionDays: LOG_RETENTION_DAYS });
     } catch (err) {
       console.error('[Audit] query error:', err);
       res.status(500).json(getErrorPayload(err, 'audit.loadFailed'));

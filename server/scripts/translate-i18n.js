@@ -400,7 +400,7 @@ async function translateText(text, from, to, retries = 3) {
     return `__V${placeholders.length - 1}__`;
   });
 
-  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(maskedText)}`;
+  const url = `https://translate.googleapis.com/translate_a/single?client=dict-chrome-ex&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(maskedText)}`;
 
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
@@ -693,7 +693,7 @@ async function translateLanguage(targetLang, fromLang, opts = {}) {
 }
 
 async function syncCommand(opts = {}) {
-  const { pluralAware = false, fromLangs = [] } = opts;
+  const { pluralAware = false, fromLangs = [], onlyFile = null } = opts;
   const availableLangs = getAvailableLanguages();
 
   if (availableLangs.length === 0) {
@@ -733,7 +733,7 @@ async function syncCommand(opts = {}) {
       for (const lang of selectedSources) {
         const dir = path.join(basePath, lang);
         if (fs.existsSync(dir)) {
-          fs.readdirSync(dir).filter((f) => f.endsWith('.json')).forEach((f) => allFiles.add(f));
+          fs.readdirSync(dir).filter((f) => f.endsWith('.json') && (!onlyFile || f === onlyFile)).forEach((f) => allFiles.add(f));
         }
       }
 
@@ -1028,6 +1028,7 @@ Options for "translate":
   --force              Re-translate and overwrite every key
 
 Options for "sync":
+  --only-file <name>   Limit plural-aware sync to one JSON filename.
   --plural-aware       Enables plural-aware translation rules.
   --from <langs>       Base language(s) to sync from (comma-separated, e.g. "uk" or "uk,en").
                        Required when --plural-aware is set.
@@ -1131,6 +1132,8 @@ function parseArgs(argv) {
           if (trimmed) flags.from.push(trimmed);
         });
       }
+    } else if (arg === '--only-file') {
+      flags.onlyFile = args[++i];
     } else if (arg === '--empty') {
       flags.empty = true;
     } else if (arg === '--missing-only') {
@@ -1175,7 +1178,7 @@ async function main() {
       break;
     }
     case 'sync':
-      await syncCommand({ pluralAware: flags.pluralAware, fromLangs: flags.from });
+      await syncCommand({ pluralAware: flags.pluralAware, fromLangs: flags.from, onlyFile: flags.onlyFile });
       break;
     case 'remove':
       await removeCommand(positional[0]);

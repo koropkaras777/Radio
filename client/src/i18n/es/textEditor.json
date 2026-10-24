@@ -85,5 +85,22 @@
   "bulkMoveBody_one": "La pista {count} se moverá a la transmisión {modeWord}.",
   "bulkMoveBody_other": "Las pistas {count} se moverán a la transmisión {modeWord}.",
   "modeNightGen": "noche",
-  "modeDayGen": "día"
+  "modeDayGen": "día",
+  "findTextBtn": "buscar letras",
+  "refetchTextBtn": "Actualizar letras",
+  "refetchTextTitle": "¿Volver a buscar letras?",
+  "refetchTextBody": "La letra actual se perderá.",
+  "refetchTextYes": "Volver a buscar",
+  "refetchTextNo": "Cancelar",
+  "lyricsSearching": "Buscando letras...",
+  "lyricsFoundSynced": "Letras sincronizadas encontradas",
+  "lyricsFoundPlain": "Letras sencillas encontradas",
+  "lyricsNotFound": "Letras no encontradas",
+  "filterNoText": "Sin letra",
+  "forceLyricsUpdate": "Forzar actualización",
+  "forceLyricsUpdateDescription": "Reemplace la letra de cada canción seleccionada cuando la encuentre, incluso si la canción ya tiene letra.",
+  "lyricsUnchanged": "Letras sin cambios",
+  "bulkLyricsUpdateWarning": "Se perderán las letras actuales de las canciones que se actualizan. Sin una actualización forzada, solo se reemplazarán las letras con un mejor estado.",
+  "bulkUpdateLyrics_one": "Actualizar letras",
+  "bulkUpdateLyrics_other": "Actualizar letras"
 }

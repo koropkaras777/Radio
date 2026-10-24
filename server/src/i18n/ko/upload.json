@@ -54,5 +54,6 @@
   "phraseUpdateFailed": "구문을 업데이트하지 못했습니다.",
   "phraseUrlFailed": "구문 URL을 가져오지 못했습니다.",
   "phraseCountFailed": "구문을 계산하지 못했습니다.",
-  "phrasesUnavailable": "이 구성에서는 문구를 사용할 수 없습니다. 다시 시작해도 유지되는 스트리밍 및 스토리지가 필요합니다."
+  "phrasesUnavailable": "이 구성에서는 문구를 사용할 수 없습니다. 다시 시작해도 유지되는 스트리밍 및 스토리지가 필요합니다.",
+  "youtubeAuthRequired": "YouTube에서 이 세션을 거부했거나 봇 확인이 필요합니다. 저장된 쿠키는 만료되거나 거부될 수 있습니다. 쿠키를 내보내는 데 사용된 YouTube 세션을 확인하고 새로운 cookie.txt를 저장하세요."
 }

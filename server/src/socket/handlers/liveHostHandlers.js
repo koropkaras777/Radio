@@ -3,6 +3,7 @@ import { t } from '../../i18n/index.js';
 import { session, isAdminSocket, socketHasPrivilege, canGoLive, registerLiveHost, LIVE_HOSTS_ROOM } from '../../session/session.js';
 import { PRIVILEGES } from '../../config/privileges.js';
 import { auditLogger, AUDIT_TYPES } from '../../audit/auditLogger.js';
+import { auditDetails } from '../../audit/auditDetails.js';
 import { hostMonitor } from '../../stream/hostMonitor.js';
 import { broadcastRadioHostsOnline } from '../../session/guestRoom.js';
 
@@ -10,6 +11,10 @@ export function registerLiveHostHandlers(socket, ctx) {
   const { io, radioEngine, dataProvider, radioStream, RADIO_HOSTS_MODE, endHostSession, buildLiveHostsRoster, broadcastLiveHostsRoster, liveParticipantIds, buildPendingGuestList } = ctx;
 
   const isLiveParticipant = () => Boolean(socket.data.isLiveHost || socket.data.isLiveGuest);
+  const logHostAction = (operationType, data = {}) => {
+    const actor = session.activeAdminSockets.get(socket.id);
+    auditLogger.log({ adminId: actor?.adminId || 'super', adminLogin: actor?.login || SUPER_ADMIN_LOGIN, operationType, data }).catch(() => {});
+  };
 
   socket.on('admin_go_live', (_payload, callback) => {
     const ack = typeof callback === 'function' ? callback : () => {};
@@ -73,12 +78,16 @@ export function registerLiveHostHandlers(socket, ctx) {
       socket.emit('host_queue_pause_state', { paused: false, denied: true, reason: 'donatedInQueue' });
       return;
     }
+    const before = Boolean(radioStream?.isQueuePaused);
     radioStream?.pauseQueue?.();
+    if (!before && radioStream?.isQueuePaused) logHostAction(AUDIT_TYPES.HOST_QUEUE_PAUSE);
   });
 
   socket.on('host_resume_queue', () => {
     if (!socket.data.isLiveHost) return;
+    const before = Boolean(radioStream?.isQueuePaused);
     radioStream?.resumeQueue?.();
+    if (before && !radioStream?.isQueuePaused) logHostAction(AUDIT_TYPES.HOST_QUEUE_RESUME);
   });
 
   // ── Radio-hosts: background music, 'hostChoice' mode ──
@@ -107,7 +116,14 @@ export function registerLiveHostHandlers(socket, ctx) {
       const track = await dataProvider?.getBackgroundMusicById?.(id).catch(() => null);
       if (!track) return ack({ error: t('liveHosts.trackNotFound') });
     }
+    const previousId = radioStream?.selectedBackgroundMusicId || null;
+    const previous = previousId ? await dataProvider?.getBackgroundMusicById?.(previousId).catch(() => null) : null;
     radioStream?.setSelectedBackgroundMusicId?.(id);
+    const savedId = radioStream?.selectedBackgroundMusicId || null;
+    if (previousId !== savedId) {
+      const selected = savedId ? await dataProvider?.getBackgroundMusicById?.(savedId).catch(() => null) : null;
+      logHostAction(AUDIT_TYPES.HOST_BACKGROUND_MUSIC, { details: auditDetails({ backgroundTrack: previous?.filename || previousId }, { backgroundTrack: selected?.filename || savedId }) });
+    }
     ack({ ok: true });
   });
 
